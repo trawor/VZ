@@ -19,6 +19,18 @@
 		1F77220C1812D3680080308A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F41812D3680080308A /* UIKit.framework */; };
 		1F7722141812D3680080308A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7722121812D3680080308A /* InfoPlist.strings */; };
 		1F7722161812D3680080308A /* VZTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722151812D3680080308A /* VZTests.m */; };
+		1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F77221F1812D6FC0080308A /* iPhone.storyboard */; };
+		1F7722241812D7EA0080308A /* VZPostListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722231812D7EA0080308A /* VZPostListC.m */; };
+		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
+		1FAACB231813DB5700BA19DC /* head@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB221813DB5700BA19DC /* head@2x.png */; };
+		1FAACB261813E13F00BA19DC /* near@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB241813E13F00BA19DC /* near@2x.png */; };
+		1FAACB271813E13F00BA19DC /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB251813E13F00BA19DC /* settings@2x.png */; };
+		1FAACB291813E17F00BA19DC /* pics@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB281813E17F00BA19DC /* pics@2x.png */; };
+		1FAACB2B1813E19700BA19DC /* all@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB2A1813E19700BA19DC /* all@2x.png */; };
+		1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB2C1813E1EA00BA19DC /* req@2x.png */; };
+		1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB2E1813E27B00BA19DC /* Dots@2x.png */; };
+		1FAACB331813E58200BA19DC /* VZM.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAACB321813E58200BA19DC /* VZM.m */; };
+		77B6E3B0F2A047B5A6EC5218 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB29646828347A496FCE788 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0501631BCE174957BEA66E87 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7721F01812D3680080308A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F7721F21812D3680080308A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -48,6 +61,23 @@
 		1F7722111812D3680080308A /* VZTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VZTests-Info.plist"; sourceTree = "<group>"; };
 		1F7722131812D3680080308A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1F7722151812D3680080308A /* VZTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VZTests.m; sourceTree = "<group>"; };
+		1F77221F1812D6FC0080308A /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
+		1F7722221812D7EA0080308A /* VZPostListC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostListC.h; sourceTree = "<group>"; };
+		1F7722231812D7EA0080308A /* VZPostListC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostListC.m; sourceTree = "<group>"; };
+		1F772225181383350080308A /* VZMenuC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMenuC.h; sourceTree = "<group>"; };
+		1F772226181383350080308A /* VZMenuC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMenuC.m; sourceTree = "<group>"; };
+		1F77222818138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1F77222918138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		1FAACB221813DB5700BA19DC /* head@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head@2x.png"; sourceTree = "<group>"; };
+		1FAACB241813E13F00BA19DC /* near@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near@2x.png"; sourceTree = "<group>"; };
+		1FAACB251813E13F00BA19DC /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		1FAACB281813E17F00BA19DC /* pics@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pics@2x.png"; sourceTree = "<group>"; };
+		1FAACB2A1813E19700BA19DC /* all@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "all@2x.png"; sourceTree = "<group>"; };
+		1FAACB2C1813E1EA00BA19DC /* req@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "req@2x.png"; sourceTree = "<group>"; };
+		1FAACB2E1813E27B00BA19DC /* Dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dots@2x.png"; sourceTree = "<group>"; };
+		1FAACB311813E58200BA19DC /* VZM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZM.h; sourceTree = "<group>"; };
+		1FAACB321813E58200BA19DC /* VZM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZM.m; sourceTree = "<group>"; };
+		3DB29646828347A496FCE788 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +88,7 @@
 				1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */,
 				1F7721F51812D3680080308A /* UIKit.framework in Frameworks */,
 				1F7721F11812D3680080308A /* Foundation.framework in Frameworks */,
+				77B6E3B0F2A047B5A6EC5218 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +112,7 @@
 				1F77220F1812D3680080308A /* VZTests */,
 				1F7721EF1812D3680080308A /* Frameworks */,
 				1F7721EE1812D3680080308A /* Products */,
+				0501631BCE174957BEA66E87 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,6 +132,7 @@
 				1F7721F21812D3680080308A /* CoreGraphics.framework */,
 				1F7721F41812D3680080308A /* UIKit.framework */,
 				1F7722091812D3680080308A /* XCTest.framework */,
+				3DB29646828347A496FCE788 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +140,8 @@
 		1F7721F61812D3680080308A /* VZ */ = {
 			isa = PBXGroup;
 			children = (
+				1FAACB301813E56F00BA19DC /* M */,
+				1F7722211812D7BF0080308A /* C */,
 				1F7721FF1812D3680080308A /* VZAppDelegate.h */,
 				1F7722001812D3680080308A /* VZAppDelegate.m */,
 				1F7722021812D3680080308A /* Images.xcassets */,
@@ -118,6 +153,14 @@
 		1F7721F71812D3680080308A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1FAACB2E1813E27B00BA19DC /* Dots@2x.png */,
+				1FAACB2A1813E19700BA19DC /* all@2x.png */,
+				1FAACB281813E17F00BA19DC /* pics@2x.png */,
+				1FAACB241813E13F00BA19DC /* near@2x.png */,
+				1FAACB2C1813E1EA00BA19DC /* req@2x.png */,
+				1FAACB251813E13F00BA19DC /* settings@2x.png */,
+				1FAACB221813DB5700BA19DC /* head@2x.png */,
+				1F77221F1812D6FC0080308A /* iPhone.storyboard */,
 				1F7721F81812D3680080308A /* VZ-Info.plist */,
 				1F7721F91812D3680080308A /* InfoPlist.strings */,
 				1F7721FC1812D3680080308A /* main.m */,
@@ -144,6 +187,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1F7722211812D7BF0080308A /* C */ = {
+			isa = PBXGroup;
+			children = (
+				1F7722221812D7EA0080308A /* VZPostListC.h */,
+				1F7722231812D7EA0080308A /* VZPostListC.m */,
+				1F772225181383350080308A /* VZMenuC.h */,
+				1F772226181383350080308A /* VZMenuC.m */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		1FAACB301813E56F00BA19DC /* M */ = {
+			isa = PBXGroup;
+			children = (
+				1FAACB311813E58200BA19DC /* VZM.h */,
+				1FAACB321813E58200BA19DC /* VZM.m */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +214,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F7722191812D3680080308A /* Build configuration list for PBXNativeTarget "VZ" */;
 			buildPhases = (
+				8B4EF563C27342C295D299A6 /* Check Pods Manifest.lock */,
 				1F7721E91812D3680080308A /* Sources */,
 				1F7721EA1812D3680080308A /* Frameworks */,
 				1F7721EB1812D3680080308A /* Resources */,
+				BC149138AA4E49A789C189A0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,6 +257,14 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Plumn LLC.";
 				TargetAttributes = {
+					1F7721EC1812D3680080308A = {
+						DevelopmentTeam = L8QM6A52NF;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					1F7722071812D3680080308A = {
 						TestTargetID = 1F7721EC1812D3680080308A;
 					};
@@ -203,6 +276,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				"zh-Hans",
 			);
 			mainGroup = 1F7721E41812D3680080308A;
 			productRefGroup = 1F7721EE1812D3680080308A /* Products */;
@@ -220,7 +294,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */,
+				1FAACB2B1813E19700BA19DC /* all@2x.png in Resources */,
 				1F7721FB1812D3680080308A /* InfoPlist.strings in Resources */,
+				1FAACB271813E13F00BA19DC /* settings@2x.png in Resources */,
+				1FAACB261813E13F00BA19DC /* near@2x.png in Resources */,
+				1FAACB291813E17F00BA19DC /* pics@2x.png in Resources */,
+				1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */,
+				1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */,
+				1FAACB231813DB5700BA19DC /* head@2x.png in Resources */,
 				1F7722031812D3680080308A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,11 +317,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		8B4EF563C27342C295D299A6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BC149138AA4E49A789C189A0 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1F7721E91812D3680080308A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FAACB331813E58200BA19DC /* VZM.m in Sources */,
+				1F772227181383350080308A /* VZMenuC.m in Sources */,
+				1F7722241812D7EA0080308A /* VZPostListC.m in Sources */,
 				1F7722011812D3680080308A /* VZAppDelegate.m in Sources */,
 				1F7721FD1812D3680080308A /* main.m in Sources */,
 			);
@@ -268,6 +386,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F7721FA1812D3680080308A /* en */,
+				1F77222818138EE80080308A /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -276,6 +395,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1F7722131812D3680080308A /* en */,
+				1F77222918138EE80080308A /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -316,7 +436,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -349,7 +469,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -357,9 +477,11 @@
 		};
 		1F77221A1812D3680080308A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0501631BCE174957BEA66E87 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
@@ -370,9 +492,11 @@
 		};
 		1F77221B1812D3680080308A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0501631BCE174957BEA66E87 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
@@ -442,6 +566,7 @@
 				1F77221B1812D3680080308A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1F77221C1812D3680080308A /* Build configuration list for PBXNativeTarget "VZTests" */ = {
 			isa = XCConfigurationList;
@@ -450,6 +575,7 @@
 				1F77221E1812D3680080308A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

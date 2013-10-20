@@ -7,15 +7,38 @@
 //
 
 #import "VZAppDelegate.h"
+#import <AVOSCloud/AVOSCloud.h>
+
+#import "REFrostedViewController.h"
+#import "VZMenuC.h"
 
 @implementation VZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [AVOSCloud setApplicationId:@"1tglhmgzoq6apby1rmhx3fc5kg2ie0bums7085d3cqhpunlo"
+                      clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
+
+    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [AVAnalytics setCrashReportEnabled:YES andIgnore:YES];
+    
+    
+    UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
+    
+    
+    REFrostedViewController *menu=[[REFrostedViewController alloc] initWithContentViewController:[board instantiateInitialViewController]
+                                              menuViewController:[board instantiateViewControllerWithIdentifier:@"menuC"]];
+    menu.limitMenuViewSize=YES;
+    menu.minimumMenuViewSize=CGSizeMake(220, self.window.bounds.size.height);
+
+    
+    self.window.rootViewController=menu;
+    
     return YES;
 }
 
