@@ -89,10 +89,10 @@
 //            }
 //        }
         [self.posts addObjectsFromArray:objects];
-        [self.posts sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"objectId" ascending:NO]]];
+        [self.posts sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"wbid" ascending:NO]]];
         [self.tableView reloadData];
-        self.newid=self.posts[0][@"objectId"];
-        self.lastid=[self.posts lastObject][@"objectId"];
+        self.newid=self.posts[0][@"wbid"];
+        self.lastid=[self.posts lastObject][@"wbid"];
         
         NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
         NSLog(@"%@",[ids description]);
@@ -104,7 +104,7 @@
 
 -(AVQuery*)getQuery{
     AVQuery *q=[AVQuery queryWithClassName:@"Post"];
-    [q orderByDescending:@"objectId"];
+    [q orderByDescending:@"wbid"];
     
     [q setLimit:QUERY_LIMIT];
     
@@ -118,7 +118,7 @@
 -(void)loadNew{
     AVQuery *q=[self getQuery];
     if (self.newid) {
-        [q whereKey:@"objectId" greaterThan:self.newid];
+        [q whereKey:@"wbid" greaterThan:self.newid];
     }
     
     __weak VZPostListC* ws=self;
@@ -137,7 +137,7 @@
     
     AVQuery *q=[self getQuery];
     
-    [q whereKey:@"objectId" lessThan:self.lastid];
+    [q whereKey:@"wbid" lessThan:self.lastid];
     
     __weak VZPostListC* ws=self;
     
