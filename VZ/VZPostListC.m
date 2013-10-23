@@ -94,8 +94,8 @@
         self.newid=self.posts[0][@"wbid"];
         self.lastid=[self.posts lastObject][@"wbid"];
         
-        NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
-        NSLog(@"%@",[ids description]);
+        //NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
+        //NSLog(@"%@",[ids description]);
     }
     self.moreBtn.hidden=objects.count<QUERY_LIMIT;
 }
@@ -107,11 +107,12 @@
     [q orderByDescending:@"wbid"];
     
     [q setLimit:QUERY_LIMIT];
-    
-    if (model.showPostsWithPicsOnly) {
-        [q whereKeyExists:@"pics"];
-    }
-    //[q whereKey:@"type" equalTo:@(0)];
+    [q whereKeyExists:@"pics"];
+   
+//    if (model.showPostsWithPicsOnly) {
+//        
+//    }
+    [q whereKey:@"type" equalTo:@(0)];
     return q;
 }
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F4BBE401817A67300729E5C /* AVOSCloudSNS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4BBE3A1817A67300729E5C /* AVOSCloudSNS.m */; };
+		1F4BBE411817A67300729E5C /* AVOSCloudSNSUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4BBE3D1817A67300729E5C /* AVOSCloudSNSUtils.m */; };
+		1F4BBE421817A67300729E5C /* AVSNSLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4BBE3F1817A67300729E5C /* AVSNSLoginViewController.m */; };
 		1F7721F11812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
 		1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F21812D3680080308A /* CoreGraphics.framework */; };
 		1F7721F51812D3680080308A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F41812D3680080308A /* UIKit.framework */; };
@@ -45,6 +48,13 @@
 
 /* Begin PBXFileReference section */
 		0501631BCE174957BEA66E87 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		1F4BBE391817A67300729E5C /* AVOSCloudSNS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVOSCloudSNS.h; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVOSCloudSNS.h"; sourceTree = "<group>"; };
+		1F4BBE3A1817A67300729E5C /* AVOSCloudSNS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVOSCloudSNS.m; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVOSCloudSNS.m"; sourceTree = "<group>"; };
+		1F4BBE3B1817A67300729E5C /* AVOSCloudSNS_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVOSCloudSNS_.h; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVOSCloudSNS_.h"; sourceTree = "<group>"; };
+		1F4BBE3C1817A67300729E5C /* AVOSCloudSNSUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVOSCloudSNSUtils.h; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVOSCloudSNSUtils.h"; sourceTree = "<group>"; };
+		1F4BBE3D1817A67300729E5C /* AVOSCloudSNSUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVOSCloudSNSUtils.m; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVOSCloudSNSUtils.m"; sourceTree = "<group>"; };
+		1F4BBE3E1817A67300729E5C /* AVSNSLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVSNSLoginViewController.h; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVSNSLoginViewController.h"; sourceTree = "<group>"; };
+		1F4BBE3F1817A67300729E5C /* AVSNSLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVSNSLoginViewController.m; path = "../../../AVOSCloud-iOS/sdk/iOS/paas/AVOSCloudSNS/AVSNSLoginViewController.m"; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7721F01812D3680080308A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F7721F21812D3680080308A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -105,6 +115,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F4BBE431817A67900729E5C /* SNS */ = {
+			isa = PBXGroup;
+			children = (
+				1F4BBE391817A67300729E5C /* AVOSCloudSNS.h */,
+				1F4BBE3A1817A67300729E5C /* AVOSCloudSNS.m */,
+				1F4BBE3B1817A67300729E5C /* AVOSCloudSNS_.h */,
+				1F4BBE3C1817A67300729E5C /* AVOSCloudSNSUtils.h */,
+				1F4BBE3D1817A67300729E5C /* AVOSCloudSNSUtils.m */,
+				1F4BBE3E1817A67300729E5C /* AVSNSLoginViewController.h */,
+				1F4BBE3F1817A67300729E5C /* AVSNSLoginViewController.m */,
+			);
+			name = SNS;
+			sourceTree = "<group>";
+		};
 		1F7721E41812D3680080308A = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +164,7 @@
 		1F7721F61812D3680080308A /* VZ */ = {
 			isa = PBXGroup;
 			children = (
+				1F4BBE431817A67900729E5C /* SNS */,
 				1FAACB301813E56F00BA19DC /* M */,
 				1F7722211812D7BF0080308A /* C */,
 				1F7721FF1812D3680080308A /* VZAppDelegate.h */,
@@ -355,11 +380,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F4BBE421817A67300729E5C /* AVSNSLoginViewController.m in Sources */,
 				1FAACB331813E58200BA19DC /* VZM.m in Sources */,
 				1F772227181383350080308A /* VZMenuC.m in Sources */,
 				1F7722241812D7EA0080308A /* VZPostListC.m in Sources */,
 				1F7722011812D3680080308A /* VZAppDelegate.m in Sources */,
 				1F7721FD1812D3680080308A /* main.m in Sources */,
+				1F4BBE411817A67300729E5C /* AVOSCloudSNSUtils.m in Sources */,
+				1F4BBE401817A67300729E5C /* AVOSCloudSNS.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,11 +509,35 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AVOSCloud,
+					"-framework",
+					Accelerate,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8BBAFDE9-FDF5-43F3-A289-32612B6C8461";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -496,11 +548,35 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-framework",
+					AVOSCloud,
+					"-framework",
+					Accelerate,
+					"-framework",
+					CFNetwork,
+					"-framework",
+					CoreGraphics,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					CoreTelephony,
+					"-framework",
+					MobileCoreServices,
+					"-framework",
+					QuartzCore,
+					"-framework",
+					Security,
+					"-framework",
+					SystemConfiguration,
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8BBAFDE9-FDF5-43F3-A289-32612B6C8461";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

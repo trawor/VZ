@@ -22,7 +22,7 @@
                                     <rect key="frame" x="62" y="30" width="96" height="96"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travis" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cWB-Sn-khO">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cWB-Sn-khO">
                                     <rect key="frame" x="0.0" y="135" width="320" height="27"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -159,6 +159,7 @@
                     </tableView>
                     <connections>
                         <outlet property="avatar" destination="q4k-KY-9qZ" id="nHC-Mn-Gw7"/>
+                        <outlet property="userNameLb" destination="cWB-Sn-khO" id="21v-Qo-TY0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2mW-Gk-sQc" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -12,6 +12,8 @@
 #import "REFrostedViewController.h"
 #import "VZMenuC.h"
 
+#import "AVOSCloudSNS.h"
+
 @implementation VZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -30,9 +32,10 @@
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
+    VZMenuC *menuC=[board instantiateViewControllerWithIdentifier:@"menuC"];
     
     REFrostedViewController *menu=[[REFrostedViewController alloc] initWithContentViewController:[board instantiateInitialViewController]
-                                              menuViewController:[board instantiateViewControllerWithIdentifier:@"menuC"]];
+                                              menuViewController:menuC];
     menu.limitMenuViewSize=YES;
     menu.minimumMenuViewSize=CGSizeMake(220, self.window.bounds.size.height);
 
@@ -48,8 +51,13 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [AVOSCloudSNS handleOpenURL:url];
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
