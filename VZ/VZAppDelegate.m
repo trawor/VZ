@@ -9,10 +9,10 @@
 #import "VZAppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
 
-#import "REFrostedViewController.h"
 #import "VZMenuC.h"
 
-#import "AVOSCloudSNS.h"
+#import <MMDrawerController/MMDrawerController.h>
+
 
 @implementation VZAppDelegate
 
@@ -20,39 +20,66 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2"]];
+    
     
     [AVOSCloud setApplicationId:@"1tglhmgzoq6apby1rmhx3fc5kg2ie0bums7085d3cqhpunlo"
                       clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
 
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [AVAnalytics setCrashReportEnabled:YES andIgnore:YES];
+    //[AVAnalytics setCrashReportEnabled:YES andIgnore:YES];
     
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
     VZMenuC *menuC=[board instantiateViewControllerWithIdentifier:@"menuC"];
     
-    REFrostedViewController *menu=[[REFrostedViewController alloc] initWithContentViewController:[board instantiateInitialViewController]
-                                              menuViewController:menuC];
-    menu.limitMenuViewSize=YES;
-    menu.minimumMenuViewSize=CGSizeMake(220, self.window.bounds.size.height);
-
+    
+    UINavigationController *nav=[board instantiateInitialViewController];
+    nav.view.backgroundColor=[UIColor clearColor];
+    
+    
+    MMDrawerController * menu = [[MMDrawerController alloc]initWithCenterViewController:nav
+                                             leftDrawerViewController:menuC];
+    
+    menu.maximumLeftDrawerWidth=64;
+    menu.centerHiddenInteractionMode=MMDrawerOpenCenterInteractionModeFull;
     
     self.window.rootViewController=menu;
+    [self.window makeKeyAndVisible];
+    
+    
+    
+    [application registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeBadge |
+     UIRemoteNotificationTypeAlert |
+     UIRemoteNotificationTypeSound];
+
     
     return YES;
 }
-
-- (void)applicationWillResignActive:(UIApplication *)application
-{
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    
+    NSMutableArray *channels=[NSMutableArray arrayWithArray:currentInstallation.channels];
+    if (![channels containsObject:@"update"]) {
+        [channels addObject:@"update"];
+        currentInstallation.channels=channels;
+        [currentInstallation saveInBackground];
+    }
 }
 
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [AVOSCloudSNS handleOpenURL:url];
+-(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
+    
+#if !TARGET_IPHONE_SIMULATOR
+    [AVAnalytics event:@"开启推送失败" label:[error description]];
+#endif
+    
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    [AVAnalytics trackAppOpenedWithLaunchOptions:userInfo];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

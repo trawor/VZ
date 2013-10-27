@@ -7,8 +7,12 @@
 //
 
 #import "VZPostListC.h"
-#import "UIViewController+REFrostedViewController.h"
-#import <REFrostedViewController.h>
+
+#import "VZPost.h"
+#import "VZPostCell.h"
+#import <UIViewController+MMDrawerController.h>
+#import <MMDrawerController.h>
+
 #define  QUERY_LIMIT 30
 
 @interface VZPostListC ()
@@ -25,6 +29,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -33,10 +38,51 @@
 {
     [model removeObserver:self forKeyPath:@"showPostsWithPicsOnly"];
 }
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
+//-(void)viewWillAppear:(BOOL)animated{
+//    [super viewWillAppear:animated];
+//    
+//    UIView *top=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+//    
+//    top.backgroundColor=[UIColor colorWithRed:0.10 green:0.22 blue:0.33 alpha:.3];
+//    [self.view.superview insertSubview:top aboveSubview:self.view];
+//    
+//}
+
+
+
+-(void)onSwipe:(UISwipeGestureRecognizer*)swipe{
+    
+    //[self menu:Nil];return;
+    
+    if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
+        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    }else if (swipe==nil) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil;
+    }
+    
+   
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    
+    swipe.direction=UISwipeGestureRecognizerDirectionRight;
+    
+    [self.view addGestureRecognizer:swipe];
+    
+   
+    
+    //self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg"]];
+    //self.tableView.backgroundColor=[UIColor clearColor];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     
     self.posts=[NSMutableArray array];
     
@@ -49,11 +95,12 @@
     [btn setTitle:@"更多" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
-    btn.hidden=YES;
+    //btn.hidden=YES;
     self.moreBtn=btn;
     
     self.tableView.tableFooterView=btn;
     
+    [self.refreshControl beginRefreshing];
     [self loadNew];
     
     
@@ -69,14 +116,6 @@
     }
 }
 
-- (IBAction)menu:(id)sender {
-    REFrostedViewController *ref=self.frostedViewController;
-    [ref presentMenuViewController];
-}
-- (void)panGestureRecognized:(UIPanGestureRecognizer *)sender
-{
-    [self.frostedViewController panGestureRecognized:sender];
-}
 
 
 -(void)onGetNewPosts:(NSArray*)objects{
@@ -97,13 +136,16 @@
         //NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
         //NSLog(@"%@",[ids description]);
     }
-    self.moreBtn.hidden=objects.count<QUERY_LIMIT;
+    //self.moreBtn.hidden=objects.count<QUERY_LIMIT;
 }
 
 
 
 -(AVQuery*)getQuery{
-    AVQuery *q=[AVQuery queryWithClassName:@"Post"];
+    //AVQuery *q=[AVQuery queryWithClassName:@"Post"];
+    
+    AVQuery *q=[VZPost query];
+    
     [q orderByDescending:@"wbid"];
     
     [q setLimit:QUERY_LIMIT];
@@ -158,6 +200,7 @@
 
 #pragma mark - Table view data source
 
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -170,83 +213,103 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"PostCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    //NSString *CellIdentifier = [NSString stringWithFormat:@"PostCell%d",indexPath.row%2];
     
-    cell.textLabel.numberOfLines=3;
-    cell.textLabel.font=[UIFont systemFontOfSize:14];
-    cell.imageView.contentMode=UIViewContentModeCenter;
+    static NSString *CellIdentifier = @"PostCell0";
+    VZPostCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    AVObject *post=self.posts[indexPath.row];
+    cell.table=tableView;
     
-    cell.textLabel.text=[post objectForKey:@"text"];
+    
+    VZPost *post=self.posts[indexPath.row];
+    
+    cell.textLb.text= post.text;
     
     NSArray *pics=[post objectForKey:@"pics"];
     if (pics) {
+        NSString *url=pics[0];
+        url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
         
-        [cell.imageView setImageWithURL:[NSURL URLWithString:pics[0]] placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
-        
-//        [cell.imageView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:pics[0]]]
-//                              placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]
-//                                       success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-//            [wc setNeedsLayout];
-//        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-//            
-//        }];
+        [cell.photo setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
+    }
+    
+    NSDictionary *user=[post objectForKey:@"user"];
+    NSString *url=user[@"avatar"];
+    
+    if (url) {
+        url=[url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
+    }
+    
+    [cell.userAvatar setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"head"]];
+    
+    
+    AVGeoPoint *geo=[post objectForKey:@"geo"];
+    
+    if (geo) {
+        cell.geoIcon.hidden=NO;
+    }else{
+        cell.geoIcon.hidden=YES;
+    }
+    
+    NSString *price=[post objectForKey:@"price"];
+    if (price) {
+        cell.infoLb.hidden=NO;
+        cell.infoLb.text=[NSString stringWithFormat:@"¥ %@",price];
+    }else {
+        cell.infoLb.hidden=YES;
     }
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+//This function is where all the magic happens
+-(void)tableView:(UITableView *)tableView willDisplayCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.8];
+    
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+    
+    scaleAnimation.duration = .5f;
+    
+    scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    
+    [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+    
+    
+//    //1. Setup the CATransform3D structure
+//    CATransform3D rotation;
+//    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
+//    rotation.m34 = 1.0/ -600;
+//    
+//    
+//    //2. Define the initial state (Before the animation)
+//    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
+//    cell.layer.shadowOffset = CGSizeMake(10, 10);
+//    cell.alpha = 0;
+//    
+//    cell.layer.transform = rotation;
+//    cell.layer.anchorPoint = CGPointMake(0, 0.5);
+//    
+//    
+//    //3. Define the final state (After the animation) and commit the animation
+//    [UIView beginAnimations:@"rotation" context:NULL];
+//    [UIView setAnimationDuration:0.8];
+//    cell.layer.transform = CATransform3DIdentity;
+//    cell.alpha = 1;
+//    cell.layer.shadowOffset = CGSizeMake(0, 0);
+//    [UIView commitAnimations];
+    
+    
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 
- */
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+}
 @end

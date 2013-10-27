@@ -17,4 +17,15 @@
     
     return _vzm_;
 }
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [VZPost registerSubclass];
+        
+    }
+    return self;
+}
+
 @end

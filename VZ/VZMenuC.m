@@ -9,10 +9,8 @@
 #import "VZMenuC.h"
 #import <QuartzCore/QuartzCore.h>
 #import <UIImageView+AFNetworking.h>
-#import <UIView+REFrostedViewController.h>
-#import <REFrostedViewController.h>
 
-#import "AVOSCloudSNS.h"
+
 
 @interface VZMenuC ()
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -30,7 +28,9 @@
     }
     return self;
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 -(void)onLogin:(NSDictionary*)user{
     if (user) {
         [self.avatar setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"head"]];
@@ -50,14 +50,14 @@
 }
 
 -(void)login{
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"1714255746" andAppSecret:@"298c4b365c60fb9de5b2c4fa6c69d874" andRedirectURI:@"http://"];
-    
-    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
-        [self onLogin:object];
-        if (error) {
-            NSLog([error description]);
-        }
-    } toPlatform:AVOSCloudSNSSinaWeibo];
+//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"1714255746" andAppSecret:@"298c4b365c60fb9de5b2c4fa6c69d874" andRedirectURI:@"http://"];
+//    
+//    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
+//        [self onLogin:object];
+//        if (error) {
+//            NSLog([error description]);
+//        }
+//    } toPlatform:AVOSCloudSNSSinaWeibo];
 }
 
 
@@ -65,22 +65,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor clearColor];
-    self.avatar.center=CGPointMake(self.view.bounds.size.width/2, self.avatar.center.y);
-    
-	self.avatar.clipsToBounds=YES;
-    self.avatar.layer.cornerRadius=48;
-    
-    self.avatar.layer.borderWidth =3.0;
-    
-    self.avatar.layer.borderColor=[UIColor grayColor].CGColor;
-    
-    if ([AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
-        [self onLogout];
-    }else{
-        NSDictionary *user=[AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
-        [self onLogin:user];
-    }
+    //self.view.backgroundColor=[UIColor clearColor];
+//    self.avatar.center=CGPointMake(self.view.bounds.size.width/2, self.avatar.center.y);
+//    
+//	self.avatar.clipsToBounds=YES;
+//    self.avatar.layer.cornerRadius=48;
+//    
+//    //self.avatar.layer.borderWidth =3.0;
+//    
+//    self.avatar.layer.borderColor=[UIColor grayColor].CGColor;
+//    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,12 +93,7 @@
 //    REFrostedViewController *ref=self.frostedViewController;
 //    [ref hideMenuViewController];
     
-    if (indexPath.section==1) {
-        if (indexPath.row==0) {
-            [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
-            [self onLogout];
-        }
-    }
+
 }
 
 @end

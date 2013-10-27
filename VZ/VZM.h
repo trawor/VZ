@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "VZPost.h"
+
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
