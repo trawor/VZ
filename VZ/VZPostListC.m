@@ -60,8 +60,8 @@
     
     if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
         [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    }else if (swipe==nil) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil;
+    }else {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
     }
     
    

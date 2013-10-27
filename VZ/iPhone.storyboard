@@ -22,7 +22,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <sections>
                             <tableViewSection id="gEg-Co-BaC">
@@ -44,10 +44,11 @@
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="pics.png" id="j4x-ck-soE">
                                                     <rect key="frame" x="15" y="23" width="24" height="18"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.80000001192092896" green="0.80000001192092896" blue="0.80000001192092896" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="fJI-De-uCn" imageView="dVl-xc-EfG" rowHeight="64" style="IBUITableViewCellStyleDefault" id="smc-K4-xG1">
                                         <rect key="frame" x="0.0" y="148" width="320" height="64"/>
@@ -69,7 +70,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" red="1" green="0.80000001192092896" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="wRR-7M-e1A" imageView="Q9C-s4-O9A" rowHeight="64" style="IBUITableViewCellStyleDefault" id="75p-qR-a4x">
                                         <rect key="frame" x="0.0" y="212" width="320" height="64"/>
@@ -91,7 +92,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -247,6 +248,7 @@
     <resources>
         <image name="Dots.png" width="18" height="4"/>
         <image name="geo.png" width="12" height="12"/>
+        <image name="head.png" width="64" height="64"/>
         <image name="head.png" width="64" height="64"/>
         <image name="near.png" width="24" height="24"/>
         <image name="pics.png" width="24" height="18"/>
