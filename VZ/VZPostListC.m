@@ -78,7 +78,11 @@
     
     [self.view addGestureRecognizer:swipe];
     
-   
+    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    
+    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    
+    [self.view addGestureRecognizer:swipe];
     
     //self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg"]];
     //self.tableView.backgroundColor=[UIColor clearColor];

@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIImageView+AFNetworking.h>
 
-
+#import <UIViewController+MMDrawerController.h>
 
 @interface VZMenuC ()
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
@@ -93,7 +93,7 @@
 //    REFrostedViewController *ref=self.frostedViewController;
 //    [ref hideMenuViewController];
     
-
+    [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
 @end
