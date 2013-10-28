@@ -9,6 +9,6 @@
 #import "VZM.h"
 #import <UIKit/UIKit.h>
 @interface VZMenuC :UITableViewController<UITableViewDelegate>
--(void)onLogin:(NSDictionary*)user;
+-(void)onLogin:(id)user;
 
 @end

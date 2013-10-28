@@ -12,6 +12,8 @@
 
 #import <UIViewController+MMDrawerController.h>
 
+#import <AVOSCloudSNS/AVUser+SNS.h>
+
 @interface VZMenuC ()
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLb;
@@ -31,22 +33,16 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
--(void)onLogin:(NSDictionary*)user{
+-(void)onLogin:(VZUser*)user{
     if (user) {
-        [self.avatar setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"head"]];
+        [self.avatar setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"head"]];
         
-        [self.userNameLb setText:[user objectForKey:@"username"]];
-        
-        [self.avatar removeGestureRecognizer:self.loginTap];
-        self.loginTap=nil;
+        //[self.userNameLb setText:[user objectForKey:@"username"]];
     }
 }
 -(void)onLogout{
     self.avatar.image=[UIImage imageNamed:@"head"];
     self.userNameLb.text=@"";
-    
-    self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
-    [self.avatar addGestureRecognizer:self.loginTap];
 }
 
 -(void)login{
@@ -58,6 +54,47 @@
 //            NSLog([error description]);
 //        }
 //    } toPlatform:AVOSCloudSNSSinaWeibo];
+    
+    AVOSCloudSNSType type=AVOSCloudSNSSinaWeibo;
+    
+    if ([VZUser currentUser]) {
+        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
+            if (error) {
+                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
+                    
+                }else{
+                    
+                }
+            }else if(object){
+                [[VZUser currentUser] addAuthData:object block:nil];
+            }
+        } toPlatform:AVOSCloudSNSQQ];
+        
+//        [VZUser logOut];
+//        [AVOSCloudSNS logout:type];
+//        [self onLogout];
+    }else{
+        __weak VZMenuC *ws=self;
+        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
+            if (error) {
+                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
+                    
+                }else{
+                    
+                }
+            }else if(object){
+                [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
+                    VZUser *auser=(id)user;
+                    if (auser.avatar==nil) {
+                        auser.avatar=object[@"avatar"];
+                        auser.username=object[@"username"];
+                        [auser saveInBackground];
+                    }
+                    [ws onLogin:auser];
+                }];
+            }
+        } toPlatform:type];
+    }
 }
 
 
@@ -65,6 +102,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
+    [self.avatar addGestureRecognizer:self.loginTap];
+    
     //self.view.backgroundColor=[UIColor clearColor];
 //    self.avatar.center=CGPointMake(self.view.bounds.size.width/2, self.avatar.center.y);
 //    
@@ -75,7 +116,7 @@
 //    
 //    self.avatar.layer.borderColor=[UIColor grayColor].CGColor;
 //    
-
+    [self onLogin:(id)[VZUser currentUser]];
 }
 
 - (void)didReceiveMemoryWarning
