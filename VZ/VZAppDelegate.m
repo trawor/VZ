@@ -10,6 +10,7 @@
 #import <AVOSCloud/AVOSCloud.h>
 
 #import "VZMenuC.h"
+#import "VZM.h"
 
 #import <MMDrawerController/MMDrawerController.h>
 
@@ -18,6 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    model;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2"]];
@@ -28,6 +31,7 @@
 
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     //[AVAnalytics setCrashReportEnabled:YES andIgnore:YES];
+    
     
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
@@ -56,6 +60,9 @@
      UIRemoteNotificationTypeSound];
 
     
+    
+    
+    
     return YES;
 }
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -79,7 +86,7 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    [AVAnalytics trackAppOpenedWithLaunchOptions:userInfo];
+    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

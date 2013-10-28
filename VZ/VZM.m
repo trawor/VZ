@@ -23,9 +23,24 @@
     self = [super init];
     if (self) {
         [VZPost registerSubclass];
-        
+        [VZUser registerSubclass];
     }
     return self;
+}
+
+@end
+
+
+
+
+@implementation VZUser
+@dynamic avatar;
++ (NSString *)parseClassName {
+    return @"_User";
+}
+
+-(NSString*)wbid{
+    return [self valueForKeyPath:@"authData.weibo.uid"];
 }
 
 @end

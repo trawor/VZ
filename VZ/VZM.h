@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "VZPost.h"
 
+#import <AVOSCloud/AVOSCloud.h>
+
+#import <AVOSCloudSNS/AVOSCloudSNS.h>
+#import <AVOSCloudSNS/AVUser+SNS.h>
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
@@ -20,3 +23,11 @@
 @end
 
 #define model [VZM shared]
+
+
+@interface VZUser : AVUser<AVSubclassing>
+
+@property(nonatomic,copy) NSString *avatar;
+//@property(nonatomic,readonly) NSString *wbid;
+-(NSString*)wbid;
+@end
