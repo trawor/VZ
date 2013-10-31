@@ -10,6 +10,9 @@
 #import <AVOSCloud/AVOSCloud.h>
 #import <AVOSCloud/UIImageView+AFNetworking.h>
 #import "VZM.h"
+
+#import "VZProgressView.h"
+
 @interface VZPostListC : UITableViewController
 
 @end

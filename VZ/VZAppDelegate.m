@@ -15,6 +15,12 @@
 #import <MMDrawerController/MMDrawerController.h>
 
 
+@interface VZAppDelegate()
+{
+    
+}
+@end
+
 @implementation VZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -23,16 +29,13 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2"]];
+    //self.window.backgroundColor = [UIColor lightGrayColor];
     
     
     [AVOSCloud setApplicationId:@"1tglhmgzoq6apby1rmhx3fc5kg2ie0bums7085d3cqhpunlo"
                       clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
 
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    //[AVAnalytics setCrashReportEnabled:YES andIgnore:YES];
-    
-    
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
@@ -52,19 +55,21 @@
     self.window.rootViewController=menu;
     [self.window makeKeyAndVisible];
     
+
     
+   
     
+#if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
-
-    
-    
-    
+#endif
     
     return YES;
 }
+
+
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];
     [currentInstallation setDeviceTokenFromData:deviceToken];
@@ -79,9 +84,7 @@
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
     
-#if !TARGET_IPHONE_SIMULATOR
     [AVAnalytics event:@"开启推送失败" label:[error description]];
-#endif
     
 }
 

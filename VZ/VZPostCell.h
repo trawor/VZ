@@ -10,6 +10,15 @@
 
 #import "VZM.h"
 
+@interface UIImageView(Progress)
+
+- (void)setProgressImageWithURLRequest:(NSURLRequest *)urlRequest
+                      placeholderImage:(UIImage *)placeholderImage;
+
+@end
+
+#import "VZProgressView.h"
+
 @interface VZPostCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *photo;
 @property (weak, nonatomic) IBOutlet UIImageView *geoIcon;
@@ -23,6 +32,8 @@
 @property (weak, nonatomic) VZPost *post;
 @property (weak, nonatomic) UITableView *table;
 
+-(void)loadPhoto;
+-(void)stopLoadPhoto;
 @end
 
 

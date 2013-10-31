@@ -7,8 +7,72 @@
 //
 
 #import "VZPostCell.h"
+#import <UIImageView+AFNetworking.h>
+
+@interface AFImageCache : NSCache
+- (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
+- (void)cacheImage:(UIImage *)image
+        forRequest:(NSURLRequest *)request;
+@end
+
+#pragma mark -
+
+@interface UIImageView ()
+@property (readwrite, nonatomic, strong, setter = af_setImageRequestOperation:) AFImageRequestOperation *af_imageRequestOperation;
++ (AFImageCache *)af_sharedImageCache;
++(NSOperationQueue*)af_sharedImageRequestOperationQueue;
+@end
 
 #define avatarFrame CGRectMake(8,17,50,50)
+
+
+@implementation UIImageView(Progress)
+
+- (void)setProgressImageWithURLRequest:(NSURLRequest *)urlRequest
+              placeholderImage:(UIImage *)placeholderImage
+
+{
+    [self cancelImageRequestOperation];
+    
+    UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
+    if (cachedImage) {
+        self.image = cachedImage;
+        self.af_imageRequestOperation = nil;
+        self.image = cachedImage;
+    } else {
+        self.image = placeholderImage;
+        
+        AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
+        
+        
+        VZProgressView *pv=[[VZProgressView alloc] initWithWidth:self.frame.size.width/2];
+        pv.bgLineColor=[UIColor darkGrayColor];
+        pv.fgLineColor=[UIColor whiteColor];
+        
+        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            float progress=totalBytesRead*1.0/totalBytesExpectedToRead;
+            pv.progress=progress;
+        }];
+        [self addSubview:pv];
+        
+        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
+                self.image = responseObject;
+                [pv removeFromSuperview];
+                self.af_imageRequestOperation = nil;
+            }
+            
+            [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [pv removeFromSuperview];
+        }];
+        
+        self.af_imageRequestOperation = requestOperation;
+        
+        [[[self class] af_sharedImageRequestOperationQueue] addOperation:self.af_imageRequestOperation];
+    }
+}
+@end
 
 @interface VZPostCell()
 
@@ -25,6 +89,19 @@
         
     }
     return self;
+}
+
+-(void)loadPhoto{
+    NSArray *pics=[self.post objectForKey:@"pics"];
+    if (pics) {
+        NSString *url=pics[0];
+        url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+        
+        [self.photo setProgressImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
+    }
+}
+-(void)stopLoadPhoto{
+    [self.photo cancelImageRequestOperation];
 }
 
 -(void)awakeFromNib{

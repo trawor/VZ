@@ -13,10 +13,15 @@
 
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
+
+#import <AVOSCloud/AFHTTPClient.h>
+
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
 @property(nonatomic,assign) BOOL showAroundOnly;
+
+@property(nonatomic,retain) AFHTTPClient *client;
 
 +(VZM*)shared;
 
@@ -30,4 +35,7 @@
 @property(nonatomic,copy) NSString *avatar;
 //@property(nonatomic,readonly) NSString *wbid;
 -(NSString*)wbid;
+
+-(void)findMyFriendOnWeibo:(AVArrayResultBlock)callback;
+
 @end

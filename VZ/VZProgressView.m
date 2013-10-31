@@ -32,18 +32,19 @@
         self.shapeLayer=[CAShapeLayer layer];
         self.shapeLayer.lineCap=kCALineCapRound;
         self.shapeLayer.strokeEnd=0;
+        self.shapeLayer.fillColor=[UIColor clearColor].CGColor;
         
         self.bgLayer=[CAShapeLayer layer];
         self.bgLayer.lineCap=kCALineCapRound;
-        
+        self.bgLayer.fillColor=[UIColor clearColor].CGColor;
         
         [self.layer addSublayer:self.bgLayer];
         [self.layer addSublayer:self.shapeLayer];
         
         self.lineWidth=1;
         self.dashBgLine=YES;
-        self.fgLineColor=[UIColor redColor];
-        self.bgLineColor=[UIColor darkGrayColor];
+        self.fgLineColor=[UIColor whiteColor];
+        self.bgLineColor=[UIColor lightGrayColor];
         
         UIBezierPath* bezierPath = [UIBezierPath bezierPath];
         [bezierPath moveToPoint:CGPointMake(0, 0)];
@@ -106,7 +107,7 @@
         [CATransaction begin];
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
         animation.duration = (p-_progress)*0.25;
-        animation.fromValue = [NSNumber numberWithFloat:_progress];
+        animation.fromValue = [NSNumber numberWithFloat:self.shapeLayer.strokeEnd];
         animation.toValue = [NSNumber numberWithFloat:p];
         animation.fillMode = kCAFillModeForwards;
         animation.removedOnCompletion=NO;
@@ -119,4 +120,45 @@
     }
     _progress=p;
 }
+
+-(void)setInfinite:(BOOL)infinite{
+    if (infinite) {
+        [self.shapeLayer removeAllAnimations];
+        
+        float dur=2;
+        
+        [CATransaction begin];
+        
+        CAAnimationGroup *group=[CAAnimationGroup animation];
+        
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+        animation.duration =dur;
+        animation.fromValue = [NSNumber numberWithFloat:0];
+        animation.toValue = [NSNumber numberWithFloat:1];
+        
+        
+        CABasicAnimation *animation2 = [CABasicAnimation animationWithKeyPath:@"strokeStart"];
+        animation2.beginTime=dur;
+        animation2.duration =dur;
+        animation2.fromValue = [NSNumber numberWithFloat:0];
+        animation2.toValue = [NSNumber numberWithFloat:1];
+        
+        group.duration =dur*2.0;
+        group.fillMode = kCAFillModeForwards;
+        group.removedOnCompletion=NO;
+        group.autoreverses = YES;
+        group.repeatCount=65530;
+        group.animations=@[animation,animation2];
+        
+        [self.shapeLayer addAnimation:group forKey:@"stroke"];
+        
+        
+        
+        
+        [CATransaction commit];
+    }else{
+        [self.shapeLayer removeAllAnimations];
+    }
+}
+
 @end

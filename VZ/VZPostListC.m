@@ -14,12 +14,18 @@
 #import <MMDrawerController.h>
 
 #define  QUERY_LIMIT 30
-
-@interface VZPostListC ()
+#define  REFRESH_HEIGHT 50
+#define  REFRESH_TRIGGER 50
+@interface VZPostListC (){
+    BOOL updateRefreshView;
+}
 @property (nonatomic,retain) NSMutableArray *posts;
 @property (nonatomic,copy) NSString *newid;
 @property (nonatomic,copy) NSString *lastid;
 @property (nonatomic)UIButton *moreBtn;
+
+@property (nonatomic,retain) VZProgressView *refreshView;
+
 @end
 
 @implementation VZPostListC
@@ -71,7 +77,6 @@
 {
     [super viewDidLoad];
     
-    
     UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     
     swipe.direction=UISwipeGestureRecognizerDirectionRight;
@@ -108,6 +113,17 @@
     [self loadNew];
     
     
+    int topH=300;
+    
+    UIView *topV= [[UIView alloc] initWithFrame:CGRectMake(0, -topH, self.view.frame.size.width, topH)];
+    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
+    
+    
+    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT];
+    self.refreshView.autoCenter=NO;
+    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT/2);
+    [topV addSubview:self.refreshView];
+    [self.view addSubview:topV];
     [model addObserver:self forKeyPath:@"showPostsWithPicsOnly" options:NSKeyValueObservingOptionNew context:nil];
     
     //[self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
@@ -142,7 +158,6 @@
     }
     //self.moreBtn.hidden=objects.count<QUERY_LIMIT;
 }
-
 
 
 -(AVQuery*)getQuery{
@@ -196,10 +211,21 @@
 }
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    float y=scrollView.contentOffset.y;
+    if (!updateRefreshView && y<-REFRESH_HEIGHT-REFRESH_TRIGGER) {
+        updateRefreshView=YES;
+        self.refreshView.infinite=YES;
+        [self.tableView setContentInset:UIEdgeInsetsMake(REFRESH_HEIGHT+REFRESH_TRIGGER, 0, 0, 0)];
+    }
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    float y=scrollView.contentOffset.y;
+    if (!updateRefreshView && y<0 && y>-REFRESH_HEIGHT-REFRESH_TRIGGER) {
+        
+        [self.refreshView setProgress:y/((REFRESH_HEIGHT+REFRESH_TRIGGER)*-1.0f) animated:NO];
+    }
 }
 
 #pragma mark - Table view data source
@@ -226,16 +252,9 @@
     
     
     VZPost *post=self.posts[indexPath.row];
-    
+    cell.post=post;
     cell.textLb.text= post.text;
     
-    NSArray *pics=[post objectForKey:@"pics"];
-    if (pics) {
-        NSString *url=pics[0];
-        url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-        
-        [cell.photo setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
-    }
     
     NSDictionary *user=[post objectForKey:@"user"];
     NSString *url=user[@"avatar"];
@@ -266,6 +285,7 @@
     return cell;
 }
 
+
 //This function is where all the magic happens
 -(void)tableView:(UITableView *)tableView willDisplayCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -281,7 +301,7 @@
     
     [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
 
-    
+    [cell loadPhoto];
     
 //    //1. Setup the CATransform3D structure
 //    CATransform3D rotation;
@@ -309,6 +329,10 @@
     
 
 
+}
+
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [cell stopLoadPhoto];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

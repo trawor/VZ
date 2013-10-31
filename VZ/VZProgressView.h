@@ -15,6 +15,7 @@
 @property(nonatomic,retain) UIColor *bgLineColor;
 @property(nonatomic,retain) UIColor *fgLineColor;
 
+@property(nonatomic,assign) BOOL infinite;
 @property(nonatomic,assign) BOOL dashBgLine;
 @property(nonatomic,assign) float progress;
 @property(nonatomic,assign) float lineWidth;
