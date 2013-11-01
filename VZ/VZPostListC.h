@@ -12,6 +12,7 @@
 #import "VZM.h"
 
 #import "VZProgressView.h"
+#import "VZPostViewC.h"
 
 @interface VZPostListC : UITableViewController
 

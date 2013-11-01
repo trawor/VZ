@@ -18,6 +18,9 @@
 #define  REFRESH_TRIGGER 50
 @interface VZPostListC (){
     BOOL updateRefreshView;
+    BOOL showRefreshView;
+    
+    BOOL isAddNew;
 }
 @property (nonatomic,retain) NSMutableArray *posts;
 @property (nonatomic,copy) NSString *newid;
@@ -47,17 +50,6 @@
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
-
-//-(void)viewWillAppear:(BOOL)animated{
-//    [super viewWillAppear:animated];
-//    
-//    UIView *top=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-//    
-//    top.backgroundColor=[UIColor colorWithRed:0.10 green:0.22 blue:0.33 alpha:.3];
-//    [self.view.superview insertSubview:top aboveSubview:self.view];
-//    
-//}
-
 
 
 -(void)onSwipe:(UISwipeGestureRecognizer*)swipe{
@@ -149,7 +141,12 @@
 //        }
         [self.posts addObjectsFromArray:objects];
         [self.posts sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"wbid" ascending:NO]]];
+        isAddNew=YES;
+        
         [self.tableView reloadData];
+        
+        isAddNew=NO;
+        
         self.newid=self.posts[0][@"wbid"];
         self.lastid=[self.posts lastObject][@"wbid"];
         
@@ -189,8 +186,8 @@
         
         [ws onGetNewPosts:objects];
         
-        [ws.refreshControl endRefreshing];
-        
+        //[ws.refreshControl endRefreshing];
+        [self hideRefreshView];
     }];
 }
 
@@ -211,19 +208,38 @@
 }
 
 
+-(void)hideRefreshView{
+    if (showRefreshView) {
+        updateRefreshView=NO;
+        self.refreshView.infinite=NO;
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            [self.tableView setContentInset:UIEdgeInsetsZero];
+        }];
+    }
+}
+
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     float y=scrollView.contentOffset.y;
     if (!updateRefreshView && y<-REFRESH_HEIGHT-REFRESH_TRIGGER) {
         updateRefreshView=YES;
         self.refreshView.infinite=YES;
         [self.tableView setContentInset:UIEdgeInsetsMake(REFRESH_HEIGHT+REFRESH_TRIGGER, 0, 0, 0)];
+        [self loadNew];
     }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float y=scrollView.contentOffset.y;
-    if (!updateRefreshView && y<0 && y>-REFRESH_HEIGHT-REFRESH_TRIGGER) {
-        
+    if (!updateRefreshView && y<0) {
+        if (!showRefreshView) {
+            UIView *topV=self.refreshView.superview;
+            CGRect f= topV.frame;
+            [UIView animateWithDuration:0.1 animations:^{
+                topV.frame=f;
+            }];
+            showRefreshView=YES;
+        }
         [self.refreshView setProgress:y/((REFRESH_HEIGHT+REFRESH_TRIGGER)*-1.0f) animated:NO];
     }
 }
@@ -288,19 +304,21 @@
 
 //This function is where all the magic happens
 -(void)tableView:(UITableView *)tableView willDisplayCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    
-    scaleAnimation.fromValue = [NSNumber numberWithFloat:0.8];
-    
-    scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
-    
-    scaleAnimation.duration = .5f;
-    
-    scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    
-    [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
+    if (!isAddNew) {
+        CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        
+        scaleAnimation.fromValue = [NSNumber numberWithFloat:0.8];
+        
+        scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
+        
+        scaleAnimation.duration = .5f;
+        
+        scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        
+        [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
 
+    }
+    
     [cell loadPhoto];
     
 //    //1. Setup the CATransform3D structure
@@ -337,7 +355,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    VZPost *post=self.posts[indexPath.row];
+    VZPostViewC *pc=[[VZPostViewC alloc] init];
+    pc.post=post;
     
+    self.mm_drawerController.rightDrawerViewController=pc;
     
+    self.view.userInteractionEnabled=NO;
+    [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:nil];
 }
 @end

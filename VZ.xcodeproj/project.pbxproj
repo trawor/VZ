@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F664F8A182375A500DA43F1 /* VZPostViewC.m */; };
 		1F7721F11812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
 		1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F21812D3680080308A /* CoreGraphics.framework */; };
 		1F7721F51812D3680080308A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F41812D3680080308A /* UIKit.framework */; };
@@ -41,6 +42,62 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F664F79182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FE620D1C16FC543300F4CB0E;
+			remoteInfo = AVOSCloud;
+		};
+		1F664F7B182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FE620E2116FC576C00F4CB0E;
+			remoteInfo = GHTest;
+		};
+		1F664F7D182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4C52773170299FA00DD82E7;
+			remoteInfo = UITest;
+		};
+		1F664F7F182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FE9D0663177C063E00E46E72;
+			remoteInfo = AVOSCloudUI;
+		};
+		1F664F81182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = FE2796AD17BDDD5E001CF074;
+			remoteInfo = StatisticsTest;
+		};
+		1F664F83182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F4BBDF4181796B200729E5C;
+			remoteInfo = AVOSCloudSNS;
+		};
+		1F664F85182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F4BBE04181796B200729E5C;
+			remoteInfo = AVOSCloudSNSTests;
+		};
+		1F664F87182367A600DA43F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F7DFD7C1820D49800323B65;
+			remoteInfo = "AVOSCloud-OSX";
+		};
 		1F77220D1812D3680080308A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F7721E51812D3680080308A /* Project object */;
@@ -52,6 +109,8 @@
 
 /* Begin PBXFileReference section */
 		0501631BCE174957BEA66E87 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		1F664F89182375A500DA43F1 /* VZPostViewC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostViewC.h; sourceTree = "<group>"; };
+		1F664F8A182375A500DA43F1 /* VZPostViewC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostViewC.m; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7721F01812D3680080308A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F7721F21812D3680080308A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -124,6 +183,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F664F6F182367A600DA43F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1F664F7A182367A600DA43F1 /* AVOSCloud.framework */,
+				1F664F7C182367A600DA43F1 /* GHTest.app */,
+				1F664F7E182367A600DA43F1 /* UITest.app */,
+				1F664F80182367A600DA43F1 /* AVOSCloudUI.framework */,
+				1F664F82182367A600DA43F1 /* StatisticsTest.app */,
+				1F664F84182367A600DA43F1 /* AVOSCloudSNS.framework */,
+				1F664F86182367A600DA43F1 /* AVOSCloudSNSTests.xctest */,
+				1F664F88182367A600DA43F1 /* AVOSCloud.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1F7721E41812D3680080308A = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +295,8 @@
 				1F7722231812D7EA0080308A /* VZPostListC.m */,
 				1F772225181383350080308A /* VZMenuC.h */,
 				1F772226181383350080308A /* VZMenuC.m */,
+				1F664F89182375A500DA43F1 /* VZPostViewC.h */,
+				1F664F8A182375A500DA43F1 /* VZPostViewC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -319,6 +395,12 @@
 			mainGroup = 1F7721E41812D3680080308A;
 			productRefGroup = 1F7721EE1812D3680080308A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1F664F6F182367A600DA43F1 /* Products */;
+					ProjectRef = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1F7721EC1812D3680080308A /* VZ */,
@@ -326,6 +408,65 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1F664F7A182367A600DA43F1 /* AVOSCloud.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = AVOSCloud.framework;
+			remoteRef = 1F664F79182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F7C182367A600DA43F1 /* GHTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = GHTest.app;
+			remoteRef = 1F664F7B182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F7E182367A600DA43F1 /* UITest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = UITest.app;
+			remoteRef = 1F664F7D182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F80182367A600DA43F1 /* AVOSCloudUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = AVOSCloudUI.framework;
+			remoteRef = 1F664F7F182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F82182367A600DA43F1 /* StatisticsTest.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = StatisticsTest.app;
+			remoteRef = 1F664F81182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F84182367A600DA43F1 /* AVOSCloudSNS.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = AVOSCloudSNS.framework;
+			remoteRef = 1F664F83182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F86182367A600DA43F1 /* AVOSCloudSNSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = AVOSCloudSNSTests.xctest;
+			remoteRef = 1F664F85182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1F664F88182367A600DA43F1 /* AVOSCloud.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework.static;
+			path = AVOSCloud.framework;
+			remoteRef = 1F664F87182367A600DA43F1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1F7721EB1812D3680080308A /* Resources */ = {
@@ -399,6 +540,7 @@
 				1FAACB331813E58200BA19DC /* VZM.m in Sources */,
 				1FDD7527181BA4B400F490A3 /* VZPost.m in Sources */,
 				1FDD752A181BAE0600F490A3 /* VZPostCell.m in Sources */,
+				1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */,
 				1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */,
 				1F772227181383350080308A /* VZMenuC.m in Sources */,
 				1F7722241812D7EA0080308A /* VZPostListC.m in Sources */,
