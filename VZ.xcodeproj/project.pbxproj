@@ -42,62 +42,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1F664F79182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FE620D1C16FC543300F4CB0E;
-			remoteInfo = AVOSCloud;
-		};
-		1F664F7B182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FE620E2116FC576C00F4CB0E;
-			remoteInfo = GHTest;
-		};
-		1F664F7D182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C4C52773170299FA00DD82E7;
-			remoteInfo = UITest;
-		};
-		1F664F7F182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FE9D0663177C063E00E46E72;
-			remoteInfo = AVOSCloudUI;
-		};
-		1F664F81182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FE2796AD17BDDD5E001CF074;
-			remoteInfo = StatisticsTest;
-		};
-		1F664F83182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1F4BBDF4181796B200729E5C;
-			remoteInfo = AVOSCloudSNS;
-		};
-		1F664F85182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1F4BBE04181796B200729E5C;
-			remoteInfo = AVOSCloudSNSTests;
-		};
-		1F664F87182367A600DA43F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1F7DFD7C1820D49800323B65;
-			remoteInfo = "AVOSCloud-OSX";
-		};
 		1F77220D1812D3680080308A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1F7721E51812D3680080308A /* Project object */;
@@ -137,7 +81,6 @@
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
 		1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "../../../Library/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
-		1FA13096181E368E0077AB8A /* paas.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = paas.xcodeproj; path = "../../AVOSCloud-iOS/sdk/iOS/paas/paas.xcodeproj"; sourceTree = "<group>"; };
 		1FAACB221813DB5700BA19DC /* head@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head@2x.png"; sourceTree = "<group>"; };
 		1FAACB241813E13F00BA19DC /* near@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near@2x.png"; sourceTree = "<group>"; };
 		1FAACB251813E13F00BA19DC /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
@@ -183,25 +126,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F664F6F182367A600DA43F1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				1F664F7A182367A600DA43F1 /* AVOSCloud.framework */,
-				1F664F7C182367A600DA43F1 /* GHTest.app */,
-				1F664F7E182367A600DA43F1 /* UITest.app */,
-				1F664F80182367A600DA43F1 /* AVOSCloudUI.framework */,
-				1F664F82182367A600DA43F1 /* StatisticsTest.app */,
-				1F664F84182367A600DA43F1 /* AVOSCloudSNS.framework */,
-				1F664F86182367A600DA43F1 /* AVOSCloudSNSTests.xctest */,
-				1F664F88182367A600DA43F1 /* AVOSCloud.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		1F7721E41812D3680080308A = {
 			isa = PBXGroup;
 			children = (
-				1FA13096181E368E0077AB8A /* paas.xcodeproj */,
 				1F7721F61812D3680080308A /* VZ */,
 				1F77220F1812D3680080308A /* VZTests */,
 				1F7721EF1812D3680080308A /* Frameworks */,
@@ -395,12 +322,6 @@
 			mainGroup = 1F7721E41812D3680080308A;
 			productRefGroup = 1F7721EE1812D3680080308A /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 1F664F6F182367A600DA43F1 /* Products */;
-					ProjectRef = 1FA13096181E368E0077AB8A /* paas.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1F7721EC1812D3680080308A /* VZ */,
@@ -408,65 +329,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		1F664F7A182367A600DA43F1 /* AVOSCloud.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework.static;
-			path = AVOSCloud.framework;
-			remoteRef = 1F664F79182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F7C182367A600DA43F1 /* GHTest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = GHTest.app;
-			remoteRef = 1F664F7B182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F7E182367A600DA43F1 /* UITest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = UITest.app;
-			remoteRef = 1F664F7D182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F80182367A600DA43F1 /* AVOSCloudUI.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework.static;
-			path = AVOSCloudUI.framework;
-			remoteRef = 1F664F7F182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F82182367A600DA43F1 /* StatisticsTest.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = StatisticsTest.app;
-			remoteRef = 1F664F81182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F84182367A600DA43F1 /* AVOSCloudSNS.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework.static;
-			path = AVOSCloudSNS.framework;
-			remoteRef = 1F664F83182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F86182367A600DA43F1 /* AVOSCloudSNSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AVOSCloudSNSTests.xctest;
-			remoteRef = 1F664F85182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		1F664F88182367A600DA43F1 /* AVOSCloud.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework.static;
-			path = AVOSCloud.framework;
-			remoteRef = 1F664F87182367A600DA43F1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1F7721EB1812D3680080308A /* Resources */ = {
@@ -669,10 +531,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
@@ -714,10 +573,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";

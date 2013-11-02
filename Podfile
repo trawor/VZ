@@ -1,4 +1,5 @@
-platform :ios, "6.0"
+platform :ios, "5.0"
 
-pod 'AVOSCloud', '~> 1.4.2'
+pod 'AVOSCloud'
+pod 'AVOSCloudSNS'
 pod 'MMDrawerController'
