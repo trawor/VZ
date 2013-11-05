@@ -14,10 +14,14 @@
 
 #import <AVOSCloudSNS/AVUser+SNS.h>
 
-@interface VZMenuC ()
+
+@interface VZMenuC (){
+    
+}
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLb;
 @property (nonatomic) UITapGestureRecognizer *loginTap;
+
 @end
 
 @implementation VZMenuC
@@ -46,55 +50,30 @@
 }
 
 -(void)login{
-//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"1714255746" andAppSecret:@"298c4b365c60fb9de5b2c4fa6c69d874" andRedirectURI:@"http://"];
-//    
-//    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
-//        [self onLogin:object];
-//        if (error) {
-//            NSLog([error description]);
-//        }
-//    } toPlatform:AVOSCloudSNSSinaWeibo];
-    
     AVOSCloudSNSType type=AVOSCloudSNSSinaWeibo;
     
-    if ([VZUser currentUser]) {
-        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
-            if (error) {
-                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
-                    
-                }else{
-                    
-                }
-            }else if(object){
-                [[VZUser currentUser] addAuthData:object block:nil];
+    [AVOSCloudSNS setupPlatform:type withAppKey:@"1714255746" andAppSecret:@"298c4b365c60fb9de5b2c4fa6c69d874" andRedirectURI:@"http://"];
+    
+    __weak VZMenuC *ws=self;
+    [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
+        if (error) {
+            if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
+                
+            }else{
+                
             }
-        } toPlatform:AVOSCloudSNSQQ];
-        
-//        [VZUser logOut];
-//        [AVOSCloudSNS logout:type];
-//        [self onLogout];
-    }else{
-        __weak VZMenuC *ws=self;
-        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
-            if (error) {
-                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
-                    
-                }else{
-                    
+        }else if(object){
+            [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
+                VZUser *auser=(id)user;
+                if (auser.avatar==nil) {
+                    auser.avatar=object[@"avatar"];
+                    auser.username=object[@"username"];
+                    [auser saveInBackground];
                 }
-            }else if(object){
-                [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
-                    VZUser *auser=(id)user;
-                    if (auser.avatar==nil) {
-                        auser.avatar=object[@"avatar"];
-                        auser.username=object[@"username"];
-                        [auser saveInBackground];
-                    }
-                    [ws onLogin:auser];
-                }];
-            }
-        } toPlatform:type];
-    }
+                [ws onLogin:auser];
+            }];
+        }
+    } toPlatform:type];
 }
 
 

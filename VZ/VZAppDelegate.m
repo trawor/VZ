@@ -8,25 +8,18 @@
 
 #import "VZAppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
+#import <AVOSCloudSNS/AVOSCloudSNS.h>
 
 #import "VZMenuC.h"
 #import "VZM.h"
 
 #import <MMDrawerController/MMDrawerController.h>
 
-
-@interface VZAppDelegate()
-{
-    
-}
-@end
-
 @implementation VZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     model;
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //self.window.backgroundColor = [UIColor lightGrayColor];
@@ -57,8 +50,6 @@
     
 
     
-   
-    
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
@@ -80,6 +71,11 @@
         currentInstallation.channels=channels;
         [currentInstallation saveInBackground];
     }
+}
+
+
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [AVOSCloudSNS handleOpenURL:url];
 }
 
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
