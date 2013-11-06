@@ -22,82 +22,30 @@
 
 @implementation VZMenuC
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
--(void)onLogin:(VZUser*)user{
-    if (user) {
-        [self.avatar setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"head"]];
-        
-        //[self.userNameLb setText:[user objectForKey:@"username"]];
-    }
+
+-(void)onLogin:(id)user{
+    [self.avatar setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]]
+                placeholderImage:[UIImage imageNamed:@"head"]];
 }
+
 -(void)onLogout{
     self.avatar.image=[UIImage imageNamed:@"head"];
-    self.userNameLb.text=@"";
 }
 
 -(void)login{
-//    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"1714255746" andAppSecret:@"298c4b365c60fb9de5b2c4fa6c69d874" andRedirectURI:@"http://"];
-//    
-//    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
-//        [self onLogin:object];
-//        if (error) {
-//            NSLog([error description]);
-//        }
-//    } toPlatform:AVOSCloudSNSSinaWeibo];
+    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://"];
     
-    AVOSCloudSNSType type=AVOSCloudSNSSinaWeibo;
-    
-    if ([VZUser currentUser]) {
-        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
-            if (error) {
-                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
-                    
-                }else{
-                    
-                }
-            }else if(object){
-                [[VZUser currentUser] addAuthData:object block:nil];
-            }
-        } toPlatform:AVOSCloudSNSQQ];
-        
-//        [VZUser logOut];
-//        [AVOSCloudSNS logout:type];
-//        [self onLogout];
-    }else{
-        __weak VZMenuC *ws=self;
-        [AVOSCloudSNS loginWithCallback:^(NSDictionary *object, NSError *error) {
-            if (error) {
-                if (error.code==AVOSCloudSNSErrorUserCancel && [error.domain isEqualToString:AVOSCloudSNSErrorDomain]) {
-                    
-                }else{
-                    
-                }
-            }else if(object){
-                [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
-                    VZUser *auser=(id)user;
-                    if (auser.avatar==nil) {
-                        auser.avatar=object[@"avatar"];
-                        auser.username=object[@"username"];
-                        [auser saveInBackground];
-                    }
-                    [ws onLogin:auser];
-                }];
-            }
-        } toPlatform:type];
-    }
+    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
+        if (error) {
+            NSLog(@"login error %@",[error description]);
+        }else if(object){
+            [self onLogin:object];
+        }
+    } toPlatform:AVOSCloudSNSSinaWeibo];
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -106,34 +54,11 @@
     self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
     [self.avatar addGestureRecognizer:self.loginTap];
     
-    //self.view.backgroundColor=[UIColor clearColor];
-//    self.avatar.center=CGPointMake(self.view.bounds.size.width/2, self.avatar.center.y);
-//    
-//	self.avatar.clipsToBounds=YES;
-//    self.avatar.layer.cornerRadius=48;
-//    
-//    //self.avatar.layer.borderWidth =3.0;
-//    
-//    self.avatar.layer.borderColor=[UIColor grayColor].CGColor;
-//    
-    [self onLogin:(id)[VZUser currentUser]];
+    [self onLogin:(id)[AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo]];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-//    model.showPostsWithPicsOnly=(indexPath.row==1);
-//    
-//    
-//    
-//    REFrostedViewController *ref=self.frostedViewController;
-//    [ref hideMenuViewController];
-    
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 

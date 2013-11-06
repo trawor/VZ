@@ -46,7 +46,7 @@
         
         
         VZProgressView *pv=[[VZProgressView alloc] initWithWidth:self.frame.size.width/2];
-        pv.bgLineColor=[UIColor darkGrayColor];
+        pv.bgLineColor=[UIColor colorWithWhite:1 alpha:0.4];
         pv.fgLineColor=[UIColor whiteColor];
         
         [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
@@ -97,8 +97,18 @@
         NSString *url=pics[0];
         url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
         
-        [self.photo setProgressImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
+        [self.photo setProgressImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] placeholderImage:[UIImage imageNamed:nil]];
     }
+    
+    int c=pics.count;
+    if (c>1) {
+        self.pageControl.hidden=NO;
+        [self.pageControl setNumberOfPages:pics.count];
+        
+    }else{
+        self.pageControl.hidden=YES;
+    }
+    
 }
 -(void)stopLoadPhoto{
     [self.photo cancelImageRequestOperation];
@@ -108,18 +118,22 @@
 //    self.textLabel.numberOfLines=3;
 //    self.textLabel.font=[UIFont systemFontOfSize:14];
     
-    self.container.clipsToBounds=YES;
-    self.container.layer.cornerRadius=5;
+    //self.container.clipsToBounds=YES;
+    //self.container.layer.cornerRadius=5;
     
-   
+//    self.priceLb.layer.borderColor=[UIColor whiteColor].CGColor;
+//    self.priceLb.layer.borderWidth=1;
+//    self.priceLb.backgroundColor=[UIColor colorWithWhite:0 alpha:0.3];
+    self.priceLb.layer.cornerRadius=4;
+    
     self.userAvatar.clipsToBounds=YES;
-    self.userAvatar.layer.cornerRadius=25;
+    //self.userAvatar.layer.cornerRadius=20;
     
     self.userAvatar.layer.borderWidth =1;
     
     self.userAvatar.layer.borderColor=[UIColor whiteColor].CGColor;
  
-    
+    self.photo.backgroundColor=[UIColor clearColor];
     //self.photo.layer.cornerRadius=10;
 }
 
@@ -142,53 +156,6 @@
 {
     [super setSelected:selected animated:animated];
     
-//    if (!selected && self.oldFrame==nil) {
-//        return;
-//    }
-//    [UIView animateWithDuration:0.25 animations:^{
-//        if (selected) {
-//            
-//                NSMutableDictionary *d=[NSMutableDictionary dictionary];
-//                [d setObject:[NSValue valueWithCGRect:self.userAvatar.frame] forKey:@"avatar"];
-//                
-//                [d setObject:[NSValue valueWithCGRect:self.textLb.frame] forKey:@"textLb"];
-//                
-//                [d setObject:[NSValue valueWithCGRect:self.photo.frame] forKey:@"photo"];
-//                
-//                self.oldFrame=d;
-//                
-//                self.userAvatar.frame=CGRectMake((self.frame.size.width-90)/2, 0, 90, 90);
-//                self.userAvatar.layer.cornerRadius=45;
-//                
-//                
-//                CGRect f=self.container.frame;
-//                [d setObject:[NSValue valueWithCGRect:f] forKey:@"container"];
-//                
-//                f.origin.y+=50;
-//                self.container.frame=f;
-//            
-//            
-//            
-//            
-//        }else {
-//            [self reset];
-//            
-//        }
-//
-//    }];
-//    
-//    NSIndexPath *indexPath = [self.table indexPathForCell: self];
-//    
-//    if (indexPath) {
-//        [self.table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//    }
 }
-
-@end
-
-
-@implementation VZPostRightCell
-
-
 
 @end
