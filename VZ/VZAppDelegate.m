@@ -8,18 +8,25 @@
 
 #import "VZAppDelegate.h"
 #import <AVOSCloud/AVOSCloud.h>
-#import <AVOSCloudSNS/AVOSCloudSNS.h>
 
 #import "VZMenuC.h"
 #import "VZM.h"
 
 #import <MMDrawerController/MMDrawerController.h>
 
+
+@interface VZAppDelegate()
+{
+    
+}
+@end
+
 @implementation VZAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     model;
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     //self.window.backgroundColor = [UIColor lightGrayColor];
@@ -28,6 +35,12 @@
     [AVOSCloud setApplicationId:@"1tglhmgzoq6apby1rmhx3fc5kg2ie0bums7085d3cqhpunlo"
                       clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
 
+    [application registerForRemoteNotificationTypes:
+     UIRemoteNotificationTypeBadge |
+     UIRemoteNotificationTypeAlert |
+     UIRemoteNotificationTypeSound];
+
+    
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
@@ -36,20 +49,20 @@
     
     
     UINavigationController *nav=[board instantiateInitialViewController];
-    nav.view.backgroundColor=[UIColor clearColor];
-    
     
     MMDrawerController * menu = [[MMDrawerController alloc]initWithCenterViewController:nav
                                              leftDrawerViewController:menuC];
     
     menu.maximumLeftDrawerWidth=64;
+    
+    menu.maximumRightDrawerWidth=280;
+    
     menu.centerHiddenInteractionMode=MMDrawerOpenCenterInteractionModeFull;
     
     self.window.rootViewController=menu;
     [self.window makeKeyAndVisible];
     
-
-    
+ 
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
@@ -73,11 +86,6 @@
     }
 }
 
-
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [AVOSCloudSNS handleOpenURL:url];
-}
-
 -(void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error{
     
     [AVAnalytics event:@"开启推送失败" label:[error description]];
@@ -88,11 +96,8 @@
     [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-    
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    return [AVOSCloudSNS handleOpenURL:url];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

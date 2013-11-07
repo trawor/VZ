@@ -145,7 +145,6 @@
         
         group.duration =dur*2.0;
         group.fillMode = kCAFillModeForwards;
-        group.removedOnCompletion=NO;
         group.autoreverses = YES;
         group.repeatCount=65530;
         group.animations=@[animation,animation2];

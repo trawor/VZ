@@ -29,17 +29,7 @@
 			<string>weibocallback</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>sinaweibosso.1714255746</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>qqcallback</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tencent100549919</string>
+				<string>sinaweibosso.2858658895</string>
 			</array>
 		</dict>
 	</array>

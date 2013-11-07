@@ -13,9 +13,14 @@
 #import <UIViewController+MMDrawerController.h>
 #import <MMDrawerController.h>
 
-#define  QUERY_LIMIT 30
-#define  REFRESH_HEIGHT 50
+#import <AVOSCloud/AVGlobal.h>
+
+#define  REFRESH_HEIGHT 20
 #define  REFRESH_TRIGGER 50
+
+#define  QUERY_LIMIT 30
+#define  ORDER_BY @"createdAt"
+
 @interface VZPostListC (){
     BOOL updateRefreshView;
     BOOL showRefreshView;
@@ -33,20 +38,7 @@
 
 @implementation VZPostListC
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
 
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [model removeObserver:self forKeyPath:@"showPostsWithPicsOnly"];
-}
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
 }
@@ -81,28 +73,34 @@
     
     [self.view addGestureRecognizer:swipe];
     
-    //self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg"]];
-    //self.tableView.backgroundColor=[UIColor clearColor];
+
+    self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     
     self.posts=[NSMutableArray array];
     
     [self.refreshControl addTarget:self action:@selector(loadNew) forControlEvents:UIControlEventValueChanged];
     
-    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=CGRectMake(0, 0, 200, 44);
-    btn.titleLabel.font=[UIFont systemFontOfSize:13];
+    UIView *btmV=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
     
-    [btn setTitle:@"更多" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn.layer.borderWidth=1;
+    btn.layer.borderColor=[UIColor colorWithWhite:1 alpha:0.8].CGColor;
+    btn.clipsToBounds=YES;
+    btn.layer.cornerRadius=4;
+    btn.frame=CGRectMake(20, 10, 280, 40);
+    btn.titleLabel.font=[UIFont systemFontOfSize:14];
+    
+    [btn setTitle:@"更 多" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
-    //btn.hidden=YES;
+    btn.hidden=YES;
     self.moreBtn=btn;
     
-    self.tableView.tableFooterView=btn;
+    [btmV addSubview:btn];
+    self.tableView.tableFooterView=btmV;
     
-    [self.refreshControl beginRefreshing];
-    [self loadNew];
     
     
     int topH=300;
@@ -111,14 +109,17 @@
     topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
     
     
-    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT];
+    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT*2];
     self.refreshView.autoCenter=NO;
-    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT/2);
+    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT);
     [topV addSubview:self.refreshView];
     [self.view addSubview:topV];
-    [model addObserver:self forKeyPath:@"showPostsWithPicsOnly" options:NSKeyValueObservingOptionNew context:nil];
     
-    //[self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureRecognized:)]];
+    
+    
+    [self showRefresh];
+    [self loadNew];
+    
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -130,7 +131,7 @@
 
 
 
--(void)onGetNewPosts:(NSArray*)objects{
+-(void)onGetNewPosts:(NSArray*)objects isMore:(BOOL)isMore{
     if (objects.count) {
 //        NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
 //        for (AVObject *post in objects) {
@@ -139,37 +140,44 @@
 //                [self.posts addObject:post];
 //            }
 //        }
-        [self.posts addObjectsFromArray:objects];
-        [self.posts sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"wbid" ascending:NO]]];
-        isAddNew=YES;
+        
+        objects=[objects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ORDER_BY ascending:NO]]];
+        
+        
+        int offset=0;
+        if (isMore) {
+            offset=self.posts.count;
+        }else{
+            self.newid=objects[0][ORDER_BY];
+        }
+        
+        NSIndexSet *iset=[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(offset, objects.count)];
+        
+        [self.posts insertObjects:objects atIndexes:iset];
+        if(objects.count>=QUERY_LIMIT){
+            self.lastid=[[self.posts lastObject][ORDER_BY] copy];
+            self.moreBtn.hidden=NO;
+        }else{
+            self.lastid=nil;
+            self.moreBtn.hidden=YES;
+        }
         
         [self.tableView reloadData];
         
-        isAddNew=NO;
         
-        self.newid=self.posts[0][@"wbid"];
-        self.lastid=[self.posts lastObject][@"wbid"];
-        
-        //NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
-        //NSLog(@"%@",[ids description]);
     }
-    //self.moreBtn.hidden=objects.count<QUERY_LIMIT;
+    
 }
 
 
 -(AVQuery*)getQuery{
-    //AVQuery *q=[AVQuery queryWithClassName:@"Post"];
     
     AVQuery *q=[VZPost query];
     
-    [q orderByDescending:@"wbid"];
+    [q orderByDescending:ORDER_BY];
     
     [q setLimit:QUERY_LIMIT];
     [q whereKeyExists:@"pics"];
-   
-//    if (model.showPostsWithPicsOnly) {
-//        
-//    }
     [q whereKey:@"type" equalTo:@(0)];
     return q;
 }
@@ -177,16 +185,15 @@
 -(void)loadNew{
     AVQuery *q=[self getQuery];
     if (self.newid) {
-        [q whereKey:@"wbid" greaterThan:self.newid];
+        [q whereKey:ORDER_BY greaterThan:self.newid];
     }
     
     __weak VZPostListC* ws=self;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-        [ws onGetNewPosts:objects];
+        [ws onGetNewPosts:objects isMore:NO];
         
-        //[ws.refreshControl endRefreshing];
         [self hideRefreshView];
     }];
 }
@@ -196,35 +203,60 @@
     
     AVQuery *q=[self getQuery];
     
-    [q whereKey:@"wbid" lessThan:self.lastid];
+    [q whereKey:ORDER_BY lessThan:self.lastid];
+    
+    self.lastid=nil;
     
     __weak VZPostListC* ws=self;
+    [ws.moreBtn setTitle:@"" forState:UIControlStateNormal];
     
+    UIActivityIndicatorView *av=[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    av.center=ws.moreBtn.center;
+    [av startAnimating];
+    [ws.moreBtn.superview addSubview:av];
+    ws.moreBtn.userInteractionEnabled=NO;
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
-        [ws onGetNewPosts:objects];
-    
+        [ws onGetNewPosts:objects isMore:YES];
+        
+        [av removeFromSuperview];
+        [ws.moreBtn setTitle:@"更 多" forState:UIControlStateNormal];
+        ws.moreBtn.userInteractionEnabled=YES;
     }];
 }
 
 
 -(void)hideRefreshView{
-    if (showRefreshView) {
-        updateRefreshView=NO;
-        self.refreshView.infinite=NO;
-        
-        [UIView animateWithDuration:0.25 animations:^{
+    if (updateRefreshView) {
+        [UIView animateWithDuration:0.2 animations:^{
             [self.tableView setContentInset:UIEdgeInsetsZero];
+        } completion:^(BOOL finished) {
+            self.refreshView.infinite=NO;
+            updateRefreshView=NO;
         }];
+        
     }
+}
+
+-(void)showRefresh{
+    if (updateRefreshView) {
+        return;
+    }
+    
+    updateRefreshView=YES;
+    self.refreshView.infinite=YES;
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.tableView setContentInset:UIEdgeInsetsMake(REFRESH_HEIGHT+REFRESH_TRIGGER, 0, 0, 0)];
+    }];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     float y=scrollView.contentOffset.y;
     if (!updateRefreshView && y<-REFRESH_HEIGHT-REFRESH_TRIGGER) {
-        updateRefreshView=YES;
-        self.refreshView.infinite=YES;
-        [self.tableView setContentInset:UIEdgeInsetsMake(REFRESH_HEIGHT+REFRESH_TRIGGER, 0, 0, 0)];
+        [self.tableView setContentInset:UIEdgeInsetsMake(-y, 0, 0, 0)];
+        
+        [self showRefresh];
         [self loadNew];
     }
 }
@@ -232,15 +264,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float y=scrollView.contentOffset.y;
     if (!updateRefreshView && y<0) {
-        if (!showRefreshView) {
-            UIView *topV=self.refreshView.superview;
-            CGRect f= topV.frame;
-            [UIView animateWithDuration:0.1 animations:^{
-                topV.frame=f;
-            }];
-            showRefreshView=YES;
-        }
-        [self.refreshView setProgress:y/((REFRESH_HEIGHT+REFRESH_TRIGGER)*-1.0f) animated:NO];
+        [self.refreshView setProgress:(-y-REFRESH_TRIGGER)*1.0/REFRESH_HEIGHT animated:NO];
     }
 }
 
@@ -259,8 +283,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSString *CellIdentifier = [NSString stringWithFormat:@"PostCell%d",indexPath.row%2];
-    
     static NSString *CellIdentifier = @"PostCell0";
     VZPostCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
@@ -292,76 +314,45 @@
     
     NSString *price=[post objectForKey:@"price"];
     if (price) {
-        cell.infoLb.hidden=NO;
-        cell.infoLb.text=[NSString stringWithFormat:@"¥ %@",price];
+        cell.priceLb.hidden=NO;
+        cell.priceLb.text=[NSString stringWithFormat:@"¥ %@",price];
     }else {
-        cell.infoLb.hidden=YES;
+        cell.priceLb.hidden=YES;
     }
     
     return cell;
 }
 
 
-//This function is where all the magic happens
 -(void)tableView:(UITableView *)tableView willDisplayCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!isAddNew) {
+ 
+    if (cell.canAnimate) {
         CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
         
         scaleAnimation.fromValue = [NSNumber numberWithFloat:0.8];
-        
         scaleAnimation.toValue = [NSNumber numberWithFloat:1.0];
-        
         scaleAnimation.duration = .5f;
         
         scaleAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         
         [cell.layer addAnimation:scaleAnimation forKey:@"scale"];
-
+        
+        cell.canAnimate=NO;
     }
     
     [cell loadPhoto];
-    
-//    //1. Setup the CATransform3D structure
-//    CATransform3D rotation;
-//    rotation = CATransform3DMakeRotation( (90.0*M_PI)/180, 0.0, 0.7, 0.4);
-//    rotation.m34 = 1.0/ -600;
-//    
-//    
-//    //2. Define the initial state (Before the animation)
-//    cell.layer.shadowColor = [[UIColor blackColor]CGColor];
-//    cell.layer.shadowOffset = CGSizeMake(10, 10);
-//    cell.alpha = 0;
-//    
-//    cell.layer.transform = rotation;
-//    cell.layer.anchorPoint = CGPointMake(0, 0.5);
-//    
-//    
-//    //3. Define the final state (After the animation) and commit the animation
-//    [UIView beginAnimations:@"rotation" context:NULL];
-//    [UIView setAnimationDuration:0.8];
-//    cell.layer.transform = CATransform3DIdentity;
-//    cell.alpha = 1;
-//    cell.layer.shadowOffset = CGSizeMake(0, 0);
-//    [UIView commitAnimations];
-    
-    
-
-
 }
 
 -(void)tableView:(UITableView *)tableView didEndDisplayingCell:(VZPostCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    cell.canAnimate=YES;
     [cell stopLoadPhoto];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     VZPost *post=self.posts[indexPath.row];
     VZPostViewC *pc=[[VZPostViewC alloc] init];
     pc.post=post;
     
-    self.mm_drawerController.rightDrawerViewController=pc;
-    
-    self.view.userInteractionEnabled=NO;
-    [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:nil];
+    //[self.navigationController pushViewController:pc animated:YES];
 }
 @end

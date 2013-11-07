@@ -33,6 +33,7 @@
 		1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB2C1813E1EA00BA19DC /* req@2x.png */; };
 		1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB2E1813E27B00BA19DC /* Dots@2x.png */; };
 		1FAACB331813E58200BA19DC /* VZM.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAACB321813E58200BA19DC /* VZM.m */; };
+		1FC0819118252A13005CAFBB /* VZNearC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC0819018252A13005CAFBB /* VZNearC.m */; };
 		1FDD7527181BA4B400F490A3 /* VZPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD7526181BA4B400F490A3 /* VZPost.m */; };
 		1FDD752A181BAE0600F490A3 /* VZPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDD7529181BAE0600F490A3 /* VZPostCell.m */; };
 		1FDD752C181CCC0700F490A3 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FDD752B181CCC0700F490A3 /* bg@2x.png */; };
@@ -90,6 +91,8 @@
 		1FAACB2E1813E27B00BA19DC /* Dots@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Dots@2x.png"; sourceTree = "<group>"; };
 		1FAACB311813E58200BA19DC /* VZM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZM.h; sourceTree = "<group>"; };
 		1FAACB321813E58200BA19DC /* VZM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZM.m; sourceTree = "<group>"; };
+		1FC0818F18252A13005CAFBB /* VZNearC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNearC.h; sourceTree = "<group>"; };
+		1FC0819018252A13005CAFBB /* VZNearC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNearC.m; sourceTree = "<group>"; };
 		1FDD7525181BA4B400F490A3 /* VZPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPost.h; sourceTree = "<group>"; };
 		1FDD7526181BA4B400F490A3 /* VZPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPost.m; sourceTree = "<group>"; };
 		1FDD7528181BAE0600F490A3 /* VZPostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostCell.h; sourceTree = "<group>"; };
@@ -224,6 +227,8 @@
 				1F772226181383350080308A /* VZMenuC.m */,
 				1F664F89182375A500DA43F1 /* VZPostViewC.h */,
 				1F664F8A182375A500DA43F1 /* VZPostViewC.m */,
+				1FC0818F18252A13005CAFBB /* VZNearC.h */,
+				1FC0819018252A13005CAFBB /* VZNearC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -408,6 +413,7 @@
 				1F7722241812D7EA0080308A /* VZPostListC.m in Sources */,
 				1F7722011812D3680080308A /* VZAppDelegate.m in Sources */,
 				1F7721FD1812D3680080308A /* main.m in Sources */,
+				1FC0819118252A13005CAFBB /* VZNearC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -23,11 +23,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photo;
 @property (weak, nonatomic) IBOutlet UIImageView *geoIcon;
 @property (weak, nonatomic) IBOutlet UILabel *textLb;
-@property (weak, nonatomic) IBOutlet UILabel *infoLb;
+@property (weak, nonatomic) IBOutlet UILabel *priceLb;
 @property (weak, nonatomic) IBOutlet UIImageView *userAvatar;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @property (weak, nonatomic) IBOutlet UIView *container;
 
+@property (nonatomic) BOOL canAnimate;
 
 @property (weak, nonatomic) VZPost *post;
 @property (weak, nonatomic) UITableView *table;
@@ -36,7 +38,3 @@
 -(void)stopLoadPhoto;
 @end
 
-
-@interface VZPostRightCell : VZPostCell
-
-@end
