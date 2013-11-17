@@ -19,3 +19,4 @@
 -(void)arrowLeft;
 -(void)showClose:(BOOL)flag;
 @end
+

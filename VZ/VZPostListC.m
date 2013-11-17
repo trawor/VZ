@@ -57,6 +57,10 @@
    
 }
 
+-(void)menu:(id)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -109,15 +113,15 @@
 //    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
 //    
 //    
-//    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT*2];
-//    self.refreshView.autoCenter=NO;
-//    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT);
+    
+    self.navigationItem.titleView=[VZNavView shared].refreshView;
+    
 //    [topV addSubview:self.refreshView];
 //    [self.view addSubview:topV];
 //    
 //    
 //    
-//    [self showRefresh];
+    [self showRefresh];
     [self loadNew];
     
 }
@@ -359,7 +363,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     VZPost *post=self.posts[indexPath.row];
-    VZPostViewC *pc=[[VZPostViewC alloc] init];
+    VZPostViewC *pc=[self.storyboard instantiateViewControllerWithIdentifier:@"PostViewC"];
     pc.post=post;
     
 //    self.mm_drawerController.rightDrawerViewController=pc;

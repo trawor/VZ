@@ -51,6 +51,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 
 -(void)login{
     [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://"];
+    //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
     
     [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
         if (error) {
@@ -65,7 +66,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 {
     [super viewDidLoad];
     
-    self.tableView.tableHeaderView.frame=CGRectMake(0, 0, 10, [VZNavView height]);
+    self.tableView.tableHeaderView.frame=CGRectMake(0, 0, 10, 0);
     
     self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
     [self.avatar addGestureRecognizer:self.loginTap];
@@ -74,9 +75,9 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     
 }
 
--(void)viewWillAppear:(BOOL)animated{
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationRight];
-}
+//-(void)viewWillAppear:(BOOL)animated{
+//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationRight];
+//}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];

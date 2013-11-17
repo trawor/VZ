@@ -25,6 +25,7 @@
 
 +(VZM*)shared;
 
+-(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback;
 @end
 
 #define model [VZM shared]

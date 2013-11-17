@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "VZM.h"
-@interface VZPostViewC : UIViewController
+@interface VZPostViewC : UITableViewController
 @property(nonatomic,retain) VZPost *post;
 @end

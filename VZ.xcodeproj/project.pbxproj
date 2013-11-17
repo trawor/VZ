@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0F989118385C2E000CE764 /* navBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F989018385C2E000CE764 /* navBg@2x.png */; };
+		1F0F989418388E0E000CE764 /* VZCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F989318388E0E000CE764 /* VZCommentCell.m */; };
+		1F0F98971838987C000CE764 /* chatBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98951838987C000CE764 /* chatBg@2x.png */; };
+		1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98961838987C000CE764 /* chatBg2@2x.png */; };
 		1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F664F8A182375A500DA43F1 /* VZPostViewC.m */; };
 		1F7721F11812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
 		1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F21812D3680080308A /* CoreGraphics.framework */; };
@@ -57,6 +61,11 @@
 
 /* Begin PBXFileReference section */
 		0501631BCE174957BEA66E87 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		1F0F989018385C2E000CE764 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
+		1F0F989218388E0E000CE764 /* VZCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZCommentCell.h; sourceTree = "<group>"; };
+		1F0F989318388E0E000CE764 /* VZCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZCommentCell.m; sourceTree = "<group>"; };
+		1F0F98951838987C000CE764 /* chatBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBg@2x.png"; sourceTree = "<group>"; };
+		1F0F98961838987C000CE764 /* chatBg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBg2@2x.png"; sourceTree = "<group>"; };
 		1F664F89182375A500DA43F1 /* VZPostViewC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostViewC.h; sourceTree = "<group>"; };
 		1F664F8A182375A500DA43F1 /* VZPostViewC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostViewC.m; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +194,9 @@
 		1F7721F71812D3680080308A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1F0F98951838987C000CE764 /* chatBg@2x.png */,
+				1F0F98961838987C000CE764 /* chatBg2@2x.png */,
+				1F0F989018385C2E000CE764 /* navBg@2x.png */,
 				1F94FF5B183786BA001114B4 /* close@2x.png */,
 				1F94FF59183781D5001114B4 /* arrow@2x.png */,
 				1F7722021812D3680080308A /* Images.xcassets */,
@@ -228,6 +240,8 @@
 		1F7722211812D7BF0080308A /* C */ = {
 			isa = PBXGroup;
 			children = (
+				1F0F989218388E0E000CE764 /* VZCommentCell.h */,
+				1F0F989318388E0E000CE764 /* VZCommentCell.m */,
 				1FDD7528181BAE0600F490A3 /* VZPostCell.h */,
 				1FDD7529181BAE0600F490A3 /* VZPostCell.m */,
 				1F7722221812D7EA0080308A /* VZPostListC.h */,
@@ -352,15 +366,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F94FF5C183786BA001114B4 /* close@2x.png in Resources */,
+				1F0F98971838987C000CE764 /* chatBg@2x.png in Resources */,
 				1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */,
 				1FAACB2B1813E19700BA19DC /* all@2x.png in Resources */,
 				1F7721FB1812D3680080308A /* InfoPlist.strings in Resources */,
 				1FAACB271813E13F00BA19DC /* settings@2x.png in Resources */,
 				1FDD752C181CCC0700F490A3 /* bg@2x.png in Resources */,
 				1FAACB261813E13F00BA19DC /* near@2x.png in Resources */,
+				1F0F989118385C2E000CE764 /* navBg@2x.png in Resources */,
 				1FAACB291813E17F00BA19DC /* pics@2x.png in Resources */,
 				1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */,
 				1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */,
+				1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */,
 				1FAACB231813DB5700BA19DC /* head@2x.png in Resources */,
 				1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */,
 				1FDD752E181CCD6F00F490A3 /* bg2@2x.png in Resources */,
@@ -418,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FAACB331813E58200BA19DC /* VZM.m in Sources */,
+				1F0F989418388E0E000CE764 /* VZCommentCell.m in Sources */,
 				1FDD7527181BA4B400F490A3 /* VZPost.m in Sources */,
 				1FDD752A181BAE0600F490A3 /* VZPostCell.m in Sources */,
 				1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */,

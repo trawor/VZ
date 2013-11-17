@@ -25,6 +25,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           UITextAttributeTextColor:[UIColor whiteColor]
+                                                           }];
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes:@{
+                                                           UITextAttributeTextColor:[UIColor whiteColor]
+                                                           } forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+   
+    
     
     model;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -47,7 +59,7 @@
     
     
     UINavigationController *nav=[board instantiateInitialViewController];
-    
+
     MMDrawerController * menu = [[MMDrawerController alloc]initWithCenterViewController:nav
                                              leftDrawerViewController:menuC];
     
@@ -55,8 +67,8 @@
 //    menu.statusBarViewBackgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
 //    menu.showsShadow=NO;
     
-    menu.openDrawerGestureModeMask=MMOpenDrawerGestureModeCustom;
-    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeTapCenterView;
+    menu.openDrawerGestureModeMask=MMOpenDrawerGestureModePanningCenterView|MMOpenDrawerGestureModePanningNavigationBar;
+    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeAll;
     menu.shouldStretchDrawer=NO;
     menu.maximumLeftDrawerWidth=64;
     
@@ -70,7 +82,7 @@
     self.window.rootViewController=menu;
     [self.window makeKeyAndVisible];
     
-    [self.window addSubview:[VZNavView shared]];
+   // [self.window addSubview:[VZNavView shared]];
     
     
     [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {

@@ -20,6 +20,7 @@
     return _vzm_;
 }
 
+
 - (id)init
 {
     self = [super init];
@@ -32,6 +33,44 @@
     }
     return self;
 }
+
+-(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{
+    NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+    NSString *token=[dict objectForKey:@"access_token"];
+    NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/comments/show.json?id=%@&access_token=%@",wbid,token];
+    NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    AFJSONRequestOperation *opt=[AFJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSArray *arr= JSON[@"comments"];
+        if (arr) {
+            NSArray *shuma=@[@"2043408047",@"1761596064",@"1882458640",@"1841288857",@"3787475667",@"3701452524"];
+            
+            NSMutableArray *a=[NSMutableArray array];
+            
+            for (NSDictionary *comment in arr) {
+                NSString *idstr=comment[@"user"][@"idstr"];
+                if ([shuma containsObject:idstr]) {
+                    continue;
+                }
+                
+                [a addObject:comment];
+            }
+            
+            [a sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"idstr" ascending:YES]]];
+            callback(a,nil);
+        }else{
+            callback(Nil,Nil);
+        }
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        callback(Nil,error);
+        NSLog(@"%@", [error description]);
+    }];
+    
+    [self.client enqueueHTTPRequestOperation:opt];
+}
+
+
 
 @end
 
@@ -70,7 +109,8 @@
     }];
     
     [model.client enqueueHTTPRequestOperation:opt];
-    
 }
+
+
 
 @end

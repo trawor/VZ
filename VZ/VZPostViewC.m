@@ -9,8 +9,15 @@
 #import "VZPostViewC.h"
 #import <UIImageView+AFNetworking.h>
 #import <UIViewController+MMDrawerController.h>
-@interface VZPostViewC ()
 
+#import "VZCommentCell.h"
+
+#import "VZNavView.h"
+
+
+@interface VZPostViewC ()
+@property (nonatomic,retain) VZProgressView *refreshView;
+@property (nonatomic,retain) NSArray *comments;
 @end
 
 @implementation VZPostViewC
@@ -22,15 +29,15 @@
     NSArray *pics=[self.post objectForKey:@"pics"];
     
     if (pics.count>0) {
-        
-        float w=self.view.frame.size.width-10;
+        int gap=5;
+        float w=self.view.frame.size.width-gap*2;
         float h=w/16*9;
         
-        UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(5, 49, w, h)];
+        UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
         
         
         
-        int gap=5;
+        
         
         int c=MIN(pics.count, 5);
         
@@ -38,7 +45,7 @@
         
         for (int i=0; i<c; i++) {
             float y=(c-i-1)*gap;
-            UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(i*gap, y, w-i*gap*2, h-y)];
+            UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(gap+i*gap, y, w-i*gap*2, h-y)];
             imgv.contentMode=UIViewContentModeScaleAspectFill;
             imgv.alpha=(c-i)*0.6/c+0.4;
             imgv.clipsToBounds=YES;
@@ -57,36 +64,108 @@
                  placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
         }
         
-        [self.view addSubview:picContiner];
+        self.tableView.tableHeaderView=picContiner;
+        
+    }else{
+        self.tableView.tableHeaderView=nil;
     }
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2"]];
+    
+    //[self.tableView registerClass:[VZCommentCell class] forCellReuseIdentifier:@"CommentCell"];
+    
+    self.navigationItem.backBarButtonItem.tintColor=[UIColor whiteColor];
+    
+    self.refreshView=[[VZProgressView alloc] initWithWidth:44];
+    self.refreshView.infinite=YES;
+    
+    
+    self.navigationItem.titleView=self.refreshView;
+    
+	self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     //self.view.backgroundColor=[UIColor clearColor];
     [self loadPics];
     
+    NSDictionary *comment=@{@"user":self.post[@"user"],@"text":self.post.text};
+    self.comments=@[comment];
+    [self.tableView reloadData];
     
+    
+    __weak typeof(self) ws=self;
+    [model getCommentWithWbid:[self.post objectForKey:@"wbid"] callback:^(NSArray *objects, NSError *error) {
+        if (objects.count) {
+            NSMutableArray *arr=[NSMutableArray arrayWithObject:ws.comments[0]];
+            [arr addObjectsFromArray:objects];
+            ws.comments=arr;
+            [ws.tableView reloadData];
+        }
+        ws.refreshView.infinite=NO;
+        ws.refreshView.progress=1;
+    }];
     
 }
 
--(void)close:(UIButton*)btn{
-//    [btn removeFromSuperview];
-//    
-//    MMDrawerController *dc=self.mm_drawerController;
-//    
-//    [dc closeDrawerAnimated:YES completion:^(BOOL finished) {
-//        dc.rightDrawerViewController=nil;
-//    }];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
-- (void)didReceiveMemoryWarning
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    [super didReceiveMemoryWarning];
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.comments.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSDictionary *comment=self.comments[indexPath.row];
+    NSString *text= comment[@"text"];
+    
+    CGSize size= [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(220, 500)];
+    
+    return MAX(size.height+35, 50);
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *comment=self.comments[indexPath.row];
+    NSDictionary *user=[comment objectForKey:@"user"];
+    
+    NSString *CellIdentifier = @"CommentCell";
+    
+    NSString *idstr=user[@"idstr"];
+    if (idstr==nil ||
+        [idstr isEqualToString:self.post[@"user"][@"id"]]) {
+        CellIdentifier = @"CommentCell2";
+    }
+    
+    
+    VZCommentCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    if (cell == nil) {
+        cell = [[VZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    
+    
+    cell.textLb.text= comment[@"text"];
+    
+    
+    NSString *url=user[@"avatar_large"];
+    if(url==nil){
+        url=user[@"avatar"];
+        url=[url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
+    }
+    
+    [cell.avatarView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"head"]];
+    
+    
+    
+    return cell;
 }
 
 @end
