@@ -25,6 +25,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    application.applicationIconBadgeNumber=0;
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -43,7 +44,6 @@
     self.window.backgroundColor=[UIColor blackColor];
     
     UIImageView *bg=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
-    //bg.center=CGPointMake(0, bg.center.y);
     bg.alpha=0.8;
     [self.window addSubview:bg];
     
@@ -52,6 +52,7 @@
 
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [AVAnalytics setCrashReportEnabled:YES andIgnore:NO];
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
@@ -59,79 +60,70 @@
     
     
     UINavigationController *nav=[board instantiateInitialViewController];
-
+    
     MMDrawerController * menu = [[MMDrawerController alloc]initWithCenterViewController:nav
                                              leftDrawerViewController:menuC];
     
-//    menu.showsStatusBarBackgroundView=YES;
-//    menu.statusBarViewBackgroundColor=[UIColor colorWithWhite:1 alpha:0.5];
-//    menu.showsShadow=NO;
     
-    menu.openDrawerGestureModeMask=MMOpenDrawerGestureModePanningCenterView|MMOpenDrawerGestureModePanningNavigationBar;
+    menu.openDrawerGestureModeMask=MMOpenDrawerGestureModeNone;
     menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeAll;
     menu.shouldStretchDrawer=NO;
     menu.maximumLeftDrawerWidth=64;
     
     menu.maximumRightDrawerWidth=310;
     
-    menu.centerHiddenInteractionMode=MMDrawerOpenCenterInteractionModeNone;
-    
-    
-    
+    [menuC setMenuBtn];
     
     self.window.rootViewController=menu;
     [self.window makeKeyAndVisible];
     
-   // [self.window addSubview:[VZNavView shared]];
-    
-    
-    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-        
-        switch (drawerSide) {
-            case MMDrawerSideLeft:
-                [[VZNavView shared].arrowBtn setTransform:CGAffineTransformMakeRotation(-M_PI /2*percentVisible)];
-                break;
-            
-                
-            case MMDrawerSideRight:
-                if (percentVisible==1.0) {
-                    [[VZNavView shared] showClose:YES];
-                }else if (percentVisible==0.0) {
-                    [[VZNavView shared] showClose:NO];
-                    //drawerController.rightDrawerViewController=nil;
-                }
-                break;
-            default:
-                break;
-        }
-        
-//        if (percentVisible==1.0) {
-//            switch (drawerSide) {
-//                case MMDrawerSideRight:
-//                    [[VZNavView shared] showClose:YES];
-//                    break;
+//    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+//        
+//        switch (drawerSide) {
+//            case MMDrawerSideLeft:
+//                [[VZNavView shared].arrowBtn setTransform:CGAffineTransformMakeRotation(-M_PI /2*percentVisible)];
+//                break;
+//            
 //                
-//                case MMDrawerSideLeft:
-//                    [[VZNavView shared] arrowDown];
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }else if (percentVisible==0.0) {
-//            switch (drawerSide) {
-//                case MMDrawerSideRight:
+//            case MMDrawerSideRight:
+//                if (percentVisible==1.0) {
+//                    [[VZNavView shared] showClose:YES];
+//                }else if (percentVisible==0.0) {
 //                    [[VZNavView shared] showClose:NO];
-//                    break;
-//                case MMDrawerSideLeft:
-//                    [[VZNavView shared] arrowLeft];
-//                    break;
-//                default:
-//                    break;
-//            }
+//                    //drawerController.rightDrawerViewController=nil;
+//                }
+//                break;
+//            default:
+//                break;
 //        }
-        
-    }];
-    
+//        
+////        if (percentVisible==1.0) {
+////            switch (drawerSide) {
+////                case MMDrawerSideRight:
+////                    [[VZNavView shared] showClose:YES];
+////                    break;
+////                
+////                case MMDrawerSideLeft:
+////                    [[VZNavView shared] arrowDown];
+////                    break;
+////                default:
+////                    break;
+////            }
+////        }else if (percentVisible==0.0) {
+////            switch (drawerSide) {
+////                case MMDrawerSideRight:
+////                    [[VZNavView shared] showClose:NO];
+////                    break;
+////                case MMDrawerSideLeft:
+////                    [[VZNavView shared] arrowLeft];
+////                    break;
+////                default:
+////                    break;
+////            }
+////        }
+//        
+//    }];
+//    
  
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
@@ -142,7 +134,6 @@
     
     return YES;
 }
-
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     AVInstallation *currentInstallation = [AVInstallation currentInstallation];

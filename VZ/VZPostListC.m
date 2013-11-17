@@ -15,9 +15,6 @@
 #import "VZNavView.h"
 #import <AVOSCloud/AVGlobal.h>
 
-#define  REFRESH_TRIGGER 24
-#define  REFRESH_HEIGHT 80
-
 #define  QUERY_LIMIT 30
 #define  ORDER_BY @"createdAt"
 
@@ -55,10 +52,6 @@
 //    }
     
    
-}
-
--(void)menu:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 - (void)viewDidLoad

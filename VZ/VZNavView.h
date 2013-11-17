@@ -20,3 +20,6 @@
 -(void)showClose:(BOOL)flag;
 @end
 
+
+#define  REFRESH_TRIGGER 24
+#define  REFRESH_HEIGHT 80

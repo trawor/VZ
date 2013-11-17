@@ -14,10 +14,13 @@
 
 #import "VZNavView.h"
 
+#define gap 5
 
 @interface VZPostViewC ()
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
+@property (nonatomic,retain) UIView *container;
+
 @end
 
 @implementation VZPostViewC
@@ -29,15 +32,11 @@
     NSArray *pics=[self.post objectForKey:@"pics"];
     
     if (pics.count>0) {
-        int gap=5;
+        
         float w=self.view.frame.size.width-gap*2;
         float h=w/16*9;
         
         UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
-        
-        
-        
-        
         
         int c=MIN(pics.count, 5);
         
@@ -65,7 +64,7 @@
         }
         
         self.tableView.tableHeaderView=picContiner;
-        
+        self.container=picContiner;
     }else{
         self.tableView.tableHeaderView=nil;
     }
@@ -77,7 +76,7 @@
     
     //[self.tableView registerClass:[VZCommentCell class] forCellReuseIdentifier:@"CommentCell"];
     
-    self.navigationItem.backBarButtonItem.tintColor=[UIColor whiteColor];
+    [self.navigationItem.backBarButtonItem setTitle:@""];
     
     self.refreshView=[[VZProgressView alloc] initWithWidth:44];
     self.refreshView.infinite=YES;
@@ -107,8 +106,6 @@
     }];
     
 }
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -167,5 +164,7 @@
     
     return cell;
 }
+
+
 
 @end

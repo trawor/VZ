@@ -29,6 +29,7 @@
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
 		1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DFD9E1821F31500323B65 /* VZProgressView.m */; };
 		1F7DFDA11821F6F200323B65 /* AVOSCloudSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */; };
+		1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8A64BD1838C73D00E825BC /* MapKit.framework */; };
 		1F94FF58183763C0001114B4 /* VZNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F94FF57183763C0001114B4 /* VZNavView.m */; };
 		1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF59183781D5001114B4 /* arrow@2x.png */; };
 		1F94FF5C183786BA001114B4 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF5B183786BA001114B4 /* close@2x.png */; };
@@ -94,6 +95,7 @@
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
 		1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "../../../Library/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
+		1F8A64BD1838C73D00E825BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F94FF56183763C0001114B4 /* VZNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNavView.h; sourceTree = "<group>"; };
 		1F94FF57183763C0001114B4 /* VZNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavView.m; sourceTree = "<group>"; };
 		1F94FF59183781D5001114B4 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */,
 				1F7DFDA11821F6F200323B65 /* AVOSCloudSNS.framework in Frameworks */,
 				1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */,
 				1F7721F51812D3680080308A /* UIKit.framework in Frameworks */,
@@ -168,6 +171,7 @@
 		1F7721EF1812D3680080308A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F8A64BD1838C73D00E825BC /* MapKit.framework */,
 				1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */,
 				1F7721F01812D3680080308A /* Foundation.framework */,
 				1F7721F21812D3680080308A /* CoreGraphics.framework */,

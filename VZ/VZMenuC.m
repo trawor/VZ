@@ -68,8 +68,8 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     
     self.tableView.tableHeaderView.frame=CGRectMake(0, 0, 10, 0);
     
-    self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
-    [self.avatar addGestureRecognizer:self.loginTap];
+    //self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
+    //[self.avatar addGestureRecognizer:self.loginTap];
     
     [self onLogin:(id)[AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo]];
     
@@ -80,7 +80,48 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 //}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    UINavigationController *nav=(id)self.mm_drawerController.centerViewController;
+    
+    if (indexPath.section==1) {
+        [nav setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"SettingC"]] animated:YES];
+    }else if(indexPath.section==0){
+        switch (indexPath.row) {
+            case 0:
+                [self login];
+                return;
+                break;
+            
+            case 1:
+            {
+                UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"PostListC"];
+                [nav setViewControllers:@[vc] animated:YES];
+            }
+                break;
+                
+            case 2:
+            {
+                UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"NearC"];
+                [nav setViewControllers:@[vc] animated:YES];
+            }
+                
+            default:
+                break;
+        }
+    }
+    [self setMenuBtn];
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+}
+
+-(void)setMenuBtn{
+    UINavigationController *nav=(id)self.mm_drawerController.centerViewController;
+    UIViewController *vc= nav.viewControllers[0];
+    
+    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+    vc.navigationItem.leftBarButtonItem=btn;
+    
+}
+-(void)menu:(id)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 @end

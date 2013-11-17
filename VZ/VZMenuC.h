@@ -10,5 +10,5 @@
 #import <UIKit/UIKit.h>
 @interface VZMenuC :UITableViewController<UITableViewDelegate>
 -(void)onLogin:(id)user;
-
+-(void)setMenuBtn;
 @end
