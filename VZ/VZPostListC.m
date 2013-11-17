@@ -12,18 +12,18 @@
 #import "VZPostCell.h"
 #import <UIViewController+MMDrawerController.h>
 #import <MMDrawerController.h>
-
+#import "VZNavView.h"
 #import <AVOSCloud/AVGlobal.h>
 
-#define  REFRESH_HEIGHT 20
-#define  REFRESH_TRIGGER 50
+#define  REFRESH_TRIGGER 24
+#define  REFRESH_HEIGHT 80
 
 #define  QUERY_LIMIT 30
 #define  ORDER_BY @"createdAt"
 
 @interface VZPostListC (){
     BOOL updateRefreshView;
-    BOOL showRefreshView;
+    BOOL dragStart;
     
     BOOL isAddNew;
 }
@@ -48,11 +48,11 @@
     
     //[self menu:Nil];return;
     
-    if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
-        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    }else {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-    }
+//    if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
+//        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//    }else {
+//        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+//    }
     
    
 }
@@ -101,23 +101,23 @@
     [btmV addSubview:btn];
     self.tableView.tableFooterView=btmV;
     
+    [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     
-    
-    int topH=300;
-    
-    UIView *topV= [[UIView alloc] initWithFrame:CGRectMake(0, -topH, self.view.frame.size.width, topH)];
-    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
-    
-    
-    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT*2];
-    self.refreshView.autoCenter=NO;
-    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT);
-    [topV addSubview:self.refreshView];
-    [self.view addSubview:topV];
-    
-    
-    
-    [self showRefresh];
+//    int topH=300;
+//    
+//    UIView *topV= [[UIView alloc] initWithFrame:CGRectMake(0, -topH, self.view.frame.size.width, topH)];
+//    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
+//    
+//    
+//    self.refreshView=[[VZProgressView alloc] initWithWidth:REFRESH_HEIGHT*2];
+//    self.refreshView.autoCenter=NO;
+//    self.refreshView.center=CGPointMake(self.view.frame.size.width/2, topH-REFRESH_HEIGHT);
+//    [topV addSubview:self.refreshView];
+//    [self.view addSubview:topV];
+//    
+//    
+//    
+//    [self showRefresh];
     [self loadNew];
     
 }
@@ -227,15 +227,15 @@
 
 
 -(void)hideRefreshView{
-    if (updateRefreshView) {
-        [UIView animateWithDuration:0.2 animations:^{
-            [self.tableView setContentInset:UIEdgeInsetsZero];
-        } completion:^(BOOL finished) {
-            self.refreshView.infinite=NO;
-            updateRefreshView=NO;
-        }];
-        
-    }
+
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
+    } completion:^(BOOL finished) {
+        [VZNavView shared].refreshView.infinite=NO;
+        [VZNavView shared].refreshView.progress=1;
+        updateRefreshView=NO;
+    }];
+    
 }
 
 -(void)showRefresh{
@@ -244,27 +244,36 @@
     }
     
     updateRefreshView=YES;
-    self.refreshView.infinite=YES;
-    
     [UIView animateWithDuration:0.2 animations:^{
-        [self.tableView setContentInset:UIEdgeInsetsMake(REFRESH_HEIGHT+REFRESH_TRIGGER, 0, 0, 0)];
+        [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height]+REFRESH_TRIGGER, 0, 0, 0)];
     }];
+
+    [VZNavView shared].refreshView.infinite=YES;
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    dragStart=YES;
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     float y=scrollView.contentOffset.y;
-    if (!updateRefreshView && y<-REFRESH_HEIGHT-REFRESH_TRIGGER) {
+    
+    NSLog(@"DRAG Y is %.0f",y);
+    if (!updateRefreshView && y<=-REFRESH_TRIGGER-REFRESH_HEIGHT) {
         [self.tableView setContentInset:UIEdgeInsetsMake(-y, 0, 0, 0)];
         
         [self showRefresh];
         [self loadNew];
+        
+        dragStart=NO;
     }
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float y=scrollView.contentOffset.y;
-    if (!updateRefreshView && y<0) {
-        [self.refreshView setProgress:(-y-REFRESH_TRIGGER)*1.0/REFRESH_HEIGHT animated:NO];
+    
+    if (dragStart && !updateRefreshView && y<0) {
+        [[VZNavView shared].refreshView setProgress:(1.0-(-y-REFRESH_HEIGHT)*1.0f/REFRESH_TRIGGER) animated:NO];
     }
 }
 
@@ -353,6 +362,10 @@
     VZPostViewC *pc=[[VZPostViewC alloc] init];
     pc.post=post;
     
-    //[self.navigationController pushViewController:pc animated:YES];
+//    self.mm_drawerController.rightDrawerViewController=pc;
+//    
+//    [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:nil];
+    
+    [self.navigationController pushViewController:pc animated:YES];
 }
 @end

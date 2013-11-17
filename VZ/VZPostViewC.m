@@ -23,14 +23,14 @@
     
     if (pics.count>0) {
         
-        float w=self.view.frame.size.width-80;
-        float h=w/4*3;
+        float w=self.view.frame.size.width-10;
+        float h=w/16*9;
         
-        UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(40, 40, w, h)];
+        UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(5, 49, w, h)];
         
         
         
-        int gap=3;
+        int gap=5;
         
         int c=MIN(pics.count, 5);
         
@@ -38,9 +38,9 @@
         
         for (int i=0; i<c; i++) {
             float y=(c-i-1)*gap;
-            UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(i*gap*0.5, y, w-i*gap, h-y)];
+            UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(i*gap, y, w-i*gap*2, h-y)];
             imgv.contentMode=UIViewContentModeScaleAspectFill;
-            imgv.alpha=(c-i)*0.3/c+0.7;
+            imgv.alpha=(c-i)*0.6/c+0.4;
             imgv.clipsToBounds=YES;
             if (lastV) {
                 [picContiner insertSubview:imgv belowSubview:lastV];
@@ -65,23 +65,11 @@
 {
     [super viewDidLoad];
 	self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2"]];
+    //self.view.backgroundColor=[UIColor clearColor];
     [self loadPics];
     
     
-    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=CGRectMake(0, 20, 40, 40);
-    [btn setTitle:@"<" forState:UIControlStateNormal];
-    [btn setBackgroundColor:[UIColor greenColor]];
-    [btn addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
     
-    
-    btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=CGRectMake(self.view.frame.size.width-40, 20, 40, 40);
-    [btn setTitle:@">" forState:UIControlStateNormal];
-    [btn setBackgroundColor:[UIColor greenColor]];
-    [btn addTarget:self action:@selector(close:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
 }
 
 -(void)close:(UIButton*)btn{

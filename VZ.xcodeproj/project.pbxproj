@@ -25,6 +25,9 @@
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
 		1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DFD9E1821F31500323B65 /* VZProgressView.m */; };
 		1F7DFDA11821F6F200323B65 /* AVOSCloudSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */; };
+		1F94FF58183763C0001114B4 /* VZNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F94FF57183763C0001114B4 /* VZNavView.m */; };
+		1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF59183781D5001114B4 /* arrow@2x.png */; };
+		1F94FF5C183786BA001114B4 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF5B183786BA001114B4 /* close@2x.png */; };
 		1FAACB231813DB5700BA19DC /* head@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB221813DB5700BA19DC /* head@2x.png */; };
 		1FAACB261813E13F00BA19DC /* near@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB241813E13F00BA19DC /* near@2x.png */; };
 		1FAACB271813E13F00BA19DC /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FAACB251813E13F00BA19DC /* settings@2x.png */; };
@@ -82,6 +85,10 @@
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
 		1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "../../../Library/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
+		1F94FF56183763C0001114B4 /* VZNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNavView.h; sourceTree = "<group>"; };
+		1F94FF57183763C0001114B4 /* VZNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavView.m; sourceTree = "<group>"; };
+		1F94FF59183781D5001114B4 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
+		1F94FF5B183786BA001114B4 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		1FAACB221813DB5700BA19DC /* head@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head@2x.png"; sourceTree = "<group>"; };
 		1FAACB241813E13F00BA19DC /* near@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "near@2x.png"; sourceTree = "<group>"; };
 		1FAACB251813E13F00BA19DC /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
@@ -178,6 +185,8 @@
 		1F7721F71812D3680080308A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1F94FF5B183786BA001114B4 /* close@2x.png */,
+				1F94FF59183781D5001114B4 /* arrow@2x.png */,
 				1F7722021812D3680080308A /* Images.xcassets */,
 				1FAACB2E1813E27B00BA19DC /* Dots@2x.png */,
 				1FDD752F181CE30000F490A3 /* geo@2x.png */,
@@ -238,6 +247,8 @@
 			children = (
 				1F7DFD9D1821F31500323B65 /* VZProgressView.h */,
 				1F7DFD9E1821F31500323B65 /* VZProgressView.m */,
+				1F94FF56183763C0001114B4 /* VZNavView.h */,
+				1F94FF57183763C0001114B4 /* VZNavView.m */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -340,6 +351,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F94FF5C183786BA001114B4 /* close@2x.png in Resources */,
 				1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */,
 				1FAACB2B1813E19700BA19DC /* all@2x.png in Resources */,
 				1F7721FB1812D3680080308A /* InfoPlist.strings in Resources */,
@@ -350,6 +362,7 @@
 				1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */,
 				1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */,
 				1FAACB231813DB5700BA19DC /* head@2x.png in Resources */,
+				1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */,
 				1FDD752E181CCD6F00F490A3 /* bg2@2x.png in Resources */,
 				1FDD7530181CE30000F490A3 /* geo@2x.png in Resources */,
 				1F7722031812D3680080308A /* Images.xcassets in Resources */,
@@ -414,6 +427,7 @@
 				1F7722011812D3680080308A /* VZAppDelegate.m in Sources */,
 				1F7721FD1812D3680080308A /* main.m in Sources */,
 				1FC0819118252A13005CAFBB /* VZNearC.m in Sources */,
+				1F94FF58183763C0001114B4 /* VZNavView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
