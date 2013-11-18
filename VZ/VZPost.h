@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <AVOSCloud/AVOSCloud.h>
-
-@interface VZPost : AVObject<AVSubclassing>
+#import <MapKit/MapKit.h>
+@interface VZPost : AVObject<AVSubclassing,MKAnnotation>
 
 @property(nonatomic,copy) NSString *text;
+@property(nonatomic,retain) AVGeoPoint *geo;
 
 //@property(nonatomic,retain) NSDictionary *user;
 
