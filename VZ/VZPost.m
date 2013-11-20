@@ -20,11 +20,11 @@
     return CLLocationCoordinate2DMake(self.geo.latitude, self.geo.longitude);
 }
 
--(NSString*)title{
+-(NSString*)subtitle{
     return self.text;
 }
 
--(NSString*)subtitle{
+-(NSString*)title{
     int i=[[self objectForKey:@"type"] intValue];
     
     switch (i) {

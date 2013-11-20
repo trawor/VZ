@@ -7,8 +7,7 @@
 //
 
 #import "VZM.h"
-#import <AVOSCloud/AFJSONRequestOperation.h>
-#import <AVOSCloud/AFHTTPClient.h>
+
 
 @implementation VZM
 +(VZM*)shared{

@@ -14,12 +14,14 @@
 
 #import "VZNavView.h"
 
+#import "VZStacView.h"
+
 #define gap 5
 
 @interface VZPostViewC ()
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
-@property (nonatomic,retain) UIView *container;
+@property (nonatomic,retain) VZStacView *stac;
 
 @end
 
@@ -33,59 +35,59 @@
     
     if (pics.count>0) {
         
-        float w=self.view.frame.size.width-gap*2;
-        float h=w/16*9;
+        float h=240;
         
-        UIView *picContiner= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
+        VZStacView *sv=[[VZStacView alloc]
+                        initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
         
-        int c=MIN(pics.count, 5);
-        
-        UIImageView *lastV=nil;
-        
-        for (int i=0; i<c; i++) {
-            float y=(c-i-1)*gap;
-            UIImageView *imgv=[[UIImageView alloc] initWithFrame:CGRectMake(gap+i*gap, y, w-i*gap*2, h-y)];
-            imgv.contentMode=UIViewContentModeScaleAspectFill;
-            imgv.alpha=(c-i)*0.6/c+0.4;
-            imgv.clipsToBounds=YES;
-            if (lastV) {
-                [picContiner insertSubview:imgv belowSubview:lastV];
-            }else{
-                [picContiner addSubview:imgv];
-            }
-            
-            lastV=imgv;
+        for (int i=0; i<pics.count; i++) {
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
+            AFImageRequestOperation *opt=[AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
+                [sv addImage:image];
+            }];
             
-            [imgv setImageWithURL:[NSURL URLWithString:url]
-                 placeholderImage:[UIImage imageNamed:@"AppIcon57x57"]];
+            [model.client enqueueHTTPRequestOperation:opt];
         }
         
-        self.tableView.tableHeaderView=picContiner;
-        self.container=picContiner;
+        self.stac=sv;
+        self.tableView.tableHeaderView=sv;
+        
     }else{
         self.tableView.tableHeaderView=nil;
     }
+    
+    self.tableView.contentInset=UIEdgeInsetsMake(-44, 0, 0, 0);
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    float y=scrollView.contentOffset.y;
+    
+    if (y<=40 && self.stac.open==NO) {
+        [self.stac scroll:y];
+        
+        if (y<-150) {
+            self.stac.open=YES;
+            self.tableView.tableHeaderView=self.stac;
+        }
+    }
+    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    //[self.tableView registerClass:[VZCommentCell class] forCellReuseIdentifier:@"CommentCell"];
-    
     [self.navigationItem.backBarButtonItem setTitle:@""];
     
     self.refreshView=[[VZProgressView alloc] initWithWidth:44];
     self.refreshView.infinite=YES;
     
-    
     self.navigationItem.titleView=self.refreshView;
     
 	self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
-    //self.view.backgroundColor=[UIColor clearColor];
+    
     [self loadPics];
     
     NSDictionary *comment=@{@"user":self.post[@"user"],@"text":self.post.text};
@@ -111,6 +113,37 @@
 {
     return 1;
 }
+
+//-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (section==0) {
+//        UIView *toolView=[[UIView alloc] initWithFrame:CGRectMake(0, 5, 320, 40)];
+//        
+//        UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+//        btn.layer.borderWidth=1;
+//        btn.layer.borderColor=[UIColor colorWithWhite:1 alpha:0.8].CGColor;
+//        btn.clipsToBounds=YES;
+//        btn.layer.cornerRadius=4;
+//        btn.frame=CGRectMake(10, 0, 60, 40);
+//        btn.titleLabel.font=[UIFont systemFontOfSize:14];
+//        
+//        [btn setTitle:@"收藏" forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+//        
+//        [toolView addSubview:btn];
+//        
+//        
+//        return toolView;
+//        
+//    }
+//    
+//    return nil;
+//}
+//
+//-(float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+//    return 50;
+//}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

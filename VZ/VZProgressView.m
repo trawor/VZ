@@ -143,7 +143,7 @@
         animation2.fromValue = [NSNumber numberWithFloat:0];
         animation2.toValue = [NSNumber numberWithFloat:1];
         
-        group.duration =dur*2.0;
+        //group.duration =dur*2.0;
         group.fillMode = kCAFillModeForwards;
         group.autoreverses = YES;
         group.repeatCount=65530;
@@ -157,6 +157,7 @@
         [CATransaction commit];
     }else{
         [self.shapeLayer removeAllAnimations];
+        [self setProgress:_progress animated:NO];
     }
 }
 

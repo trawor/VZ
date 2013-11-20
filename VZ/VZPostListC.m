@@ -58,6 +58,8 @@
 {
     [super viewDidLoad];
     
+    self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
+    
     UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
     
     swipe.direction=UISwipeGestureRecognizerDirectionRight;
@@ -130,21 +132,23 @@
 
 -(void)onGetNewPosts:(NSArray*)objects isMore:(BOOL)isMore{
     if (objects.count) {
-//        NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
-//        for (AVObject *post in objects) {
-//            NSString *pid=post.objectId;
-//            if (![ids containsObject:pid]) {
-//                [self.posts addObject:post];
-//            }
-//        }
+        NSMutableArray *newObjs=[NSMutableArray array];
+        NSArray *ids= [self.posts valueForKeyPath:@"objectId"];
+        for (AVObject *post in objects) {
+            NSString *pid=post.objectId;
+            if (![ids containsObject:pid]) {
+                [newObjs addObject:post];
+            }
+        }
         
-        objects=[objects sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ORDER_BY ascending:NO]]];
+        objects=[newObjs sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ORDER_BY ascending:NO]]];
         
         
         int offset=0;
         if (isMore) {
             offset=self.posts.count;
         }else{
+            [[NSUserDefaults standardUserDefaults] setObject:self.newid forKey:@"CacheCourse"];
             self.newid=objects[0][ORDER_BY];
         }
         
@@ -161,7 +165,6 @@
         
         [self.tableView reloadData];
         
-        
     }
     
 }
@@ -170,7 +173,7 @@
 -(AVQuery*)getQuery{
     
     AVQuery *q=[VZPost query];
-    
+    //q.cachePolicy=kPFCachePolicyCacheElseNetwork;
     [q orderByDescending:ORDER_BY];
     
     [q setLimit:QUERY_LIMIT];

@@ -8,11 +8,14 @@
 
 #import "VZNearC.h"
 #import <UIImageView+AFNetworking.h>
+#import "VZProgressView.h"
+#import "VZPostViewC.h"
+
 @interface VZNearC (){
     BOOL gotUserLocation;
 }
 @property (nonatomic, retain) NSArray *posts;
-
+@property (nonatomic,retain) VZProgressView *refreshView;
 @end
 
 @implementation VZNearC
@@ -22,9 +25,18 @@
 {
     [super viewDidLoad];
 	self.mapView.userTrackingMode=MKUserTrackingModeNone;
+    
+    self.refreshView=[[VZProgressView alloc] initWithWidth:44];
+    [self.refreshView setProgress:1 animated:NO];
+    self.refreshView.infinite=YES;
+    self.navigationItem.titleView=self.refreshView;
 }
 
 -(void)reloadPosts{
+    if (!self.refreshView.infinite) {
+        self.refreshView.infinite=YES;
+    }
+    
     MKCoordinateRegion  region= self.mapView.region;
     
     AVQuery *q= [VZPost query];
@@ -52,6 +64,8 @@
             }
            
         }
+        ws.refreshView.infinite=NO;
+        [ws.refreshView setProgress:1 animated:NO];
     }];
 }
 
@@ -96,7 +110,7 @@
             url=[url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
         }
         
-        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
         [imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"head"]];
         annotationView.leftCalloutAccessoryView = imageView;
     }else{
@@ -107,22 +121,75 @@
     
 }
 
+-(void)onGetLocation:(CLLocationCoordinate2D)location exact:(BOOL)exact{
+    gotUserLocation=YES;
+    
+    float kilo=5;
+    if (exact==NO) {
+        kilo=50;
+    }
+    
+    MKCoordinateRegion  region=MKCoordinateRegionMakeWithDistance(location, kilo*1000,  kilo*1000);
+    [self.mapView setRegion:region animated:YES];
+    
+    [self reloadPosts];
+}
+
+-(void)onLocationFail{
+    gotUserLocation=YES;
+    
+    [self reloadPosts];
+}
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     if (gotUserLocation) {
         return;
     }
-    gotUserLocation=YES;
-    MKCoordinateRegion  region=MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 5*1000,  5*1000);
-    [mapView setRegion:region animated:YES];
+    [self onGetLocation:userLocation.location.coordinate exact:YES];
+}
+
+-(void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error{
+    if (gotUserLocation) {
+        return;
+    }
+
+    __weak typeof(self) ws=self;
     
-    [self reloadPosts];
+    AFJSONRequestOperation *opt=[AFJSONRequestOperation
+                                 JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:
+                                                                  [NSURL URLWithString:@"http://api.map.baidu.com/location/ip?ak=08fadd5a7e397b10f4599c325ee55b9c&coor=bd09ll"]]
+                                 success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                     
+                                     NSDictionary *point=JSON[@"content"][@"point"];
+                                     if (point) {
+                                         [ws onGetLocation:CLLocationCoordinate2DMake([point[@"y"] floatValue], [point[@"x"] floatValue])
+                                          exact:NO];
+                                     }else{
+                                         [ws onLocationFail];
+                                     }
+                                 }
+                                 failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                     [ws onLocationFail];
+                                 }];
+    
+    [model.client enqueueHTTPRequestOperation:opt];
 }
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
     if (!animated) {
-        
+        [self reloadPosts];
     }
+}
+
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+    VZPost *post=(id)view.annotation;
+    if ([post isKindOfClass:[VZPost class]]) {
+        VZPostViewC *pc=[self.storyboard instantiateViewControllerWithIdentifier:@"PostViewC"];
+        pc.post=post;
+        
+        [self.navigationController pushViewController:pc animated:YES];
+    }
+    
 }
 
 

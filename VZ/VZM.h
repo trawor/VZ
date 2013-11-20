@@ -13,9 +13,8 @@
 
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
-
+#import <AVOSCloud/AFJSONRequestOperation.h>
 #import <AVOSCloud/AFHTTPClient.h>
-
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
