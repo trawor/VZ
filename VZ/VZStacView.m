@@ -56,7 +56,6 @@
 
 -(void)scroll:(float)y{
     float dlt=-y/self.initFrame.size.height;
-    
     if (self.open) {
         return;
     }
@@ -65,6 +64,7 @@
         self.open=YES;
         return;
     }
+    dlt=MAX(0.07, dlt);
     [self layoutWithDelta:dlt];
 }
 

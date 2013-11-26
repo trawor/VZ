@@ -40,10 +40,10 @@
 }
 
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{
-    NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
-    NSString *token=[dict objectForKey:@"access_token"];
-    
-    if (token) {
+    if (![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+        NSString *token=[dict objectForKey:@"access_token"];
+        
         NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/comments/show.json?id=%@&access_token=%@",wbid,token];
         NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         

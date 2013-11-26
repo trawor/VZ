@@ -20,16 +20,26 @@
 
 #define gap 5
 
-@interface VZPostViewC ()<VZStacViewDelegate>
+@interface VZPostViewC ()<VZStacViewDelegate,UITextFieldDelegate>
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
 @property (nonatomic,retain) VZStacView *stac;
+
+@property (nonatomic,retain) UIView *bottomView;
+@property (nonatomic,retain) UITextField *inputView;
+@property (nonatomic,retain) UIImageView *userView;
 
 @end
 
 @implementation VZPostViewC
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    [textField resignFirstResponder];
+    return NO;
 }
 
 -(void)stacViewOpenChanged:(VZStacView *)stacView{
@@ -77,7 +87,6 @@
     float y=scrollView.contentOffset.y;
     
     [self.stac scroll:y];
-    
 }
 
 -(void)onBack{
@@ -91,6 +100,31 @@
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets=NO;
     }
+    
+    UIView *bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
+    //bottomView.backgroundColor=[UIColor colorWithWhite:0 alpha:0.7];
+    
+    UIImageView *userV=[[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 40, 40)];
+    userV.layer.cornerRadius=20;
+    userV.clipsToBounds=YES;
+    [bottomView addSubview:userV];
+    self.userView=userV;
+    
+    UIImageView *ivBg=[[UIImageView alloc] initWithFrame:CGRectMake(50, 25, 260, 40)];
+    ivBg.image=[[UIImage imageNamed:@"chatBg"] stretchableImageWithLeftCapWidth:30 topCapHeight:30];
+    
+    [bottomView addSubview:ivBg];
+    
+    UITextField *tf=[[UITextField alloc] initWithFrame:CGRectMake(65, 25, 230, 40)];
+    tf.font=[UIFont systemFontOfSize:14];
+    tf.textColor=[UIColor darkTextColor];
+    tf.returnKeyType=UIReturnKeySend;
+    tf.keyboardAppearance=UIKeyboardAppearanceAlert;
+    tf.placeholder=@"能便宜吗?";
+    
+    [bottomView addSubview:tf];
+    tf.delegate=self;
+    self.bottomView=bottomView;
     
     self.refreshView=[[VZProgressView alloc] initWithWidth:44];
     
@@ -113,8 +147,19 @@
     [self loadComments];
 }
 
+-(void)sendComment{
+    NSString *s= self.inputView.text;
+    if (s.length==0) {
+        s=self.inputView.placeholder;
+    }
+    
+    //TODO: send it
+}
+
 -(void)loadComments{
     self.refreshView.infinite=YES;
+    [self.userView setImageWithURL:[NSURL URLWithString:[[AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo] objectForKey:@"avatar"]]
+                  placeholderImage:[UIImage imageNamed:@"head"]];
     
     __weak typeof(self) ws=self;
     [model getCommentWithWbid:[self.post objectForKey:@"wbid"] callback:^(NSArray *objects, NSError *error) {
@@ -138,10 +183,10 @@
                 [btmV addSubview:btn];
                 ws.tableView.tableFooterView=btmV;
             }else{
-                ws.tableView.tableFooterView=nil;
+                ws.tableView.tableFooterView=self.bottomView;
             }
         }else {
-            ws.tableView.tableFooterView=nil;
+            ws.tableView.tableFooterView=self.bottomView;
             if (objects.count){
                 NSMutableArray *arr=[NSMutableArray arrayWithObject:ws.comments[0]];
                 [arr addObjectsFromArray:objects];

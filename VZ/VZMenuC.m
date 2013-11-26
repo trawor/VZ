@@ -46,17 +46,22 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 }
 
 -(void)onLogout{
+    [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
     self.avatar.image=[UIImage imageNamed:@"head"];
 }
 
 -(void)login{
-    [model login:^(id object, NSError *error) {
-        if (error) {
-            NSLog(@"login error %@",[error description]);
-        }else if(object){
-            [self onLogin:object];
-        }
-    }];
+    if ([AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        [model login:^(id object, NSError *error) {
+            if (error) {
+                NSLog(@"login error %@",[error description]);
+            }else if(object){
+                [self onLogin:object];
+            }
+        }];
+    }else{
+        [self onLogout];
+    }
     
 }
 
