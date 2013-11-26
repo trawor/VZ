@@ -15,6 +15,13 @@
 #import <MMDrawerController/MMDrawerController.h>
 #import "VZNavView.h"
 
+#import <Crashlytics/Crashlytics.h>
+
+@interface MMDrawerController (){
+    
+}
+-(UIView*)childControllerContainerView;
+@end
 @interface VZAppDelegate()
 {
     
@@ -25,6 +32,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"ae513c53d5df7ba251bcadb57536826d9d8f7824"];
+    
     application.applicationIconBadgeNumber=0;
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
     
@@ -41,7 +50,8 @@
     
     model;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor=[UIColor blackColor];
+    self.window.tintColor = [UIColor whiteColor];
+    //self.window.backgroundColor=[UIColor blackColor];
     
     UIImageView *bg=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     bg.alpha=0.8;
@@ -52,7 +62,6 @@
 
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    [AVAnalytics setCrashReportEnabled:YES andIgnore:NO];
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
@@ -66,16 +75,20 @@
     
     
     menu.openDrawerGestureModeMask=MMOpenDrawerGestureModeNone;
-    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeAll;
+    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeNone;
     menu.shouldStretchDrawer=NO;
     menu.maximumLeftDrawerWidth=64;
     
-    menu.maximumRightDrawerWidth=310;
+    menu.maximumRightDrawerWidth=64;
     
     [menuC setMenuBtn];
     
     self.window.rootViewController=menu;
+    menu.view.backgroundColor=[UIColor clearColor];
     [self.window makeKeyAndVisible];
+    
+    
+    [menu childControllerContainerView].backgroundColor=[UIColor clearColor];
     
 //    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
 //        

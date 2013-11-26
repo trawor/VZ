@@ -18,7 +18,7 @@
 
 #define gap 5
 
-@interface VZPostViewC ()
+@interface VZPostViewC ()<VZStacViewDelegate>
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
 @property (nonatomic,retain) VZStacView *stac;
@@ -30,6 +30,13 @@
     return UIStatusBarStyleLightContent;
 }
 
+-(void)stacViewOpenChanged:(VZStacView *)stacView{
+    if (stacView.open==NO) {
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 0) animated:YES];
+    }
+    self.tableView.tableHeaderView=stacView;
+}
+
 -(void)loadPics{
     NSArray *pics=[self.post objectForKey:@"pics"];
     
@@ -37,10 +44,14 @@
         
         float h=240;
         
+        if (self.stac) {
+            [self.stac removeFromSuperview];
+        }
+        
         VZStacView *sv=[[VZStacView alloc]
                         initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
-        
-        for (int i=0; i<pics.count; i++) {
+        sv.delegate=self;
+        for (int i=pics.count-1; i>=0; i--) {
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
@@ -58,33 +69,37 @@
         self.tableView.tableHeaderView=nil;
     }
     
-    self.tableView.contentInset=UIEdgeInsetsMake(-44, 0, 0, 0);
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float y=scrollView.contentOffset.y;
     
-    if (y<=40 && self.stac.open==NO) {
-        [self.stac scroll:y];
-        
-        if (y<-150) {
-            self.stac.open=YES;
-            self.tableView.tableHeaderView=self.stac;
-        }
-    }
+    [self.stac scroll:y];
     
+}
+
+-(void)onBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.navigationItem.backBarButtonItem setTitle:@""];
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets=NO;
+    }
     
     self.refreshView=[[VZProgressView alloc] initWithWidth:44];
     self.refreshView.infinite=YES;
     
     self.navigationItem.titleView=self.refreshView;
+    
+    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+    self.navigationItem.leftBarButtonItem=btn;
+    
+    UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+    self.navigationItem.rightBarButtonItem=btn2;
     
 	self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     
@@ -107,6 +122,25 @@
         ws.refreshView.progress=1;
     }];
     
+    
+    
+}
+
+-(void)menu:(UIBarButtonItem*)btn{
+    
+    if (self.mm_drawerController.openSide==MMDrawerSideRight) {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+            self.mm_drawerController.rightDrawerViewController=nil;
+        }];
+        
+    }else{
+        self.mm_drawerController.rightDrawerViewController=[UIViewController new];
+        
+        
+        [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

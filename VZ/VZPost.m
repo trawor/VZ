@@ -30,7 +30,7 @@
     switch (i) {
         case 0:
             return @"出售";
-            break;
+
         case 1:
             return @"求购";
             

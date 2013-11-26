@@ -143,16 +143,13 @@
         animation2.fromValue = [NSNumber numberWithFloat:0];
         animation2.toValue = [NSNumber numberWithFloat:1];
         
-        //group.duration =dur*2.0;
+        group.duration =dur*2.0;
         group.fillMode = kCAFillModeForwards;
         group.autoreverses = YES;
         group.repeatCount=65530;
         group.animations=@[animation,animation2];
         
         [self.shapeLayer addAnimation:group forKey:@"stroke"];
-        
-        
-        
         
         [CATransaction commit];
     }else{

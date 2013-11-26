@@ -9,7 +9,7 @@
 #import "VZStacView.h"
 
 #define WHRate 0.6
-
+#define TRIGGER_DLT 0.4
 @interface VZStacView ()
 {
     int count;
@@ -35,57 +35,54 @@
 }
 
 -(void)addImage:(UIImage*)img{
-    
+    if (self.open) {
+        return;
+    }
     UIImageView *imgv=[[UIImageView alloc] initWithImage:img];
     imgv.contentMode=UIViewContentModeScaleAspectFill;
     imgv.clipsToBounds=YES;
     imgv.frame=imgFrame;
     
     imgv.tag=count;
-    
-    
-    [self insertSubview:imgv atIndex:count];
-    
+    imgv.alpha=0.2;
     count++;
     
     [UIView beginAnimations:@"add" context:nil];
-    [UIView setAnimationDuration:0.25];
-    [self layoutSubviews];
+    [UIView setAnimationDuration:0.2];
+    [self insertSubview:imgv atIndex:count];
+    [self scroll:0];
     [UIView commitAnimations];
 }
 
 -(void)scroll:(float)y{
-    scrollY=-y;
+    float dlt=-y/self.initFrame.size.height;
     
-    [self layoutSubviews];
-}
-
-
--(void)layoutSubviews{
-    [super layoutSubviews];
-    if (count==0 || self.open) {
+    if (self.open) {
         return;
     }
     
+    if (dlt>=TRIGGER_DLT) {
+        self.open=YES;
+        return;
+    }
+    [self layoutWithDelta:dlt];
+    
+}
+
+
+-(void)layoutWithDelta:(float)dlt{
     CGRect f=self.frame;
     
-    float sy=scrollY+44;
-    
-    float dlt=sy/self.initFrame.size.height;
-    float gapH=sy/count*dlt;
+    float gapH=imageH*dlt/5.0;
     
     for (UIImageView *imgv in self.subviews) {
-        float scale=imgv.tag*1.0f/count*0.3+0.7;
+        float scale=1.0-(count-imgv.tag-1)*(TRIGGER_DLT-dlt)*0.2;
         imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
         
         float y=f.size.height-imageH*(1.0-scale*0.5)-(count-imgv.tag)*gapH;
         imgv.center=CGPointMake(self.initFrame.size.width/2, y);
-        //imgv.alpha=scale;
-        
-        //NSLog(@"tag:%d y:%.02f",imgv.tag,y);
+        imgv.alpha=scale;
     }
-    
-
 }
 
 -(void)setOpen:(BOOL)open{
@@ -95,6 +92,7 @@
     [UIView setAnimationDuration:0.5];
     
     if (open) {
+        
         float h=0;
         
         for (UIImageView *imgv in self.subviews) {
@@ -115,8 +113,14 @@
         CGRect f=self.initFrame;
         f.size.height=h;
         self.frame=f;
+        
+        
     }else{
         self.frame=self.initFrame;
+        [self layoutWithDelta:0];
+    }
+    if (self.delegate) {
+        [self.delegate stacViewOpenChanged:self];
     }
     [UIView commitAnimations];
     
