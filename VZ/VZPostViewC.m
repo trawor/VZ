@@ -16,6 +16,8 @@
 
 #import "VZStacView.h"
 
+#import "VZMenuC.h"
+
 #define gap 5
 
 @interface VZPostViewC ()<VZStacViewDelegate>
@@ -91,7 +93,6 @@
     }
     
     self.refreshView=[[VZProgressView alloc] initWithWidth:44];
-    self.refreshView.infinite=YES;
     
     self.navigationItem.titleView=self.refreshView;
     
@@ -109,21 +110,48 @@
     self.comments=@[comment];
     [self.tableView reloadData];
     
+    [self loadComments];
+}
+
+-(void)loadComments{
+    self.refreshView.infinite=YES;
     
     __weak typeof(self) ws=self;
     [model getCommentWithWbid:[self.post objectForKey:@"wbid"] callback:^(NSArray *objects, NSError *error) {
-        if (objects.count) {
-            NSMutableArray *arr=[NSMutableArray arrayWithObject:ws.comments[0]];
-            [arr addObjectsFromArray:objects];
-            ws.comments=arr;
-            [ws.tableView reloadData];
+        
+        if (error) {
+            if ([error.domain isEqualToString:@"vz"] && error.code==1) {
+                UIView *btmV=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
+                
+                UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+                btn.layer.borderWidth=1;
+                btn.layer.borderColor=[UIColor colorWithWhite:1 alpha:0.8].CGColor;
+                btn.clipsToBounds=YES;
+                btn.layer.cornerRadius=4;
+                btn.frame=CGRectMake(60, 10, 200, 40);
+                btn.titleLabel.font=[UIFont systemFontOfSize:14];
+                
+                [btn setTitle:@"登录微博, 查看评论" forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+                [btn addTarget:ws action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+                [btmV addSubview:btn];
+                ws.tableView.tableFooterView=btmV;
+            }else{
+                ws.tableView.tableFooterView=nil;
+            }
+        }else {
+            ws.tableView.tableFooterView=nil;
+            if (objects.count){
+                NSMutableArray *arr=[NSMutableArray arrayWithObject:ws.comments[0]];
+                [arr addObjectsFromArray:objects];
+                ws.comments=arr;
+                [ws.tableView reloadData];
+            }
         }
         ws.refreshView.infinite=NO;
         ws.refreshView.progress=1;
     }];
-    
-    
-    
 }
 
 -(void)menu:(UIBarButtonItem*)btn{
@@ -136,12 +164,26 @@
     }else{
         self.mm_drawerController.rightDrawerViewController=[UIViewController new];
         
-        
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
             
         }];
     }
 }
+
+-(void)login{
+    __weak typeof(self) ws=self;
+    [model login:^(id object, NSError *error) {
+        if (error) {
+            NSLog(@"login error %@",[error description]);
+        }else if(object){
+            [ws loadComments];
+            
+            [self.mm_drawerController.leftDrawerViewController performSelector:@selector(onLogin:) withObject:object];
+        }
+    }];
+    
+}
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

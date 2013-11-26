@@ -24,6 +24,7 @@
 
 +(VZM*)shared;
 
+-(void)login:(AVSNSResultBlock)callback;
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback;
 @end
 

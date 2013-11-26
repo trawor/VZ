@@ -50,16 +50,14 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 }
 
 -(void)login{
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://"];
-    //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
-    
-    [AVOSCloudSNS loginWithCallback:^(id object, NSError *error) {
+    [model login:^(id object, NSError *error) {
         if (error) {
             NSLog(@"login error %@",[error description]);
         }else if(object){
             [self onLogin:object];
         }
-    } toPlatform:AVOSCloudSNSSinaWeibo];
+    }];
+    
 }
 
 - (void)viewDidLoad
