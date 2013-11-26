@@ -258,7 +258,6 @@
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     float y=scrollView.contentOffset.y;
     
-    NSLog(@"DRAG Y is %.0f",y);
     if (!updateRefreshView && y<=-REFRESH_TRIGGER-REFRESH_HEIGHT) {
         [self.tableView setContentInset:UIEdgeInsetsMake(-y, 0, 0, 0)];
         

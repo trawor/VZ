@@ -120,7 +120,10 @@
     tf.textColor=[UIColor darkTextColor];
     tf.returnKeyType=UIReturnKeySend;
     tf.keyboardAppearance=UIKeyboardAppearanceAlert;
-    tf.placeholder=@"能便宜吗?";
+    
+    NSArray *cms=@[@"能便宜吗?",@"出了吗?",@"小刀一下吧"];
+    int rdm=arc4random()%cms.count;
+    tf.placeholder=cms[rdm];
     
     [bottomView addSubview:tf];
     tf.delegate=self;
