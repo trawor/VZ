@@ -40,18 +40,19 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     return UIStatusBarStyleLightContent;
 }
 
--(void)onLogin:(id)user{
+-(void)onLogin:(VZUser*)user{
     [self.avatar setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]]
                 placeholderImage:[UIImage imageNamed:@"head"]];
 }
 
 -(void)onLogout{
     [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
+    [VZUser logOut];
     self.avatar.image=[UIImage imageNamed:@"head"];
 }
 
 -(void)login{
-    if ([AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+    if ([VZUser currentUser]==nil) {
         [model login:^(id object, NSError *error) {
             if (error) {
                 NSLog(@"login error %@",[error description]);
@@ -74,7 +75,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     //self.loginTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(login)];
     //[self.avatar addGestureRecognizer:self.loginTap];
     
-    [self onLogin:(id)[AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo]];
+    [self onLogin:[VZUser currentUser]];
     
 }
 
@@ -111,20 +112,8 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
                 break;
         }
     }
-    [self setMenuBtn];
     [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
 }
 
--(void)setMenuBtn{
-    UINavigationController *nav=(id)self.mm_drawerController.centerViewController;
-    UIViewController *vc= nav.viewControllers[0];
-    
-    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
-    vc.navigationItem.leftBarButtonItem=btn;
-    
-}
--(void)menu:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
 
 @end

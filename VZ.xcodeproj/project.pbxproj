@@ -11,6 +11,8 @@
 		1F0F989418388E0E000CE764 /* VZCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F989318388E0E000CE764 /* VZCommentCell.m */; };
 		1F0F98971838987C000CE764 /* chatBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98951838987C000CE764 /* chatBg@2x.png */; };
 		1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98961838987C000CE764 /* chatBg2@2x.png */; };
+		1F4C5C0F184994CA00AB3696 /* AVOSCloudSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4C5C0E184994CA00AB3696 /* AVOSCloudSNS.framework */; };
+		1F4C5C121849B6ED00AB3696 /* VZNavC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C5C111849B6ED00AB3696 /* VZNavC.m */; };
 		1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F664F8A182375A500DA43F1 /* VZPostViewC.m */; };
 		1F7721F11812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
 		1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F21812D3680080308A /* CoreGraphics.framework */; };
@@ -28,8 +30,6 @@
 		1F7722241812D7EA0080308A /* VZPostListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722231812D7EA0080308A /* VZPostListC.m */; };
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
 		1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DFD9E1821F31500323B65 /* VZProgressView.m */; };
-		1F7DFDA11821F6F200323B65 /* AVOSCloudSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */; };
-		1F80745418443AB000D0D9B3 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F80745318443AB000D0D9B3 /* Crashlytics.framework */; };
 		1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8A64BD1838C73D00E825BC /* MapKit.framework */; };
 		1F94FF58183763C0001114B4 /* VZNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F94FF57183763C0001114B4 /* VZNavView.m */; };
 		1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF59183781D5001114B4 /* arrow@2x.png */; };
@@ -70,6 +70,9 @@
 		1F0F989318388E0E000CE764 /* VZCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZCommentCell.m; sourceTree = "<group>"; };
 		1F0F98951838987C000CE764 /* chatBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBg@2x.png"; sourceTree = "<group>"; };
 		1F0F98961838987C000CE764 /* chatBg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatBg2@2x.png"; sourceTree = "<group>"; };
+		1F4C5C0E184994CA00AB3696 /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "Pods/AVOSCloudSNS/iOS/release-v2.0.2/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
+		1F4C5C101849B6ED00AB3696 /* VZNavC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNavC.h; sourceTree = "<group>"; };
+		1F4C5C111849B6ED00AB3696 /* VZNavC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavC.m; sourceTree = "<group>"; };
 		1F664F89182375A500DA43F1 /* VZPostViewC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostViewC.h; sourceTree = "<group>"; };
 		1F664F8A182375A500DA43F1 /* VZPostViewC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostViewC.m; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,8 +100,6 @@
 		1F77222918138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
-		1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVOSCloudSNS.framework; path = "../../../Library/Developer/Xcode/DerivedData/VZ-fzrzbadxfdstnphjhnmklwdcmisw/Build/Products/Debug-iphoneos/AVOSCloudSNS.framework"; sourceTree = "<group>"; };
-		1F80745318443AB000D0D9B3 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1F8A64BD1838C73D00E825BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F94FF56183763C0001114B4 /* VZNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNavView.h; sourceTree = "<group>"; };
 		1F94FF57183763C0001114B4 /* VZNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavView.m; sourceTree = "<group>"; };
@@ -135,12 +136,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */,
-				1F7DFDA11821F6F200323B65 /* AVOSCloudSNS.framework in Frameworks */,
 				1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */,
+				1F4C5C0F184994CA00AB3696 /* AVOSCloudSNS.framework in Frameworks */,
 				1F7721F51812D3680080308A /* UIKit.framework in Frameworks */,
 				1F7721F11812D3680080308A /* Foundation.framework in Frameworks */,
 				77B6E3B0F2A047B5A6EC5218 /* libPods.a in Frameworks */,
-				1F80745418443AB000D0D9B3 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,9 +180,8 @@
 		1F7721EF1812D3680080308A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1F80745318443AB000D0D9B3 /* Crashlytics.framework */,
+				1F4C5C0E184994CA00AB3696 /* AVOSCloudSNS.framework */,
 				1F8A64BD1838C73D00E825BC /* MapKit.framework */,
-				1F7DFDA01821F6F100323B65 /* AVOSCloudSNS.framework */,
 				1F7721F01812D3680080308A /* Foundation.framework */,
 				1F7721F21812D3680080308A /* CoreGraphics.framework */,
 				1F7721F41812D3680080308A /* UIKit.framework */,
@@ -268,6 +267,8 @@
 				1FC0819018252A13005CAFBB /* VZNearC.m */,
 				1FF2A33F183B0D3500731771 /* VZSettingsC.h */,
 				1FF2A340183B0D3500731771 /* VZSettingsC.m */,
+				1F4C5C101849B6ED00AB3696 /* VZNavC.h */,
+				1F4C5C111849B6ED00AB3696 /* VZNavC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -308,7 +309,6 @@
 				1F7721EA1812D3680080308A /* Frameworks */,
 				1F7721EB1812D3680080308A /* Resources */,
 				BC149138AA4E49A789C189A0 /* Copy Pods Resources */,
-				1F80745218443A5E00D0D9B3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -416,20 +416,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F80745218443A5E00D0D9B3 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run ae513c53d5df7ba251bcadb57536826d9d8f7824";
-			showEnvVarsInLog = 0;
-		};
 		8B4EF563C27342C295D299A6 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -472,6 +458,7 @@
 				1FF2A341183B0D3500731771 /* VZSettingsC.m in Sources */,
 				1FDD7527181BA4B400F490A3 /* VZPost.m in Sources */,
 				1FDD752A181BAE0600F490A3 /* VZPostCell.m in Sources */,
+				1F4C5C121849B6ED00AB3696 /* VZNavC.m in Sources */,
 				1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */,
 				1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */,
 				1F772227181383350080308A /* VZMenuC.m in Sources */,
@@ -605,10 +592,12 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Travis/Documents/Other/VZ-iOS",
+					/Users/Travis/Development/Work/VZ,
+					"/Users/Travis/Development/Work/VZ/Pods/AVOSCloudSNS/iOS/release-v2.0.2",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
@@ -651,10 +640,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
+				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/Travis/Documents/Other/VZ-iOS",
+					/Users/Travis/Development/Work/VZ,
+					"/Users/Travis/Development/Work/VZ/Pods/AVOSCloudSNS/iOS/release-v2.0.2",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";

@@ -7,7 +7,7 @@
 //
 
 #import "VZM.h"
-
+#import <AVOSCloudSNS/AVUser+SNS.h>
 
 @implementation VZM
 +(VZM*)shared{
@@ -32,11 +32,34 @@
     }
     return self;
 }
--(void)login:(AVSNSResultBlock)callback{
+-(void)login:(AVUserResultBlock)callback{
     [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://"];
     //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
     
-    [AVOSCloudSNS loginWithCallback:callback toPlatform:AVOSCloudSNSSinaWeibo];
+    [AVOSCloudSNS loginWithCallback:^(NSDictionary* object, NSError *error) {
+        if (error==nil && object) {
+            VZUser *user=[VZUser currentUser];
+            if (user==nil) {
+                user=[VZUser user];
+            }
+            /*  @return 包含用户信息的字典, 如果返回nil则没有绑定的用户. 包括常用字段, 用户ID:`id`, 用户名:`username`, 平台类型:`type`, 头像:`avatar`, 过期时间:`expires_at`, token:`access_token`, 用户原始信息:`raw-user`
+            */
+            
+            [user addAuthData:object block:^(AVUser *user, NSError *error) {
+                if (![user objectForKey:@"avatar"]) {
+                    [user setObject:object[@"avatar"] forKey:@"avatar"];
+                }
+                
+                if (![user objectForKey:@"name"]) {
+                    [user setObject:object[@"username"] forKey:@"name"];
+                }
+                
+                [user save];
+                callback(user,error);
+            }];
+        }
+        
+    } toPlatform:AVOSCloudSNSSinaWeibo];
 }
 
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{
@@ -96,32 +119,40 @@
 }
 
 -(NSString*)wbid{
-    return [self valueForKeyPath:@"authData.weibo.uid"];
+    NSString *uid=nil;
+    [self validateValue:&uid forKeyPath:@"authData.weibo.uid" error:nil];
+    
+    return uid;
 }
 
 -(void)findMyFriendOnWeibo:(AVArrayResultBlock)callback{
     NSString *uid=[self wbid];
-    NSString *token=[[self objectForKey:@"authData"] valueForKeyPath:@"weibo.access_token"];
     
-    NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/friendships/friends/ids.json?uid=%@&access_token=%@",uid,token];
-    NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    AFJSONRequestOperation *opt=[AFJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSArray *arr= JSON[@"ids"];
-        if (arr) {
-            AVQuery *q=[VZUser query];
-            [q whereKey:@"authData.weibo.uid" containedIn:arr];
-            
-            [q findObjectsInBackgroundWithBlock:callback];
-        }else{
-            callback(Nil,Nil);
-        }
+    if (uid && ![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        NSString *token=[[self objectForKey:@"authData"] valueForKeyPath:@"weibo.access_token"];
         
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        callback(Nil,error);
-    }];
-    
-    [model.client enqueueHTTPRequestOperation:opt];
+        NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/friendships/friends/ids.json?uid=%@&access_token=%@",uid,token];
+        NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+        
+        AFJSONRequestOperation *opt=[AFJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            NSArray *arr= JSON[@"ids"];
+            if (arr) {
+                AVQuery *q=[VZUser query];
+                [q whereKey:@"authData.weibo.uid" containedIn:arr];
+                
+                [q findObjectsInBackgroundWithBlock:callback];
+            }else{
+                callback(Nil,Nil);
+            }
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            callback(Nil,error);
+        }];
+        
+        [model.client enqueueHTTPRequestOperation:opt];
+    }else{
+        callback(Nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
+    }
 }
 
 

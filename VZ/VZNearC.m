@@ -40,9 +40,9 @@
     MKCoordinateRegion  region= self.mapView.region;
     
     AVQuery *q= [VZPost query];
-    //[q whereKey:@"type" equalTo:@0];
+    [q whereKey:@"type" containedIn:@[@0,@2]];
     [q whereKeyExists:@"pics"];
-    [q setLimit:30];
+    [q setLimit:60];
     
     float kilo=region.span.latitudeDelta*111.0;
     
@@ -51,6 +51,7 @@
     __weak typeof(self) ws=self;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        [ws.mapView removeAnnotations:ws.mapView.annotations];
         
         if (error) {
             NSLog(@"%@",[error description]);
@@ -69,11 +70,10 @@
     }];
 }
 
+
 -(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     MKAnnotationView * result = nil;
-    
-    
     
     NSString * pinReusableIdentifier = @"PostCell";
     MKPinAnnotationView * annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReusableIdentifier];
@@ -82,11 +82,13 @@
         annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinReusableIdentifier];
         
         [annotationView setCanShowCallout:YES];
+        
+        annotationView.rightCalloutAccessoryView=[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
+
     }
     
-    UIButton * button = [UIButton buttonWithType:UIButtonTypeInfoDark];
-    annotationView.rightCalloutAccessoryView = button;
-    
+
     annotationView.opaque = NO;
     annotationView.animatesDrop = YES;
     
@@ -96,12 +98,16 @@
         
         int type=[[post objectForKey:@"type"] intValue];
         if (type==0) {
-            annotationView.pinColor=MKPinAnnotationColorGreen;
-        }else if (type==1){
             annotationView.pinColor=MKPinAnnotationColorPurple;
-        }else if (type==2){
+            annotationView.rightCalloutAccessoryView.tintColor=[UIColor purpleColor];
+        }else if (type==1){
             annotationView.pinColor=MKPinAnnotationColorRed;
+            annotationView.rightCalloutAccessoryView.tintColor=[UIColor redColor];
+        }else if (type==2){
+            annotationView.pinColor=MKPinAnnotationColorGreen;
+            annotationView.rightCalloutAccessoryView.tintColor=[UIColor greenColor];
         }
+        
         
         NSDictionary *user=[post objectForKey:@"user"];
         NSString *url=user[@"avatar_large"];
@@ -118,7 +124,6 @@
     }
     result = annotationView;
     return result;
-    
 }
 
 -(void)onGetLocation:(CLLocationCoordinate2D)location exact:(BOOL)exact{
@@ -181,15 +186,16 @@
     }
 }
 
--(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view{
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     VZPost *post=(id)view.annotation;
+    
     if ([post isKindOfClass:[VZPost class]]) {
         VZPostViewC *pc=[self.storyboard instantiateViewControllerWithIdentifier:@"PostViewC"];
         pc.post=post;
         
         [self.navigationController pushViewController:pc animated:YES];
     }
-    
+
 }
 
 

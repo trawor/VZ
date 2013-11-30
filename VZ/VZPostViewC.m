@@ -32,8 +32,10 @@
 @end
 
 @implementation VZPostViewC
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    return YES;
+    
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -63,13 +65,21 @@
         VZStacView *sv=[[VZStacView alloc]
                         initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
         sv.delegate=self;
+        
+        __block int loaded=0;
+        
         for (int i=pics.count-1; i>=0; i--) {
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
             AFImageRequestOperation *opt=[AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
                 [sv addImage:image];
+                
+                loaded++;
+                
             }];
+            
+            opt.queuePriority=NSOperationQueuePriorityLow;
             
             [model.client enqueueHTTPRequestOperation:opt];
         }
@@ -134,6 +144,9 @@
     self.navigationItem.titleView=self.refreshView;
     
     UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+    
+    
+    
     self.navigationItem.leftBarButtonItem=btn;
     
     UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
@@ -229,7 +242,6 @@
             [self.mm_drawerController.leftDrawerViewController performSelector:@selector(onLogin:) withObject:object];
         }
     }];
-    
 }
 
 
