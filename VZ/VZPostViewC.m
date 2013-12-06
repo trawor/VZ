@@ -7,7 +7,7 @@
 //
 
 #import "VZPostViewC.h"
-#import <UIImageView+AFNetworking.h>
+#import <AVOSCloud/AVImageRequestOperation.h>
 #import <UIViewController+MMDrawerController.h>
 
 #import "VZCommentCell.h"
@@ -37,7 +37,7 @@
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    
+    [self sendComment];
     [textField resignFirstResponder];
     return NO;
 }
@@ -67,7 +67,7 @@
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-            AFImageRequestOperation *opt=[AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
+            AVImageRequestOperation *opt=[AVImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
                 [sv addImage:image];
             }];
             
@@ -156,7 +156,7 @@
         s=self.inputView.placeholder;
     }
     
-    //TODO: send it
+    
 }
 
 -(void)loadComments{

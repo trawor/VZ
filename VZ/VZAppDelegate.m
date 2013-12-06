@@ -15,8 +15,6 @@
 #import <MMDrawerController/MMDrawerController.h>
 #import "VZNavView.h"
 
-#import <Crashlytics/Crashlytics.h>
-
 @interface MMDrawerController (){
     
 }
@@ -32,8 +30,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Crashlytics startWithAPIKey:@"ae513c53d5df7ba251bcadb57536826d9d8f7824"];
-    
     application.applicationIconBadgeNumber=0;
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
     

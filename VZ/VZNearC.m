@@ -7,7 +7,8 @@
 //
 
 #import "VZNearC.h"
-#import <UIImageView+AFNetworking.h>
+#import <AVOSCloud/AVImageRequestOperation.h>
+#import <AVOSCloud/AVJSONRequestOperation.h>
 #import "VZProgressView.h"
 #import "VZPostViewC.h"
 
@@ -155,7 +156,7 @@
 
     __weak typeof(self) ws=self;
     
-    AFJSONRequestOperation *opt=[AFJSONRequestOperation
+    AVJSONRequestOperation *opt=[AVJSONRequestOperation
                                  JSONRequestOperationWithRequest:[NSURLRequest requestWithURL:
                                                                   [NSURL URLWithString:@"http://api.map.baidu.com/location/ip?ak=08fadd5a7e397b10f4599c325ee55b9c&coor=bd09ll"]]
                                  success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {

@@ -7,7 +7,7 @@
 //
 
 #import "VZPostCell.h"
-#import <UIImageView+AFNetworking.h>
+#import <AVOSCloud/AVImageRequestOperation.h>
 
 @interface AFImageCache : NSCache
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
@@ -18,7 +18,7 @@
 #pragma mark -
 
 @interface UIImageView ()
-@property (readwrite, nonatomic, strong, setter = af_setImageRequestOperation:) AFImageRequestOperation *af_imageRequestOperation;
+@property (readwrite, nonatomic, strong, setter = af_setImageRequestOperation:) AVImageRequestOperation *af_imageRequestOperation;
 + (AFImageCache *)af_sharedImageCache;
 +(NSOperationQueue*)af_sharedImageRequestOperationQueue;
 @end
@@ -42,7 +42,7 @@
     } else {
         self.image = placeholderImage;
         
-        AFImageRequestOperation *requestOperation = [[AFImageRequestOperation alloc] initWithRequest:urlRequest];
+        AVImageRequestOperation *requestOperation = [[AVImageRequestOperation alloc] initWithRequest:urlRequest];
         
         
         VZProgressView *pv=[[VZProgressView alloc] initWithWidth:self.frame.size.width/2];
@@ -55,7 +55,7 @@
         }];
         [self addSubview:pv];
         
-        [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [requestOperation setCompletionBlockWithSuccess:^(AVHTTPRequestOperation *operation, id responseObject) {
             if ([[urlRequest URL] isEqual:[[self.af_imageRequestOperation request] URL]]) {
                 self.image = responseObject;
                 [pv removeFromSuperview];
@@ -63,7 +63,7 @@
             }
             
             [[[self class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        } failure:^(AVHTTPRequestOperation *operation, NSError *error) {
             [pv removeFromSuperview];
         }];
         

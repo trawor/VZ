@@ -8,7 +8,7 @@
 
 #import "VZM.h"
 
-
+#import <AVOSCloud/AVJSONRequestOperation.h>
 @implementation VZM
 +(VZM*)shared{
     static VZM *_vzm_=Nil;
@@ -27,7 +27,7 @@
         [VZPost registerSubclass];
         [VZUser registerSubclass];
         
-        AFHTTPClient *client=[[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz..avosapps.com"]];
+        AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz.avosapps.com"]];
         self.client=client;
     }
     return self;
@@ -47,7 +47,7 @@
         NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/comments/show.json?id=%@&access_token=%@",wbid,token];
         NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
         
-        AFJSONRequestOperation *opt=[AFJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             NSArray *arr= JSON[@"comments"];
             if (arr) {
                 NSArray *shuma=@[@"2043408047",@"1761596064",@"1882458640",@"1841288857",@"3787475667",@"3701452524"];
@@ -106,7 +106,7 @@
     NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/friendships/friends/ids.json?uid=%@&access_token=%@",uid,token];
     NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     
-    AFJSONRequestOperation *opt=[AFJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSArray *arr= JSON[@"ids"];
         if (arr) {
             AVQuery *q=[VZUser query];
