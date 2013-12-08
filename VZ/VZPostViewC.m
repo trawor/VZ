@@ -7,7 +7,7 @@
 //
 
 #import "VZPostViewC.h"
-#import <UIImageView+AFNetworking.h>
+#import <AVOSCloud/AVImageRequestOperation.h>
 #import <UIViewController+MMDrawerController.h>
 
 #import "VZCommentCell.h"
@@ -17,6 +17,9 @@
 #import "VZStacView.h"
 
 #import "VZMenuC.h"
+
+#import "VZPostActionC.h"
+
 
 #define gap 5
 
@@ -75,7 +78,7 @@
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
-            AFImageRequestOperation *opt=[AFImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
+            AVImageRequestOperation *opt=[AVImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
                 [sv addImage:image];
                 
                 loaded++;
@@ -152,16 +155,20 @@
     
     self.navigationItem.leftBarButtonItem=btn;
     
-    UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
-    self.navigationItem.rightBarButtonItem=btn2;
-    
-	self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     
     [self loadPics];
     
     NSDictionary *comment=@{@"user":self.post[@"user"],@"text":self.post.text};
     self.comments=@[comment];
     [self.tableView reloadData];
+    
+    if ([VZUser currentUser]) {
+        UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+        self.navigationItem.rightBarButtonItem=btn2;
+        
+    }
+    
     
     [self loadComments];
 }
@@ -205,7 +212,7 @@
                 btn.frame=CGRectMake(60, 10, 200, 40);
                 btn.titleLabel.font=[UIFont systemFontOfSize:14];
                 
-                [btn setTitle:@"登录微博, 查看评论" forState:UIControlStateNormal];
+                [btn setTitle:@"登录微博 & 查看评论" forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
                 [btn addTarget:ws action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
@@ -236,7 +243,9 @@
         }];
         
     }else{
-        self.mm_drawerController.rightDrawerViewController=[UIViewController new];
+        VZPostActionC *ac=[[UIStoryboard storyboardWithName:@"iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"VZPostActionC"];
+        
+        self.mm_drawerController.rightDrawerViewController=ac;
         
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
             
@@ -251,6 +260,9 @@
             NSLog(@"login error %@",[error description]);
         }else if(object){
             [ws loadComments];
+            
+            UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+            self.navigationItem.rightBarButtonItem=btn2;
             
             [self.mm_drawerController.leftDrawerViewController performSelector:@selector(onLogin:) withObject:object];
         }
