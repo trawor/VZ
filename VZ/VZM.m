@@ -155,6 +155,14 @@
     }
 }
 
-
+-(void)watch:(BOOL)flat post:(VZPost*)post callback:(AVBooleanResultBlock)callback{
+    if (flat) {
+        [post.watchUsers addObject:post];
+    }else{
+        [post.watchUsers removeObject:self];
+    }
+    
+    [post saveInBackgroundWithBlock:callback];
+}
 
 @end

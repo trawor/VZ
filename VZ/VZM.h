@@ -39,4 +39,5 @@
 
 -(void)findMyFriendOnWeibo:(AVArrayResultBlock)callback;
 
+-(void)watch:(BOOL)flat post:(VZPost*)post callback:(AVBooleanResultBlock)callback;
 @end

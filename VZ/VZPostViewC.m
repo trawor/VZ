@@ -20,7 +20,9 @@
 
 #define gap 5
 
-@interface VZPostViewC ()<VZStacViewDelegate,UITextFieldDelegate>
+@interface VZPostViewC ()<VZStacViewDelegate,UITextFieldDelegate>{
+    BOOL isAuthor;
+}
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
 @property (nonatomic,retain) VZStacView *stac;
@@ -41,6 +43,7 @@
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];
+    [self sendComment];
     return NO;
 }
 
@@ -168,6 +171,16 @@
     if (s.length==0) {
         s=self.inputView.placeholder;
     }
+    
+    [[VZUser currentUser] watch:YES post:self.post callback:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"watch action success");
+        }else{
+            NSLog(@"%@",[error description]);
+        }
+        
+        
+    }];
     
     //TODO: send it
 }

@@ -13,6 +13,7 @@
 
 @property(nonatomic,copy) NSString *text;
 @property(nonatomic,retain) AVGeoPoint *geo;
+@property(nonatomic,retain) AVRelation *watchUsers;
 
 //@property(nonatomic,retain) NSDictionary *user;
 
