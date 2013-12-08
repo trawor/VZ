@@ -8,7 +8,7 @@
 
 #import "VZMenuC.h"
 #import <QuartzCore/QuartzCore.h>
-#import <UIImageView+AFNetworking.h>
+#import <AVOSCloud/AVImageRequestOperation.h>
 #import "VZNavView.h"
 #import <UIViewController+MMDrawerController.h>
 

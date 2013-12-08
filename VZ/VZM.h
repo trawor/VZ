@@ -13,14 +13,15 @@
 
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
-#import <AVOSCloud/AFJSONRequestOperation.h>
-#import <AVOSCloud/AFHTTPClient.h>
+
+#import <AVOSCloud/AVHTTPClient.h>
+
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
 @property(nonatomic,assign) BOOL showAroundOnly;
 
-@property(nonatomic,retain) AFHTTPClient *client;
+@property(nonatomic,retain) AVHTTPClient *client;
 
 +(VZM*)shared;
 
