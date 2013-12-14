@@ -28,7 +28,7 @@
         [VZPost registerSubclass];
         [VZUser registerSubclass];
         
-        AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz..avosapps.com"]];
+        AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz.avosapps.com"]];
         self.client=client;
     }
     return self;
@@ -40,15 +40,20 @@
     [AVOSCloudSNS loginWithCallback:^(NSDictionary* object, NSError *error) {
         if (error==nil && object) {
             [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
+                BOOL needSave=NO;
                 if (![user objectForKey:@"avatar"]) {
                     [user setObject:object[@"avatar"] forKey:@"avatar"];
+                    needSave=YES;
                 }
                 
                 if (![user objectForKey:@"name"]) {
                     [user setObject:object[@"username"] forKey:@"name"];
+                    needSave=YES;
+                }
+                if (needSave) {
+                    [user save];
                 }
                 
-                [user save];
                 callback(user,error);
             }];
         }

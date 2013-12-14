@@ -14,14 +14,14 @@
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
 
-#import <AVOSCloud/AVHTTPClient.h>
+#import <AVOSCloud/AFNetwokingFix.h>
 
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
 @property(nonatomic,assign) BOOL showAroundOnly;
 
-@property(nonatomic,retain) AVHTTPClient *client;
+@property(nonatomic,retain) AFHTTPClient *client;
 
 +(VZM*)shared;
 

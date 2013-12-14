@@ -11,9 +11,9 @@
 		1F0F989418388E0E000CE764 /* VZCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0F989318388E0E000CE764 /* VZCommentCell.m */; };
 		1F0F98971838987C000CE764 /* chatBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98951838987C000CE764 /* chatBg@2x.png */; };
 		1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F0F98961838987C000CE764 /* chatBg2@2x.png */; };
-		1F4C5C0F184994CA00AB3696 /* AVOSCloudSNS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F4C5C0E184994CA00AB3696 /* AVOSCloudSNS.framework */; };
 		1F4C5C121849B6ED00AB3696 /* VZNavC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C5C111849B6ED00AB3696 /* VZNavC.m */; };
 		1F664F8B182375A500DA43F1 /* VZPostViewC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F664F8A182375A500DA43F1 /* VZPostViewC.m */; };
+		1F6C175A185C315D00E156CB /* Pods.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1F6C1759185C315D00E156CB /* Pods.xcconfig */; };
 		1F7721F11812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
 		1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F21812D3680080308A /* CoreGraphics.framework */; };
 		1F7721F51812D3680080308A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F41812D3680080308A /* UIKit.framework */; };
@@ -21,11 +21,6 @@
 		1F7721FD1812D3680080308A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7721FC1812D3680080308A /* main.m */; };
 		1F7722011812D3680080308A /* VZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722001812D3680080308A /* VZAppDelegate.m */; };
 		1F7722031812D3680080308A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F7722021812D3680080308A /* Images.xcassets */; };
-		1F77220A1812D3680080308A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7722091812D3680080308A /* XCTest.framework */; };
-		1F77220B1812D3680080308A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F01812D3680080308A /* Foundation.framework */; };
-		1F77220C1812D3680080308A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F7721F41812D3680080308A /* UIKit.framework */; };
-		1F7722141812D3680080308A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7722121812D3680080308A /* InfoPlist.strings */; };
-		1F7722161812D3680080308A /* VZTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722151812D3680080308A /* VZTests.m */; };
 		1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F77221F1812D6FC0080308A /* iPhone.storyboard */; };
 		1F7722241812D7EA0080308A /* VZPostListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722231812D7EA0080308A /* VZPostListC.m */; };
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
@@ -62,18 +57,7 @@
 		77B6E3B0F2A047B5A6EC5218 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DB29646828347A496FCE788 /* libPods.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		1F77220D1812D3680080308A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1F7721E51812D3680080308A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1F7721EC1812D3680080308A;
-			remoteInfo = VZ;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		0501631BCE174957BEA66E87 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		1F0F989018385C2E000CE764 /* navBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBg@2x.png"; sourceTree = "<group>"; };
 		1F0F989218388E0E000CE764 /* VZCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZCommentCell.h; sourceTree = "<group>"; };
 		1F0F989318388E0E000CE764 /* VZCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZCommentCell.m; sourceTree = "<group>"; };
@@ -84,6 +68,7 @@
 		1F4C5C111849B6ED00AB3696 /* VZNavC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavC.m; sourceTree = "<group>"; };
 		1F664F89182375A500DA43F1 /* VZPostViewC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostViewC.h; sourceTree = "<group>"; };
 		1F664F8A182375A500DA43F1 /* VZPostViewC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostViewC.m; sourceTree = "<group>"; };
+		1F6C1759185C315D00E156CB /* Pods.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = file; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		1F7721ED1812D3680080308A /* VZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7721F01812D3680080308A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1F7721F21812D3680080308A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -95,18 +80,13 @@
 		1F7721FF1812D3680080308A /* VZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZAppDelegate.h; sourceTree = "<group>"; };
 		1F7722001812D3680080308A /* VZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VZAppDelegate.m; sourceTree = "<group>"; };
 		1F7722021812D3680080308A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		1F7722081812D3680080308A /* VZTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VZTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F7722091812D3680080308A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		1F7722111812D3680080308A /* VZTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VZTests-Info.plist"; sourceTree = "<group>"; };
-		1F7722131812D3680080308A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1F7722151812D3680080308A /* VZTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VZTests.m; sourceTree = "<group>"; };
 		1F77221F1812D6FC0080308A /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
 		1F7722221812D7EA0080308A /* VZPostListC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostListC.h; sourceTree = "<group>"; };
 		1F7722231812D7EA0080308A /* VZPostListC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostListC.m; sourceTree = "<group>"; };
 		1F772225181383350080308A /* VZMenuC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZMenuC.h; sourceTree = "<group>"; };
 		1F772226181383350080308A /* VZMenuC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZMenuC.m; sourceTree = "<group>"; };
 		1F77222818138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
-		1F77222918138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
 		1F8A64BD1838C73D00E825BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -156,20 +136,9 @@
 			files = (
 				1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */,
 				1F7721F31812D3680080308A /* CoreGraphics.framework in Frameworks */,
-				1F4C5C0F184994CA00AB3696 /* AVOSCloudSNS.framework in Frameworks */,
 				1F7721F51812D3680080308A /* UIKit.framework in Frameworks */,
 				1F7721F11812D3680080308A /* Foundation.framework in Frameworks */,
 				77B6E3B0F2A047B5A6EC5218 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		1F7722051812D3680080308A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1F77220A1812D3680080308A /* XCTest.framework in Frameworks */,
-				1F77220C1812D3680080308A /* UIKit.framework in Frameworks */,
-				1F77220B1812D3680080308A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,10 +149,9 @@
 			isa = PBXGroup;
 			children = (
 				1F7721F61812D3680080308A /* VZ */,
-				1F77220F1812D3680080308A /* VZTests */,
 				1F7721EF1812D3680080308A /* Frameworks */,
 				1F7721EE1812D3680080308A /* Products */,
-				0501631BCE174957BEA66E87 /* Pods.xcconfig */,
+				1F6C1759185C315D00E156CB /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -191,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				1F7721ED1812D3680080308A /* VZ.app */,
-				1F7722081812D3680080308A /* VZTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -259,24 +226,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1F77220F1812D3680080308A /* VZTests */ = {
-			isa = PBXGroup;
-			children = (
-				1F7722151812D3680080308A /* VZTests.m */,
-				1F7722101812D3680080308A /* Supporting Files */,
-			);
-			path = VZTests;
-			sourceTree = "<group>";
-		};
-		1F7722101812D3680080308A /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				1F7722111812D3680080308A /* VZTests-Info.plist */,
-				1F7722121812D3680080308A /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		1F7722211812D7BF0080308A /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -333,11 +282,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F7722191812D3680080308A /* Build configuration list for PBXNativeTarget "VZ" */;
 			buildPhases = (
-				8B4EF563C27342C295D299A6 /* Check Pods Manifest.lock */,
 				1F7721E91812D3680080308A /* Sources */,
 				1F7721EA1812D3680080308A /* Frameworks */,
 				1F7721EB1812D3680080308A /* Resources */,
-				BC149138AA4E49A789C189A0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,24 +294,6 @@
 			productName = VZ;
 			productReference = 1F7721ED1812D3680080308A /* VZ.app */;
 			productType = "com.apple.product-type.application";
-		};
-		1F7722071812D3680080308A /* VZTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1F77221C1812D3680080308A /* Build configuration list for PBXNativeTarget "VZTests" */;
-			buildPhases = (
-				1F7722041812D3680080308A /* Sources */,
-				1F7722051812D3680080308A /* Frameworks */,
-				1F7722061812D3680080308A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1F77220E1812D3680080308A /* PBXTargetDependency */,
-			);
-			name = VZTests;
-			productName = VZTests;
-			productReference = 1F7722081812D3680080308A /* VZTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -384,9 +313,6 @@
 							};
 						};
 					};
-					1F7722071812D3680080308A = {
-						TestTargetID = 1F7721EC1812D3680080308A;
-					};
 				};
 			};
 			buildConfigurationList = 1F7721E81812D3680080308A /* Build configuration list for PBXProject "VZ" */;
@@ -403,7 +329,6 @@
 			projectRoot = "";
 			targets = (
 				1F7721EC1812D3680080308A /* VZ */,
-				1F7722071812D3680080308A /* VZTests */,
 			);
 		};
 /* End PBXProject section */
@@ -426,6 +351,7 @@
 				1FDF3B161854434D0069834B /* map@2x.png in Resources */,
 				1F0F989118385C2E000CE764 /* navBg@2x.png in Resources */,
 				1FAACB291813E17F00BA19DC /* pics@2x.png in Resources */,
+				1F6C175A185C315D00E156CB /* Pods.xcconfig in Resources */,
 				1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */,
 				1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */,
 				1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */,
@@ -442,48 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1F7722061812D3680080308A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1F7722141812D3680080308A /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		8B4EF563C27342C295D299A6 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		BC149138AA4E49A789C189A0 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F7721E91812D3680080308A /* Sources */ = {
@@ -509,23 +394,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		1F7722041812D3680080308A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1F7722161812D3680080308A /* VZTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1F77220E1812D3680080308A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1F7721EC1812D3680080308A /* VZ */;
-			targetProxy = 1F77220D1812D3680080308A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1F7721F91812D3680080308A /* InfoPlist.strings */ = {
@@ -537,20 +406,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		1F7722121812D3680080308A /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1F7722131812D3680080308A /* en */,
-				1F77222918138EE80080308A /* zh-Hans */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1F7722171812D3680080308A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F6C1759185C315D00E156CB /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -590,6 +451,7 @@
 		};
 		1F7722181812D3680080308A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1F6C1759185C315D00E156CB /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -623,7 +485,6 @@
 		};
 		1F77221A1812D3680080308A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0501631BCE174957BEA66E87 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -632,11 +493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Travis/Development/Work/VZ,
-					"/Users/Travis/Development/Work/VZ/Pods/AVOSCloudSNS/iOS/release-v2.0.2",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
@@ -662,6 +519,8 @@
 					Security,
 					"-framework",
 					SystemConfiguration,
+					"-framework",
+					AVOSCloudSNS,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "39BACF4F-15FE-4870-AFA4-326464A0FEFF";
@@ -672,7 +531,6 @@
 		};
 		1F77221B1812D3680080308A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0501631BCE174957BEA66E87 /* Pods.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -680,11 +538,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/Travis/Development/Work/VZ,
-					"/Users/Travis/Development/Work/VZ/Pods/AVOSCloudSNS/iOS/release-v2.0.2",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
@@ -710,52 +564,12 @@
 					Security,
 					"-framework",
 					SystemConfiguration,
+					"-framework",
+					AVOSCloudSNS,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "39BACF4F-15FE-4870-AFA4-326464A0FEFF";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		1F77221D1812D3680080308A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VZ.app/VZ";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "VZTests/VZTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		1F77221E1812D3680080308A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/VZ.app/VZ";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
-				INFOPLIST_FILE = "VZTests/VZTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -776,15 +590,6 @@
 			buildConfigurations = (
 				1F77221A1812D3680080308A /* Debug */,
 				1F77221B1812D3680080308A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		1F77221C1812D3680080308A /* Build configuration list for PBXNativeTarget "VZTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1F77221D1812D3680080308A /* Debug */,
-				1F77221E1812D3680080308A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
