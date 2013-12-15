@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VZPostActionC : UITableViewController
-
+@property(nonatomic,assign) BOOL isAuthor;
 @end

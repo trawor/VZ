@@ -34,7 +34,7 @@
     return self;
 }
 -(void)login:(AVUserResultBlock)callback{
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://"];
+    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://vz.avosapps.com/oauth?type=weibo"];
     //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
     
     [AVOSCloudSNS loginWithCallback:^(NSDictionary* object, NSError *error) {
@@ -101,9 +101,37 @@
         callback(nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
     }
     
-    
 }
 
+-(void)commentToWbid:(NSString*)wbid toCommentId:(NSString*)cid withText:(NSString*)text callback:(AVSNSResultBlock)callback{
+    if (![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+        NSString *token=[dict objectForKey:@"access_token"];
+        
+        NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/comments/%@.json",cid?@"reply":@"create"];
+        
+        NSMutableDictionary *param=[NSMutableDictionary dictionary];
+        [param setObject:token forKey:@"access_token"];
+        [param setObject:wbid forKey:@"id"];
+        [param setObject:text forKey:@"comment"];
+        if (cid) {
+            [param setObject:cid forKey:@"cid"];
+        }
+        NSURLRequest *req=[self.client requestWithMethod:@"POST" path:url parameters:param];
+        
+        AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            callback(JSON,nil);
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            callback(JSON,error);
+        }];
+        
+        [self.client enqueueHTTPRequestOperation:opt];
+    }else{
+        callback(nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
+    }
+
+}
 
 
 @end

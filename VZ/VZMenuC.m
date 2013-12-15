@@ -46,6 +46,17 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 }
 
 -(void)onLogout{
+    NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+    NSString *token=[dict objectForKey:@"access_token"];
+    
+    [model.client getPath:@"https://api.weibo.com/oauth2/revokeoauth2" parameters:@{@"access_token":token} success:^(AVHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success");
+    } failure:^(AVHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"logout error %@",[error description]);
+    }];
+    
+    
+    
     [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
     [VZUser logOut];
     self.avatar.image=[UIImage imageNamed:@"head"];

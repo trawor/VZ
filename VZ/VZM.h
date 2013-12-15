@@ -14,19 +14,20 @@
 #import <AVOSCloudSNS/AVOSCloudSNS.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
 
-#import <AVOSCloud/AFNetwokingFix.h>
+#import <AVOSCloud/AVHTTPClient.h>
 
 @interface VZM : NSObject
 
 @property(nonatomic,assign) BOOL showPostsWithPicsOnly;
 @property(nonatomic,assign) BOOL showAroundOnly;
 
-@property(nonatomic,retain) AFHTTPClient *client;
+@property(nonatomic,retain) AVHTTPClient *client;
 
 +(VZM*)shared;
 
 -(void)login:(AVUserResultBlock)callback;
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback;
+-(void)commentToWbid:(NSString*)wbid toCommentId:(NSString*)cid withText:(NSString*)text callback:(AVSNSResultBlock)callback;
 @end
 
 #define model [VZM shared]

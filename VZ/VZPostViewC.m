@@ -74,6 +74,8 @@
         
         __block int loaded=0;
         
+        __weak typeof(self) ws=self;
+        
         for (int i=pics.count-1; i>=0; i--) {
             
             NSString *url=pics[i];
@@ -82,7 +84,7 @@
                 [sv addImage:image];
                 
                 loaded++;
-                
+                ws.refreshView.progress=loaded*1.0/pics.count;
             }];
             
             opt.queuePriority=NSOperationQueuePriorityLow;
@@ -136,7 +138,7 @@
     tf.textColor=[UIColor darkTextColor];
     tf.returnKeyType=UIReturnKeySend;
     tf.keyboardAppearance=UIKeyboardAppearanceAlert;
-    
+    self.inputView=tf;
     NSArray *cms=@[@"能便宜吗?",@"出了吗?",@"小刀一下吧"];
     int rdm=arc4random()%cms.count;
     tf.placeholder=cms[rdm];
@@ -179,17 +181,16 @@
         s=self.inputView.placeholder;
     }
     
-    [[VZUser currentUser] watch:YES post:self.post callback:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"watch action success");
+    __weak typeof(self) ws=self;
+    [model commentToWbid:[self.post objectForKey:@"wbid"] toCommentId:nil withText:s callback:^(NSDictionary *ret, NSError *error) {
+        if (ret) {
+            ws.inputView.text=nil;
+            [ws loadComments];
         }else{
-            NSLog(@"%@",[error description]);
+            NSLog([error description]);
         }
-        
-        
     }];
     
-    //TODO: send it
 }
 
 -(void)loadComments{
