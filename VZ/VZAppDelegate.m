@@ -15,6 +15,7 @@
 #import <MMDrawerController/MMDrawerController.h>
 #import "VZNavView.h"
 
+
 @interface MMDrawerController (){
     
 }
@@ -66,25 +67,25 @@
     
     UINavigationController *nav=[board instantiateInitialViewController];
     
+    if ([nav respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        nav.interactivePopGestureRecognizer.enabled=YES;
+    }
+    
     MMDrawerController * menu = [[MMDrawerController alloc]initWithCenterViewController:nav
                                              leftDrawerViewController:menuC];
     
     
     menu.openDrawerGestureModeMask=MMOpenDrawerGestureModeNone;
-    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeNone;
+    menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeTapCenterView;
     menu.shouldStretchDrawer=NO;
     menu.maximumLeftDrawerWidth=64;
     
     menu.maximumRightDrawerWidth=64;
     
-    [menuC setMenuBtn];
-    
     self.window.rootViewController=menu;
     menu.view.backgroundColor=[UIColor clearColor];
     [self.window makeKeyAndVisible];
     
-    
-    [menu childControllerContainerView].backgroundColor=[UIColor clearColor];
     
 //    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
 //        

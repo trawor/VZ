@@ -7,8 +7,9 @@
 //
 
 #import "VZM.h"
-
+#import <AVOSCloudSNS/AVUser+SNS.h>
 #import <AVOSCloud/AVJSONRequestOperation.h>
+
 @implementation VZM
 +(VZM*)shared{
     static VZM *_vzm_=Nil;
@@ -32,11 +33,32 @@
     }
     return self;
 }
--(void)login:(AVSNSResultBlock)callback{
+-(void)login:(AVUserResultBlock)callback{
     [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://vz.avosapps.com/oauth?type=weibo"];
     //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
     
-    [AVOSCloudSNS loginWithCallback:callback toPlatform:AVOSCloudSNSSinaWeibo];
+    [AVOSCloudSNS loginWithCallback:^(NSDictionary* object, NSError *error) {
+        if (error==nil && object) {
+            [VZUser loginWithAuthData:object block:^(AVUser *user, NSError *error) {
+                BOOL needSave=NO;
+                if (![user objectForKey:@"avatar"]) {
+                    [user setObject:object[@"avatar"] forKey:@"avatar"];
+                    needSave=YES;
+                }
+                
+                if (![user objectForKey:@"name"]) {
+                    [user setObject:object[@"username"] forKey:@"name"];
+                    needSave=YES;
+                }
+                if (needSave) {
+                    [user save];
+                }
+                
+                callback(user,error);
+            }];
+        }
+        
+    } toPlatform:AVOSCloudSNSSinaWeibo];
 }
 
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{
@@ -78,53 +100,39 @@
     }else{
         callback(nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
     }
+    
 }
 
--(void)commentToWbid:(NSString*)wbid andText:(NSString*)text reply:(NSString*)commentId callback:(AVArrayResultBlock)callback{
+-(void)commentToWbid:(NSString*)wbid toCommentId:(NSString*)cid withText:(NSString*)text callback:(AVSNSResultBlock)callback{
     if (![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
         NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
         NSString *token=[dict objectForKey:@"access_token"];
         
-        NSString *url=nil;
-        NSDictionary *params=nil;
+        NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/comments/%@.json",cid?@"reply":@"create"];
         
-        if (commentId==nil) {
-            url=@"https://api.weibo.com/2/comments/create.json";
-            params=@{
-                     @"access_token":token,
-                     @"comment":text,
-                     @"id":wbid,
-                     };
-        }else{
-            url=@"https://api.weibo.com/2/comments/reply.json";
-            params=@{
-                     @"access_token":token,
-                     @"comment":text,
-                     @"id":wbid,
-                     @"cid":commentId,
-                     };
+        NSMutableDictionary *param=[NSMutableDictionary dictionary];
+        [param setObject:token forKey:@"access_token"];
+        [param setObject:wbid forKey:@"id"];
+        [param setObject:text forKey:@"comment"];
+        if (cid) {
+            [param setObject:cid forKey:@"cid"];
         }
-        
-        
-        
-        NSURLRequest *req=[self.client requestWithMethod:@"POST"
-                                                    path:url
-                                              parameters:params];
+        NSURLRequest *req=[self.client requestWithMethod:@"POST" path:url parameters:param];
         
         AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            
             callback(JSON,nil);
             
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-            callback(Nil,error);
-            NSLog(@"%@", [error description]);
+            callback(JSON,error);
         }];
         
         [self.client enqueueHTTPRequestOperation:opt];
     }else{
         callback(nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
     }
+
 }
+
 
 @end
 
@@ -138,34 +146,50 @@
 }
 
 -(NSString*)wbid{
-    return [self valueForKeyPath:@"authData.weibo.uid"];
+    NSString *uid=nil;
+    [self validateValue:&uid forKeyPath:@"authData.weibo.uid" error:nil];
+    
+    return uid;
 }
 
 -(void)findMyFriendOnWeibo:(AVArrayResultBlock)callback{
     NSString *uid=[self wbid];
-    NSString *token=[[self objectForKey:@"authData"] valueForKeyPath:@"weibo.access_token"];
     
-    NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/friendships/friends/ids.json?uid=%@&access_token=%@",uid,token];
-    NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSArray *arr= JSON[@"ids"];
-        if (arr) {
-            AVQuery *q=[VZUser query];
-            [q whereKey:@"authData.weibo.uid" containedIn:arr];
-            
-            [q findObjectsInBackgroundWithBlock:callback];
-        }else{
-            callback(Nil,Nil);
-        }
+    if (uid && ![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        NSString *token=[[self objectForKey:@"authData"] valueForKeyPath:@"weibo.access_token"];
         
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        callback(Nil,error);
-    }];
-    
-    [model.client enqueueHTTPRequestOperation:opt];
+        NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/friendships/friends/ids.json?uid=%@&access_token=%@",uid,token];
+        NSURLRequest *req=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+        
+        AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            NSArray *arr= JSON[@"ids"];
+            if (arr) {
+                AVQuery *q=[VZUser query];
+                [q whereKey:@"authData.weibo.uid" containedIn:arr];
+                
+                [q findObjectsInBackgroundWithBlock:callback];
+            }else{
+                callback(Nil,Nil);
+            }
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            callback(Nil,error);
+        }];
+        
+        [model.client enqueueHTTPRequestOperation:opt];
+    }else{
+        callback(Nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
+    }
 }
 
-
+-(void)watch:(BOOL)flat post:(VZPost*)post callback:(AVBooleanResultBlock)callback{
+    if (flat) {
+        [post.watchUsers addObject:post];
+    }else{
+        [post.watchUsers removeObject:self];
+    }
+    
+    [post saveInBackgroundWithBlock:callback];
+}
 
 @end

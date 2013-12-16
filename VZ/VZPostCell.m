@@ -33,6 +33,7 @@
 
 {
     [self cancelImageRequestOperation];
+    [[self viewWithTag:1000] removeFromSuperview];
     
     UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
     if (cachedImage) {
@@ -44,15 +45,18 @@
         
         AVImageRequestOperation *requestOperation = [[AVImageRequestOperation alloc] initWithRequest:urlRequest];
         
+        requestOperation.queuePriority=NSOperationQueuePriorityLow;
         
         VZProgressView *pv=[[VZProgressView alloc] initWithWidth:self.frame.size.width/2];
-        pv.bgLineColor=[UIColor colorWithWhite:1 alpha:0.4];
-        pv.fgLineColor=[UIColor whiteColor];
+            pv.bgLineColor=[UIColor colorWithWhite:1 alpha:0.4];
+            pv.fgLineColor=[UIColor whiteColor];
+            pv.tag=1000;
         
         [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
             float progress=totalBytesRead*1.0/totalBytesExpectedToRead;
             pv.progress=progress;
         }];
+        
         [self addSubview:pv];
         
         [requestOperation setCompletionBlockWithSuccess:^(AVHTTPRequestOperation *operation, id responseObject) {

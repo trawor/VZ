@@ -25,8 +25,9 @@
 
 +(VZM*)shared;
 
--(void)login:(AVSNSResultBlock)callback;
+-(void)login:(AVUserResultBlock)callback;
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback;
+-(void)commentToWbid:(NSString*)wbid toCommentId:(NSString*)cid withText:(NSString*)text callback:(AVSNSResultBlock)callback;
 @end
 
 #define model [VZM shared]
@@ -35,9 +36,16 @@
 @interface VZUser : AVUser<AVSubclassing>
 
 @property(nonatomic,copy) NSString *avatar;
-//@property(nonatomic,readonly) NSString *wbid;
+@property(nonatomic,readonly) NSString *wbid;
 -(NSString*)wbid;
 
+
+/**
+ *  查找来着微博的好友
+ *
+ *  @param callback 回调返回好友ID数字
+ */
 -(void)findMyFriendOnWeibo:(AVArrayResultBlock)callback;
 
+-(void)watch:(BOOL)flat post:(VZPost*)post callback:(AVBooleanResultBlock)callback;
 @end

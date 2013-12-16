@@ -18,9 +18,14 @@
 
 #import "VZMenuC.h"
 
+#import "VZPostActionC.h"
+
+
 #define gap 5
 
-@interface VZPostViewC ()<VZStacViewDelegate,UITextFieldDelegate>
+@interface VZPostViewC ()<VZStacViewDelegate,UITextFieldDelegate>{
+    BOOL isAuthor;
+}
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property (nonatomic,retain) NSArray *comments;
 @property (nonatomic,retain) VZStacView *stac;
@@ -32,13 +37,16 @@
 @end
 
 @implementation VZPostViewC
--(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    
+    return YES;
+    
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [self sendComment];
+    
     [textField resignFirstResponder];
+    [self sendComment];
     return NO;
 }
 
@@ -63,13 +71,23 @@
         VZStacView *sv=[[VZStacView alloc]
                         initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, h)];
         sv.delegate=self;
+        
+        __block int loaded=0;
+        
+        __weak typeof(self) ws=self;
+        
         for (int i=pics.count-1; i>=0; i--) {
             
             NSString *url=pics[i];
             url=[url stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"bmiddle"];
             AVImageRequestOperation *opt=[AVImageRequestOperation imageRequestOperationWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] success:^(UIImage *image) {
                 [sv addImage:image];
+                
+                loaded++;
+                ws.refreshView.progress=loaded*1.0/pics.count;
             }];
+            
+            opt.queuePriority=NSOperationQueuePriorityLow;
             
             [model.client enqueueHTTPRequestOperation:opt];
         }
@@ -120,7 +138,7 @@
     tf.textColor=[UIColor darkTextColor];
     tf.returnKeyType=UIReturnKeySend;
     tf.keyboardAppearance=UIKeyboardAppearanceAlert;
-    
+    self.inputView=tf;
     NSArray *cms=@[@"能便宜吗?",@"出了吗?",@"小刀一下吧"];
     int rdm=arc4random()%cms.count;
     tf.placeholder=cms[rdm];
@@ -134,18 +152,25 @@
     self.navigationItem.titleView=self.refreshView;
     
     UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+    
+    
+    
     self.navigationItem.leftBarButtonItem=btn;
     
-    UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
-    self.navigationItem.rightBarButtonItem=btn2;
-    
-	self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
     
     [self loadPics];
     
     NSDictionary *comment=@{@"user":self.post[@"user"],@"text":self.post.text};
     self.comments=@[comment];
     [self.tableView reloadData];
+    
+    if ([VZUser currentUser]) {
+        UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+        self.navigationItem.rightBarButtonItem=btn2;
+        
+    }
+    
     
     [self loadComments];
 }
@@ -156,6 +181,15 @@
         s=self.inputView.placeholder;
     }
     
+    __weak typeof(self) ws=self;
+    [model commentToWbid:[self.post objectForKey:@"wbid"] toCommentId:nil withText:s callback:^(NSDictionary *ret, NSError *error) {
+        if (ret) {
+            ws.inputView.text=nil;
+            [ws loadComments];
+        }else{
+            NSLog([error description]);
+        }
+    }];
     
 }
 
@@ -179,7 +213,7 @@
                 btn.frame=CGRectMake(60, 10, 200, 40);
                 btn.titleLabel.font=[UIFont systemFontOfSize:14];
                 
-                [btn setTitle:@"登录微博, 查看评论" forState:UIControlStateNormal];
+                [btn setTitle:@"登录微博 & 查看评论" forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
                 [btn addTarget:ws action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
@@ -210,7 +244,9 @@
         }];
         
     }else{
-        self.mm_drawerController.rightDrawerViewController=[UIViewController new];
+        VZPostActionC *ac=[[UIStoryboard storyboardWithName:@"iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"VZPostActionC"];
+        
+        self.mm_drawerController.rightDrawerViewController=ac;
         
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
             
@@ -226,10 +262,12 @@
         }else if(object){
             [ws loadComments];
             
+            UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
+            self.navigationItem.rightBarButtonItem=btn2;
+            
             [self.mm_drawerController.leftDrawerViewController performSelector:@selector(onLogin:) withObject:object];
         }
     }];
-    
 }
 
 

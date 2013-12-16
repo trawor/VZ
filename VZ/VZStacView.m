@@ -28,8 +28,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.initFrame=frame;
-        imageH=frame.size.width*WHRate;
-        imgFrame=CGRectMake(0, frame.size.height-imageH, frame.size.width, imageH);
+        
+        float w=frame.size.width-8;
+        
+        imageH=w*WHRate;
+        imgFrame=CGRectMake(4, frame.size.height-imageH, w, imageH);
     }
     return self;
 }
@@ -55,16 +58,18 @@
 }
 
 -(void)scroll:(float)y{
-    float dlt=-y/self.initFrame.size.height;
+    
     if (self.open) {
         return;
     }
+    
+    float dlt=-y/self.initFrame.size.height;
     
     if (dlt>=TRIGGER_DLT) {
         self.open=YES;
         return;
     }
-    dlt=MAX(0.07, dlt);
+    dlt=MAX(0.02, dlt);
     [self layoutWithDelta:dlt];
 }
 
@@ -87,41 +92,44 @@
 -(void)setOpen:(BOOL)open{
     _open=open;
     
-    [UIView beginAnimations:@"open" context:nil];
-    [UIView setAnimationDuration:0.5];
-    
-    if (open) {
-        
-        float h=0;
-        
-        for (UIImageView *imgv in self.subviews) {
-            imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1,1);
-            imgv.alpha=1;
+    [UIView animateWithDuration:0.25 animations:^{
+        if (open) {
+            float h=44;
             
-            CGSize size=imgv.image.size;
+            for (UIImageView *imgv in self.subviews) {
+                CGSize size=imgv.image.size;
+                
+                imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1,1);
+                imgv.alpha=1;
+                
+                
+                float r=size.width/imgFrame.size.width;
+                
+                
+                
+                CGRect f=imgFrame;
+                f.origin.y=h;
+                f.size.height=size.height/r;
+                
+                imgv.frame=f;
+                imgv.contentMode=UIViewContentModeScaleToFill;
+                
+                h+=f.size.height+4;
+            }
             
-            float r=size.width/size.height;
+            CGRect f=self.initFrame;
+            f.size.height=h;
+            self.frame=f;
             
-            size.width=self.initFrame.size.width-8;
-            size.height=size.width*r;
-            
-            imgv.frame=CGRectMake(4, h, size.width, size.height);
-            
-            h+=size.height+4;
+        }else{
+            self.frame=self.initFrame;
+            [self layoutWithDelta:0];
         }
-        CGRect f=self.initFrame;
-        f.size.height=h;
-        self.frame=f;
-        
-        
-    }else{
-        self.frame=self.initFrame;
-        [self layoutWithDelta:0];
-    }
-    if (self.delegate) {
         [self.delegate stacViewOpenChanged:self];
-    }
-    [UIView commitAnimations];
+    } completion:^(BOOL finished) {
+        
+        
+    }];
     
 }
 
