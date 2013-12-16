@@ -183,11 +183,34 @@
     
     __weak typeof(self) ws=self;
     [model commentToWbid:[self.post objectForKey:@"wbid"] toCommentId:nil withText:s callback:^(NSDictionary *ret, NSError *error) {
-        if (ret) {
+        if (error) {
+            NSString *msg=nil;
+            if(ret){
+                msg=ret[@"error"];
+            }else{
+                msg=error.userInfo[@"NSLocalizedDescription"];
+            }
+            
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"评论失败" andMessage:msg];
+            
+            [alertView addButtonWithTitle:@"重试"
+                                     type:SIAlertViewButtonTypeDefault
+                                  handler:^(SIAlertView *alert) {
+                                      [ws sendComment];
+                                  }];
+            
+            [alertView addButtonWithTitle:@"取消"
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alert) {
+                                      ws.inputView.text=nil;
+                                  }];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+            
+            [alertView show];
+        }else{
             ws.inputView.text=nil;
             [ws loadComments];
-        }else{
-            NSLog([error description]);
         }
     }];
     

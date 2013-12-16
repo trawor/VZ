@@ -191,8 +191,28 @@
     __weak VZPostListC* ws=self;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        
-        [ws onGetNewPosts:objects isMore:NO];
+        if(error){
+            
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"出错了" andMessage:[error localizedDescription]];
+            
+            [alertView addButtonWithTitle:@"重试"
+                                     type:SIAlertViewButtonTypeDefault
+                                  handler:^(SIAlertView *alert) {
+                                      [ws loadNew];
+                                  }];
+            
+            [alertView addButtonWithTitle:@"取消"
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alert) {
+                                      [ws.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+                                  }];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+            
+            [alertView show];
+        }else{
+            [ws onGetNewPosts:objects isMore:NO];
+        }
         
         [self hideRefreshView];
     }];
@@ -216,11 +236,31 @@
     [ws.moreBtn.superview addSubview:av];
     ws.moreBtn.userInteractionEnabled=NO;
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if(error){
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"出错了" andMessage:[error localizedDescription]];
+            
+            [alertView addButtonWithTitle:@"重试"
+                                     type:SIAlertViewButtonTypeDefault
+                                  handler:^(SIAlertView *alert) {
+                                      [ws loadNew];
+                                  }];
+            
+            [alertView addButtonWithTitle:@"取消"
+                                     type:SIAlertViewButtonTypeCancel
+                                  handler:^(SIAlertView *alert) {
+                                      [ws.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+                                  }];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+            
+            [alertView show];
+        }else{
+            [ws onGetNewPosts:objects isMore:YES];
+            
+            [av removeFromSuperview];
+            [ws.moreBtn setTitle:@"更 多" forState:UIControlStateNormal];
+        }
         
-        [ws onGetNewPosts:objects isMore:YES];
-        
-        [av removeFromSuperview];
-        [ws.moreBtn setTitle:@"更 多" forState:UIControlStateNormal];
         ws.moreBtn.userInteractionEnabled=YES;
     }];
 }
