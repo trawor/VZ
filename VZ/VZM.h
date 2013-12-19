@@ -16,10 +16,25 @@
 
 #import <AVOSCloud/AVHTTPClient.h>
 
+typedef enum{
+    VZThemeTypeModern =0,
+    VZThemeTypeLight
+} VZThemeType;
+
+@interface VZTheme: NSObject
++(void)changeTheme:(VZThemeType)theme;
++(UIColor *)textColor;
++(UIColor *)bgColor;
+
+@end
+
+
 @interface VZM : NSObject
 
-@property(nonatomic,assign) BOOL showPostsWithPicsOnly;
 @property(nonatomic,assign) BOOL showAroundOnly;
+
+@property(nonatomic,assign) BOOL showPostsWithPicsOnly;
+@property(nonatomic,assign) VZThemeType theme;
 
 @property(nonatomic,retain) AVHTTPClient *client;
 
