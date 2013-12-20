@@ -25,7 +25,7 @@ typedef enum{
 +(void)changeTheme:(VZThemeType)theme;
 +(UIColor *)textColor;
 +(UIColor *)bgColor;
-
++(UIImage*)bgImage;
 @end
 
 

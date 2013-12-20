@@ -50,7 +50,7 @@
     self.window.tintColor = [UIColor whiteColor];
     //self.window.backgroundColor=[UIColor blackColor];
     
-    UIImageView *bg=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    UIImageView *bg=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     bg.alpha=0.8;
     [self.window addSubview:bg];
     

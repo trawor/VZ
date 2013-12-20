@@ -74,7 +74,7 @@
     
 
     self.tableView.backgroundColor=[UIColor clearColor];
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     
     self.posts=[NSMutableArray array];
     

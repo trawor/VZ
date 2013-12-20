@@ -30,7 +30,17 @@
         case VZThemeTypeLight:
             return [UIColor lightTextColor];
         case VZThemeTypeModern:
-            return [UIColor whiteColor];
+            return [UIColor clearColor];
+    }
+    return nil;
+}
+
++(UIImage*)bgImage{
+    switch(model.theme){
+        case VZThemeTypeLight:
+            return [UIImage imageNamed:@"bg"];
+        case VZThemeTypeModern:
+            return [UIImage imageNamed:@"bg2"];
     }
     return nil;
 }

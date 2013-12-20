@@ -157,7 +157,7 @@
     
     self.navigationItem.leftBarButtonItem=btn;
     
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     
     [self loadPics];
     
