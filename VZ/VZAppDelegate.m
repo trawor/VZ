@@ -164,7 +164,8 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    //[AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    [AVPush handlePush:userInfo];
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
