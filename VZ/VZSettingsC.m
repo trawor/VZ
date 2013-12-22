@@ -7,7 +7,7 @@
 //
 
 #import "VZSettingsC.h"
-
+#import "VZM.h"
 @interface VZSettingsC ()
 
 @end
@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
 
-    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg2"]];
+    self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
 }
 
 -(void)clearCache{

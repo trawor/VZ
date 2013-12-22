@@ -8,6 +8,7 @@
 
 #import "VZCommentCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "VZM.h"
 @implementation VZCommentCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -22,6 +23,7 @@
 -(void)awakeFromNib{
     self.avatarView.layer.cornerRadius=20;
     self.avatarView.clipsToBounds=YES;
+    self.textLb.textColor=[VZTheme textColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

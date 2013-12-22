@@ -128,10 +128,11 @@
 //    self.priceLb.layer.borderColor=[UIColor whiteColor].CGColor;
 //    self.priceLb.layer.borderWidth=1;
 //    self.priceLb.backgroundColor=[UIColor colorWithWhite:0 alpha:0.3];
+    self.textLb.textColor=[VZTheme textColor];
+    
     self.priceLb.layer.cornerRadius=4;
     
     self.userAvatar.clipsToBounds=YES;
-    //self.userAvatar.layer.cornerRadius=20;
     
     self.userAvatar.layer.borderWidth =1;
     

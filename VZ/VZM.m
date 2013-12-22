@@ -10,13 +10,49 @@
 #import <AVOSCloudSNS/AVUser+SNS.h>
 #import <AVOSCloud/AVJSONRequestOperation.h>
 
+@implementation VZTheme
++(void)changeTheme:(VZThemeType)theme{
+    model.theme=theme;
+    [[NSUserDefaults standardUserDefaults] setInteger:theme forKey:@"Theme"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++(UIColor *)textColor{
+    switch(model.theme){
+        case VZThemeTypeLight:
+            return [UIColor lightTextColor];
+        case VZThemeTypeModern:
+            return [UIColor whiteColor];
+    }
+    return nil;
+}
++(UIColor *)bgColor{
+    switch(model.theme){
+        case VZThemeTypeLight:
+            return [UIColor lightTextColor];
+        case VZThemeTypeModern:
+            return [UIColor clearColor];
+    }
+    return nil;
+}
+
++(UIImage*)bgImage{
+    switch(model.theme){
+        case VZThemeTypeLight:
+            return [UIImage imageNamed:@"bg"];
+        case VZThemeTypeModern:
+            return [UIImage imageNamed:@"bg2"];
+    }
+    return nil;
+}
+
+@end
+
 @implementation VZM
 +(VZM*)shared{
     static VZM *_vzm_=Nil;
     if (_vzm_==Nil) {
         _vzm_=[VZM new];
     }
-    
     return _vzm_;
 }
 
@@ -27,6 +63,8 @@
     if (self) {
         [VZPost registerSubclass];
         [VZUser registerSubclass];
+        
+        self.theme=[[NSUserDefaults standardUserDefaults] integerForKey:@"Theme"];
         
         AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz.avosapps.com"]];
         self.client=client;
