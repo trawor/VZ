@@ -15,7 +15,7 @@
 @interface VZNearC (){
     BOOL gotUserLocation;
 }
-@property (nonatomic, retain) NSArray *posts;
+
 @property (nonatomic,retain) VZProgressView *refreshView;
 @end
 
@@ -52,16 +52,19 @@
     __weak typeof(self) ws=self;
     
     [q findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [ws.mapView removeAnnotations:ws.mapView.annotations];
-        
         if (error) {
-            NSLog(@"%@",[error description]);
+            
         }else{
             if (objects.count) {
-                NSLog(@"get %d Post ",objects.count);
-                ws.posts=objects;
                 for (VZPost *post in objects) {
-                    [ws.mapView addAnnotation:post];
+                    NSUInteger index = [self.mapView.annotations indexOfObjectPassingTest:^BOOL(id<MKAnnotation> otherAnnotation, NSUInteger idx, BOOL *stop) {
+                        return [post coordinate].latitude==[otherAnnotation coordinate].latitude && [post coordinate].longitude==[otherAnnotation coordinate].longitude ;
+                    }];
+                    if (index == NSNotFound)
+                    {
+                        [ws.mapView addAnnotation:post];
+                    }
+                    
                 }
             }
            
@@ -199,5 +202,8 @@
 
 }
 
+-(void)didReceiveMemoryWarning{
+    [self.mapView removeAnnotations:self.mapView.annotations];
+}
 
 @end

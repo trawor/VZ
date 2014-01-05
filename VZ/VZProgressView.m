@@ -102,6 +102,8 @@
 }
 
 -(void)setProgress:(float)p animated:(BOOL)animated{
+    _progress=p;
+    self.shapeLayer.strokeEnd=p;return;
     if (animated) {
         [self.shapeLayer removeAllAnimations];
         [CATransaction begin];
@@ -118,7 +120,7 @@
     }else{
         self.shapeLayer.strokeEnd=p;
     }
-    _progress=p;
+    
 }
 
 -(void)setInfinite:(BOOL)infinite{

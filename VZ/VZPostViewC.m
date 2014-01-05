@@ -118,6 +118,8 @@
     
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets=NO;
+        //self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+        //[self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     }
     
     UIView *bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
@@ -152,11 +154,11 @@
     
     self.navigationItem.titleView=self.refreshView;
     
-    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
-    
-    
-    
-    self.navigationItem.leftBarButtonItem=btn;
+//    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+//    
+//    
+//    
+//    self.navigationItem.leftBarButtonItem=btn;
     
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     
@@ -175,6 +177,7 @@
     
     [self loadComments];
 }
+
 
 -(void)sendComment{
     NSString *s= self.inputView.text;
