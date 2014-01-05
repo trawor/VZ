@@ -16,123 +16,12 @@
                         <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="Zdh-2x-qoj">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="hbF-sX-wPe" imageView="K1k-a7-E0X" rowHeight="64" style="IBUITableViewCellStyleDefault" id="Zzd-JV-wVp">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Zzd-JV-wVp" id="YGa-sZ-fP5">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hbF-sX-wPe">
-                                                    <rect key="frame" x="54" y="0.0" width="251" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="fav.png" id="K1k-a7-E0X">
-                                                    <rect key="frame" x="15" y="20" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bR7-KC-78O" imageView="fg4-Cb-EvA" rowHeight="64" style="IBUITableViewCellStyleDefault" id="Amr-zT-fxF">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Amr-zT-fxF" id="AR1-kP-fO2">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bR7-KC-78O">
-                                                    <rect key="frame" x="56" y="0.0" width="249" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="map.png" id="fg4-Cb-EvA">
-                                                    <rect key="frame" x="15" y="19" width="26" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.32549020649999999" green="0.84705889229999998" blue="0.78039222959999999" alpha="1" colorSpace="deviceRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="EHU-OO-PBy" imageView="2s7-gN-mvv" rowHeight="64" style="IBUITableViewCellStyleDefault" id="J02-lP-QUW">
-                                        <rect key="frame" x="0.0" y="128" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J02-lP-QUW" id="Yw3-RP-8Kx">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EHU-OO-PBy">
-                                                    <rect key="frame" x="54" y="0.0" width="251" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="req.png" id="2s7-gN-mvv">
-                                                    <rect key="frame" x="15" y="20" width="24" height="24"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                </cells>
+                                <cells/>
                             </tableViewSection>
                             <tableViewSection id="qaB-jY-byp">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="3Jm-mk-41b" imageView="B8p-gW-KI7" rowHeight="64" style="IBUITableViewCellStyleDefault" id="wRw-bT-CTq">
-                                        <rect key="frame" x="0.0" y="192" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wRw-bT-CTq" id="aok-nc-EqF">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Jm-mk-41b">
-                                                    <rect key="frame" x="56" y="0.0" width="249" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="deal.png" id="B8p-gW-KI7">
-                                                    <rect key="frame" x="15" y="19" width="26" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.32549020649999999" green="0.84705889229999998" blue="0.78039222959999999" alpha="1" colorSpace="deviceRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="h6Q-n6-iY0" imageView="eJd-1b-Fdd" rowHeight="64" style="IBUITableViewCellStyleDefault" id="UqE-bY-cZG">
-                                        <rect key="frame" x="0.0" y="256" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UqE-bY-cZG" id="Hqa-Y1-pS9">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h6Q-n6-iY0">
-                                                    <rect key="frame" x="56" y="0.0" width="249" height="64"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="deal.png" id="eJd-1b-Fdd">
-                                                    <rect key="frame" x="15" y="19" width="26" height="26"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="1TI-SE-tp7" imageView="Fgm-gl-b6F" rowHeight="64" style="IBUITableViewCellStyleDefault" id="59n-V4-fpx">
-                                        <rect key="frame" x="0.0" y="320" width="320" height="64"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="59n-V4-fpx" id="xfD-2A-Yr5">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
@@ -145,7 +34,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="trash.png" id="Fgm-gl-b6F">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="spam.png" id="Fgm-gl-b6F">
                                                     <rect key="frame" x="15" y="20" width="24" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
@@ -217,8 +106,8 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="pics.png" id="qwG-4H-9Tw">
-                                                    <rect key="frame" x="15" y="23" width="24" height="18"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.40000000596046448" contentMode="scaleToFill" image="home.png" id="qwG-4H-9Tw">
+                                                    <rect key="frame" x="15" y="20" width="24" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -571,16 +460,13 @@
     <resources>
         <image name="chatBg.png" width="58" height="51"/>
         <image name="chatBg2.png" width="58" height="51"/>
-        <image name="deal.png" width="26" height="26"/>
-        <image name="fav.png" width="24" height="24"/>
         <image name="geo.png" width="12" height="12"/>
         <image name="head.png" width="64" height="64"/>
-        <image name="map.png" width="26" height="26"/>
+        <image name="home.png" width="24" height="24"/>
         <image name="near.png" width="24" height="24"/>
-        <image name="pics.png" width="24" height="18"/>
         <image name="req.png" width="24" height="24"/>
         <image name="settings.png" width="24" height="24"/>
-        <image name="trash.png" width="24" height="24"/>
+        <image name="spam.png" width="24" height="24"/>
     </resources>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

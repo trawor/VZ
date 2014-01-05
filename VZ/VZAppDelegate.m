@@ -16,11 +16,21 @@
 #import "VZNavView.h"
 
 
-@interface MMDrawerController (){
+@interface VZDrawerController:MMDrawerController{
     
 }
--(UIView*)childControllerContainerView;
+@property(nonatomic)UIView *childControllerContainerView;
 @end
+
+@implementation VZDrawerController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	[self.childControllerContainerView setBackgroundColor:[UIColor clearColor]];
+}
+
+@end
+
 @interface VZAppDelegate()
 {
     
@@ -85,7 +95,6 @@
     self.window.rootViewController=menu;
     menu.view.backgroundColor=[UIColor clearColor];
     [self.window makeKeyAndVisible];
-    
     
 //    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
 //        

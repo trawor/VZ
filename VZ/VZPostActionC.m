@@ -7,7 +7,7 @@
 //
 
 #import "VZPostActionC.h"
-
+#import "VZPostViewC.h"
 @interface VZPostActionC ()
 
 @end
@@ -22,6 +22,16 @@
 
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:
+            [self.delegate reportSpam];
+            break;
+            
+        default:
+            break;
+    }
+}
 
 //#pragma mark - Table view data source
 //

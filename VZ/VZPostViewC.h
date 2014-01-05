@@ -13,4 +13,7 @@
 
 @interface VZPostViewC : UITableViewController
 @property(nonatomic,retain) VZPost *post;
+
+-(void)reportSpam;
+
 @end

@@ -260,6 +260,55 @@
     }];
 }
 
+-(void)reportSpamWithMessage:(NSString*)msg{
+    AVObject *object=[AVObject objectWithClassName:@"SpamReport"];
+    [object setObject:msg forKey:@"msg"];
+    [object setObject:self.post forKey:@"post"];
+    if ([VZUser currentUser]) {
+        [object setObject:[VZUser currentUser] forKey:@"reporter"];
+    }
+    
+    [object saveInBackground];
+}
+
+-(void)reportSpam{
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        self.mm_drawerController.rightDrawerViewController=nil;
+    }];
+    
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"报告" andMessage:nil];
+    
+    [alertView addButtonWithTitle:@"虚假内容"
+                             type:SIAlertViewButtonTypeDestructive
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"虚假内容"];
+                          }];
+    
+    
+    [alertView addButtonWithTitle:@"这是广告"
+                             type:SIAlertViewButtonTypeDestructive
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"这是广告"];
+                          }];
+    
+    [alertView addButtonWithTitle:@"内容不符"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"内容不符"];
+                          }];
+    
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeCancel
+                          handler:^(SIAlertView *alert) {
+                              
+                          }];
+    
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    
+    [alertView show];
+    
+}
+
 -(void)menu:(UIBarButtonItem*)btn{
     
     if (self.mm_drawerController.openSide==MMDrawerSideRight) {
@@ -269,7 +318,7 @@
         
     }else{
         VZPostActionC *ac=[[UIStoryboard storyboardWithName:@"iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"VZPostActionC"];
-        
+        ac.delegate=self;
         self.mm_drawerController.rightDrawerViewController=ac;
         
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {
