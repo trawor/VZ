@@ -169,9 +169,9 @@
 -(AVQuery*)getQuery{
     
     AVQuery *q=[VZPost query];
-    //q.cachePolicy=kPFCachePolicyCacheElseNetwork;
+    q.cachePolicy=kPFCachePolicyCacheElseNetwork;
     [q orderByDescending:ORDER_BY];
-    
+    [q setMaxCacheAge:60*10];
     [q setLimit:QUERY_LIMIT];
     [q whereKeyExists:@"pics"];
     [q whereKey:@"type" equalTo:@(0)];
