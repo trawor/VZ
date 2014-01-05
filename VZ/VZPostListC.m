@@ -102,23 +102,19 @@
     
     [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     
-//    int topH=300;
-//    
-//    UIView *topV= [[UIView alloc] initWithFrame:CGRectMake(0, -topH, self.view.frame.size.width, topH)];
-//    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
-//    
-//    
     
     self.navigationItem.titleView=[VZNavView shared].refreshView;
     
-//    [topV addSubview:self.refreshView];
-//    [self.view addSubview:topV];
-//    
-//    
-//    
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
+    [self.navigationItem.titleView addGestureRecognizer:tap];
+    
     [self showRefresh];
     [self loadNew];
     
+}
+
+-(void)onTitleTap:(UITapGestureRecognizer*)tap{
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{

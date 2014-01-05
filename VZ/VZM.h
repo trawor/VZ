@@ -41,8 +41,12 @@ typedef enum{
 +(VZM*)shared;
 
 -(void)login:(AVUserResultBlock)callback;
+-(void)logout;
+
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback;
 -(void)commentToWbid:(NSString*)wbid toCommentId:(NSString*)cid withText:(NSString*)text callback:(AVSNSResultBlock)callback;
+
+-(void)uploadImage:(UIImage*)image callback:(AVSNSResultBlock)callback;
 @end
 
 #define model [VZM shared]

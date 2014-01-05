@@ -92,11 +92,38 @@
                     [user save];
                 }
                 
+                AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+                if (currentInstallation.deviceToken) {
+                    [currentInstallation setObject:user forKey:@"user"];
+                    [currentInstallation saveInBackground];
+                }
+                
                 callback(user,error);
             }];
         }
         
     } toPlatform:AVOSCloudSNSSinaWeibo];
+}
+
+-(void)logout{
+    [AVUser logOut];
+    
+    NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+    NSString *token=[dict objectForKey:@"access_token"];
+    
+    [model.client getPath:@"https://api.weibo.com/oauth2/revokeoauth2" parameters:@{@"access_token":token} success:^(AVHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"success");
+    } failure:^(AVHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"logout error %@",[error description]);
+    }];
+    
+    [AVOSCloudSNS logout:AVOSCloudSNSSinaWeibo];
+    
+    AVInstallation *currentInstallation = [AVInstallation currentInstallation];
+    if ([currentInstallation objectForKey:@"user"]) {
+        [currentInstallation removeObjectForKey:@"user"];
+        [currentInstallation saveInBackground];
+    }
 }
 
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{
@@ -171,6 +198,31 @@
 
 }
 
+-(void)uploadImage:(UIImage*)image callback:(AVSNSResultBlock)callback{
+    if (![AVOSCloudSNS doesUserExpireOfPlatform:AVOSCloudSNSSinaWeibo]) {
+        NSDictionary *dict= [AVOSCloudSNS userInfo:AVOSCloudSNSSinaWeibo];
+        NSString *token=[dict objectForKey:@"access_token"];
+        
+        NSString *url=[NSString stringWithFormat:@"https://api.weibo.com/2/statuses/upload_pic.json"];
+        
+        NSMutableDictionary *param=[NSMutableDictionary dictionary];
+        [param setObject:token forKey:@"access_token"];
+        [param setObject:UIImageJPEGRepresentation(image, 0.8) forKey:@"pic"];
+        
+        NSURLRequest *req=[self.client requestWithMethod:@"POST" path:url parameters:param];
+        
+        AVJSONRequestOperation *opt=[AVJSONRequestOperation JSONRequestOperationWithRequest:req success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            callback(JSON,nil);
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            callback(JSON,error);
+        }];
+        
+        [self.client enqueueHTTPRequestOperation:opt];
+    }else{
+        callback(nil,[NSError errorWithDomain:@"vz" code:1 userInfo:nil]);
+    }
+}
 
 @end
 

@@ -33,8 +33,15 @@
         
         imageH=w*WHRate;
         imgFrame=CGRectMake(4, frame.size.height-imageH, w, imageH);
+        
+        UIPinchGestureRecognizer *pg=[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        [self addGestureRecognizer:pg];
     }
     return self;
+}
+
+-(void)close{
+    [self setOpen:NO];
 }
 
 -(void)addImage:(UIImage*)img{
