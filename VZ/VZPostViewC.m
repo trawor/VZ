@@ -51,10 +51,11 @@
 }
 
 -(void)stacViewOpenChanged:(VZStacView *)stacView{
-    if (stacView.open==NO) {
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 0) animated:YES];
-    }
     self.tableView.tableHeaderView=stacView;
+    if (stacView.open==NO) {
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
+    }
+    
 }
 
 -(void)loadPics{
