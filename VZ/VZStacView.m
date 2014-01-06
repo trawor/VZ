@@ -33,8 +33,16 @@
         
         imageH=w*WHRate;
         imgFrame=CGRectMake(4, frame.size.height-imageH, w, imageH);
+        
+        UIPinchGestureRecognizer *pg=[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
+        [self addGestureRecognizer:pg];
+        
     }
     return self;
+}
+
+-(void)close{
+    [self setOpen:NO];
 }
 
 -(void)addImage:(UIImage*)img{
@@ -81,11 +89,13 @@
     
     for (UIImageView *imgv in self.subviews) {
         float scale=1.0-(count-imgv.tag-1)*(TRIGGER_DLT-dlt)*0.2;
-        imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity, scale, scale);
+        imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity,scale, scale);
         
         float y=f.size.height-imageH*(1.0-scale*0.5)-(count-imgv.tag)*gapH;
         imgv.center=CGPointMake(self.initFrame.size.width/2, y);
         imgv.alpha=scale;
+        
+        //NSLog(@"Img:%d scale:%.02f y:%.02f",imgv.tag,scale,y);
     }
 }
 
@@ -99,7 +109,7 @@
             for (UIImageView *imgv in self.subviews) {
                 CGSize size=imgv.image.size;
                 
-                imgv.transform=CGAffineTransformScale(CGAffineTransformIdentity, 1,1);
+                imgv.transform=CGAffineTransformIdentity;
                 imgv.alpha=1;
                 
                 
@@ -122,13 +132,19 @@
             self.frame=f;
             
         }else{
+            
+            
+                for (UIImageView *imgv in self.subviews) {
+                    imgv.transform=CGAffineTransformIdentity;
+                    imgv.frame=imgFrame;
+                    imgv.contentMode=UIViewContentModeScaleAspectFill;
+                }
+                [self scroll:0];
             self.frame=self.initFrame;
-            [self layoutWithDelta:0];
         }
-        [self.delegate stacViewOpenChanged:self];
+        
     } completion:^(BOOL finished) {
-        
-        
+        [self.delegate stacViewOpenChanged:self];
     }];
     
 }

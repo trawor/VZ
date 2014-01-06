@@ -16,11 +16,7 @@
 #import "VZNavView.h"
 
 
-@interface MMDrawerController (){
-    
-}
--(UIView*)childControllerContainerView;
-@end
+
 @interface VZAppDelegate()
 {
     
@@ -31,7 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    application.applicationIconBadgeNumber=0;
+    
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
     
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -43,12 +39,16 @@
                                                            } forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
    
+    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"arrow"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"arrow"]];
+    
+    [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -64) forBarMetrics:UIBarMetricsDefault];
     
     
     model;
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.tintColor = [UIColor whiteColor];
-    //self.window.backgroundColor=[UIColor blackColor];
+    self.window.backgroundColor=[UIColor blackColor];
     
     UIImageView *bg=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     bg.alpha=0.8;
@@ -85,7 +85,6 @@
     self.window.rootViewController=menu;
     menu.view.backgroundColor=[UIColor clearColor];
     [self.window makeKeyAndVisible];
-    
     
 //    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
 //        
@@ -150,7 +149,7 @@
     [currentInstallation setDeviceTokenFromData:deviceToken];
     
     NSMutableArray *channels=[NSMutableArray arrayWithArray:currentInstallation.channels];
-    if (![channels containsObject:@"update"]) {
+    if (![channels containsObject:@"update"]) {// 设置默认的推送
         [channels addObject:@"update"];
         currentInstallation.channels=channels;
         [currentInstallation saveInBackground];
@@ -174,7 +173,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    application.applicationIconBadgeNumber=0;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

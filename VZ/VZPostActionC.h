@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class VZPostViewC;
 @interface VZPostActionC : UITableViewController
 @property(nonatomic,assign) BOOL isAuthor;
+@property(weak) VZPostViewC *delegate;
 @end

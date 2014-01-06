@@ -51,10 +51,11 @@
 }
 
 -(void)stacViewOpenChanged:(VZStacView *)stacView{
-    if (stacView.open==NO) {
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 0) animated:YES];
-    }
     self.tableView.tableHeaderView=stacView;
+    if (stacView.open==NO) {
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
+    }
+    
 }
 
 -(void)loadPics{
@@ -117,6 +118,8 @@
     
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets=NO;
+        //self.navigationController.interactivePopGestureRecognizer.delegate = (id<UIGestureRecognizerDelegate>)self;
+        //[self.navigationController.interactivePopGestureRecognizer setEnabled:YES];
     }
     
     UIView *bottomView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
@@ -147,15 +150,13 @@
     tf.delegate=self;
     self.bottomView=bottomView;
     
-    self.refreshView=[[VZProgressView alloc] initWithWidth:44];
+    self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     
-    self.navigationItem.titleView=self.refreshView;
-    
-    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
-    
-    
-    
-    self.navigationItem.leftBarButtonItem=btn;
+//    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
+//    
+//    
+//    
+//    self.navigationItem.leftBarButtonItem=btn;
     
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     
@@ -174,6 +175,7 @@
     
     [self loadComments];
 }
+
 
 -(void)sendComment{
     NSString *s= self.inputView.text;
@@ -259,6 +261,55 @@
     }];
 }
 
+-(void)reportSpamWithMessage:(NSString*)msg{
+    AVObject *object=[AVObject objectWithClassName:@"SpamReport"];
+    [object setObject:msg forKey:@"msg"];
+    [object setObject:self.post forKey:@"post"];
+    if ([VZUser currentUser]) {
+        [object setObject:[VZUser currentUser] forKey:@"reporter"];
+    }
+    
+    [object saveInBackground];
+}
+
+-(void)reportSpam{
+    [self.mm_drawerController closeDrawerAnimated:YES completion:^(BOOL finished) {
+        self.mm_drawerController.rightDrawerViewController=nil;
+    }];
+    
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"报告" andMessage:nil];
+    
+    [alertView addButtonWithTitle:@"虚假内容"
+                             type:SIAlertViewButtonTypeDestructive
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"虚假内容"];
+                          }];
+    
+    
+    [alertView addButtonWithTitle:@"这是广告"
+                             type:SIAlertViewButtonTypeDestructive
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"这是广告"];
+                          }];
+    
+    [alertView addButtonWithTitle:@"内容不符"
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *alert) {
+                              [self reportSpamWithMessage:@"内容不符"];
+                          }];
+    
+    [alertView addButtonWithTitle:@"取消"
+                             type:SIAlertViewButtonTypeCancel
+                          handler:^(SIAlertView *alert) {
+                              
+                          }];
+    
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    
+    [alertView show];
+    
+}
+
 -(void)menu:(UIBarButtonItem*)btn{
     
     if (self.mm_drawerController.openSide==MMDrawerSideRight) {
@@ -268,7 +319,7 @@
         
     }else{
         VZPostActionC *ac=[[UIStoryboard storyboardWithName:@"iPhone" bundle:nil] instantiateViewControllerWithIdentifier:@"VZPostActionC"];
-        
+        ac.delegate=self;
         self.mm_drawerController.rightDrawerViewController=ac;
         
         [self.mm_drawerController openDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {

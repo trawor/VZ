@@ -60,25 +60,24 @@
     
     self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
     
-    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-    
-    swipe.direction=UISwipeGestureRecognizerDirectionRight;
-    
-    [self.view addGestureRecognizer:swipe];
-    
-    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-    
-    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
-    
-    [self.view addGestureRecognizer:swipe];
-    
+//    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+//    
+//    swipe.direction=UISwipeGestureRecognizerDirectionRight;
+//    
+//    [self.view addGestureRecognizer:swipe];
+//    
+//    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+//    
+//    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
+//    
+//    [self.view addGestureRecognizer:swipe];
+//    
 
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
+    self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     
     self.posts=[NSMutableArray array];
-    
-    [self.refreshControl addTarget:self action:@selector(loadNew) forControlEvents:UIControlEventValueChanged];
     
     UIView *btmV=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
     
@@ -102,23 +101,18 @@
     
     [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     
-//    int topH=300;
-//    
-//    UIView *topV= [[UIView alloc] initWithFrame:CGRectMake(0, -topH, self.view.frame.size.width, topH)];
-//    topV.backgroundColor=[UIColor colorWithWhite:0 alpha:0.4];
-//    
-//    
     
-    self.navigationItem.titleView=[VZNavView shared].refreshView;
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
+    [self.navigationItem.titleView addGestureRecognizer:tap];
     
-//    [topV addSubview:self.refreshView];
-//    [self.view addSubview:topV];
-//    
-//    
-//    
     [self showRefresh];
     [self loadNew];
     
+}
+
+
+-(void)onTitleTap:(UITapGestureRecognizer*)tap{
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -173,9 +167,9 @@
 -(AVQuery*)getQuery{
     
     AVQuery *q=[VZPost query];
-    //q.cachePolicy=kPFCachePolicyCacheElseNetwork;
+    q.cachePolicy=kPFCachePolicyCacheElseNetwork;
     [q orderByDescending:ORDER_BY];
-    
+    [q setMaxCacheAge:60*10];
     [q setLimit:QUERY_LIMIT];
     [q whereKeyExists:@"pics"];
     [q whereKey:@"type" equalTo:@(0)];
@@ -271,8 +265,8 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     } completion:^(BOOL finished) {
-        [VZNavView shared].refreshView.infinite=NO;
-        [VZNavView shared].refreshView.progress=1;
+        self.refreshView.infinite=NO;
+        self.refreshView.progress=1;
         updateRefreshView=NO;
     }];
     
@@ -288,7 +282,7 @@
         [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height]+REFRESH_TRIGGER, 0, 0, 0)];
     }];
 
-    [VZNavView shared].refreshView.infinite=YES;
+    self.refreshView.infinite=YES;
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -312,7 +306,7 @@
     float y=scrollView.contentOffset.y;
     
     if (dragStart && !updateRefreshView && y<0) {
-        [[VZNavView shared].refreshView setProgress:(1.0-(-y-REFRESH_HEIGHT)*1.0f/REFRESH_TRIGGER) animated:NO];
+        [self.refreshView setProgress:(1.0-(-y-REFRESH_HEIGHT)*1.0f/REFRESH_TRIGGER) animated:NO];
     }
 }
 
