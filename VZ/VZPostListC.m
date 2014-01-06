@@ -60,25 +60,24 @@
     
     self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
     
-    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-    
-    swipe.direction=UISwipeGestureRecognizerDirectionRight;
-    
-    [self.view addGestureRecognizer:swipe];
-    
-    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-    
-    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
-    
-    [self.view addGestureRecognizer:swipe];
-    
+//    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+//    
+//    swipe.direction=UISwipeGestureRecognizerDirectionRight;
+//    
+//    [self.view addGestureRecognizer:swipe];
+//    
+//    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+//    
+//    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
+//    
+//    [self.view addGestureRecognizer:swipe];
+//    
 
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
+    self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     
     self.posts=[NSMutableArray array];
-    
-    [self.refreshControl addTarget:self action:@selector(loadNew) forControlEvents:UIControlEventValueChanged];
     
     UIView *btmV=[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
     
@@ -103,8 +102,6 @@
     [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     
     
-    self.navigationItem.titleView=[VZNavView shared].refreshView;
-    
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
     [self.navigationItem.titleView addGestureRecognizer:tap];
     
@@ -112,6 +109,7 @@
     [self loadNew];
     
 }
+
 
 -(void)onTitleTap:(UITapGestureRecognizer*)tap{
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
@@ -267,8 +265,8 @@
     [UIView animateWithDuration:0.2 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
     } completion:^(BOOL finished) {
-        [VZNavView shared].refreshView.infinite=NO;
-        [VZNavView shared].refreshView.progress=1;
+        self.refreshView.infinite=NO;
+        self.refreshView.progress=1;
         updateRefreshView=NO;
     }];
     
@@ -284,7 +282,7 @@
         [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height]+REFRESH_TRIGGER, 0, 0, 0)];
     }];
 
-    [VZNavView shared].refreshView.infinite=YES;
+    self.refreshView.infinite=YES;
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -308,7 +306,7 @@
     float y=scrollView.contentOffset.y;
     
     if (dragStart && !updateRefreshView && y<0) {
-        [[VZNavView shared].refreshView setProgress:(1.0-(-y-REFRESH_HEIGHT)*1.0f/REFRESH_TRIGGER) animated:NO];
+        [self.refreshView setProgress:(1.0-(-y-REFRESH_HEIGHT)*1.0f/REFRESH_TRIGGER) animated:NO];
     }
 }
 

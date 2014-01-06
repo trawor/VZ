@@ -20,6 +20,7 @@
 @property(nonatomic,assign) float progress;
 @property(nonatomic,assign) float lineWidth;
 
+
 - (id)initWithWidth:(float)width;
 
 -(void)setProgress:(float)p animated:(BOOL)animated;

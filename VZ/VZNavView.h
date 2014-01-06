@@ -12,7 +12,7 @@
 @property (nonatomic,retain) VZProgressView *refreshView;
 @property(nonatomic,retain)UIButton *arrowBtn;
 
-+(VZNavView*)shared;
+//+(VZNavView*)shared;
 +(float)height;
 
 -(void)arrowDown;

@@ -18,7 +18,11 @@
 @end
 
 @implementation VZProgressView
-
++(instancetype)new{
+    VZProgressView *v=[[self alloc] initWithWidth:44];
+    v.progress=1;
+    return v;
+}
 - (id)initWithWidth:(float)width
 {
     float height=width*0.5;

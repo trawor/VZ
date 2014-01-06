@@ -11,8 +11,10 @@
 #import <AVOSCloud/AVImageRequestOperation.h>
 #import "VZNavView.h"
 #import <UIViewController+MMDrawerController.h>
-
+#import <SIAlertView/SIAlertView.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
+
+#import "VZStatusListC.h"
 
 CATransform3D CATransform3DMakePerspective(CGPoint center, float disZ)
 {
@@ -61,7 +63,24 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
             }
         }];
     }else{
-        [self onLogout];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"注销" andMessage:@"确定要注销吗？"];
+        
+        [alertView addButtonWithTitle:@"确定"
+                                 type:SIAlertViewButtonTypeDestructive
+                              handler:^(SIAlertView *alert) {
+                                  [self onLogout];
+                              }];
+        
+        [alertView addButtonWithTitle:@"取消"
+                                 type:SIAlertViewButtonTypeCancel
+                              handler:^(SIAlertView *alert) {
+                                  
+                              }];
+        
+        alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+        
+        [alertView show];
+        
     }
     
 }
@@ -87,7 +106,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     UINavigationController *nav=(id)self.mm_drawerController.centerViewController;
     
     if (indexPath.section==1) {
-        [nav setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"SettingC"]] animated:YES];
+        [nav setViewControllers:@[[self.storyboard instantiateViewControllerWithIdentifier:@"SettingC"]] animated:NO];
     }else if(indexPath.section==0){
         switch (indexPath.row) {
             case 0:
@@ -98,16 +117,21 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
             case 1:
             {
                 UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"PostListC"];
-                [nav setViewControllers:@[vc] animated:YES];
+                [nav setViewControllers:@[vc] animated:NO];
             }
                 break;
                 
             case 2:
             {
                 UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"NearC"];
-                [nav setViewControllers:@[vc] animated:YES];
+                [nav setViewControllers:@[vc] animated:NO];
             }
-                
+              
+            case 3:
+            {
+                VZStatusListC *vc=[[VZStatusListC alloc] initWithStyle:UITableViewStylePlain];
+                [nav setViewControllers:@[vc] animated:NO];
+            }
             default:
                 break;
         }

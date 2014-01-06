@@ -150,9 +150,7 @@
     tf.delegate=self;
     self.bottomView=bottomView;
     
-    self.refreshView=[[VZProgressView alloc] initWithWidth:44];
-    
-    self.navigationItem.titleView=self.refreshView;
+    self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     
 //    UIBarButtonItem *btn=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"arrow"] style:UIBarButtonItemStylePlain target:self action:@selector(onBack)];
 //    

@@ -24,6 +24,7 @@
 		1F7722241812D7EA0080308A /* VZPostListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722231812D7EA0080308A /* VZPostListC.m */; };
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
 		1F7DFD9F1821F31500323B65 /* VZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7DFD9E1821F31500323B65 /* VZProgressView.m */; };
+		1F80241118797A80005F4005 /* VZStatusListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F80241018797A80005F4005 /* VZStatusListC.m */; };
 		1F8A64BE1838C73D00E825BC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8A64BD1838C73D00E825BC /* MapKit.framework */; };
 		1F94FF58183763C0001114B4 /* VZNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F94FF57183763C0001114B4 /* VZNavView.m */; };
 		1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F94FF59183781D5001114B4 /* arrow@2x.png */; };
@@ -89,6 +90,8 @@
 		1F77222818138EE80080308A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		1F7DFD9D1821F31500323B65 /* VZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZProgressView.h; sourceTree = "<group>"; };
 		1F7DFD9E1821F31500323B65 /* VZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZProgressView.m; sourceTree = "<group>"; };
+		1F80240F18797A80005F4005 /* VZStatusListC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZStatusListC.h; sourceTree = "<group>"; };
+		1F80241018797A80005F4005 /* VZStatusListC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZStatusListC.m; sourceTree = "<group>"; };
 		1F8A64BD1838C73D00E825BC /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		1F94FF56183763C0001114B4 /* VZNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNavView.h; sourceTree = "<group>"; };
 		1F94FF57183763C0001114B4 /* VZNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZNavView.m; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				1F4C5C111849B6ED00AB3696 /* VZNavC.m */,
 				1FDF3B1F185445450069834B /* VZPostActionC.h */,
 				1FDF3B20185445450069834B /* VZPostActionC.m */,
+				1F80240F18797A80005F4005 /* VZStatusListC.h */,
+				1F80241018797A80005F4005 /* VZStatusListC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				1FE18C55183C983E009E7938 /* VZStacView.m in Sources */,
 				1FC0819118252A13005CAFBB /* VZNearC.m in Sources */,
 				1F94FF58183763C0001114B4 /* VZNavView.m in Sources */,
+				1F80241118797A80005F4005 /* VZStatusListC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +547,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "39BACF4F-15FE-4870-AFA4-326464A0FEFF";
 				VALID_ARCHS = "armv7 armv7s";
@@ -562,6 +569,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VZ/VZ-Prefix.pch";
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "39BACF4F-15FE-4870-AFA4-326464A0FEFF";
 				WRAPPER_EXTENSION = app;
