@@ -9,7 +9,7 @@
 #import "VZStatusListC.h"
 #import "VZM.h"
 #import "VZNavView.h"
-
+#import "VZWebViewC.h"
 #import <AVOSCloud/AVStatus.h>
 
 @interface VZStatusListC (){
@@ -36,10 +36,14 @@
     [super viewDidLoad];
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
+    
     self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
     [self.navigationItem.titleView addGestureRecognizer:tap];
+    
+    [self showRefresh];
+    [self loadNew];
     
     
 }
@@ -66,7 +70,7 @@
     
     updateRefreshView=YES;
     [UIView animateWithDuration:0.2 animations:^{
-        [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height]+REFRESH_TRIGGER, 0, 0, 0)];
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
     }];
     
     self.refreshView.infinite=YES;
@@ -100,7 +104,28 @@
 
 -(void)loadNew{
     __weak typeof(self) ws=self;
-    [AVStatus getInboxStatuses:^(NSArray *objects, NSError *error) {
+    [AVStatus getStatusesWithType:kAVStatusTypeTimeline skip:0 limit:100 andCallback:^(NSArray *objects, NSError *error) {
+        
+        AVStatus *status=[[AVStatus alloc] init];
+        [status setData:@{
+                          @"text":@"hello link",
+                          @"content":@"http://baidu.com",
+                          }];
+        
+        AVStatus *status3=[[AVStatus alloc] init];
+        [status3 setData:@{
+                          @"text":@"hello store",
+                          @"content":@"http://itunes.apple.com/us/app/iq-test-sale/id297141027?mt=8&uo=6",
+                          }];
+        
+        AVStatus *status2=[[AVStatus alloc] init];
+        [status2 setData:@{
+                          @"text":@"hello post",
+                          @"content":@"post://52342342343",
+                          }];
+        
+        objects=@[status,status2,status3];
+        
         ws.statuses=objects;
         [ws.tableView reloadData];
         [ws hideRefreshView];
@@ -111,23 +136,54 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.statuses.count;
+    return 1;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.statuses.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"StatusCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    // Configure the cell...
+    if (cell==nil) {
+        cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    AVStatus *status=[self.statuses objectAtIndex:indexPath.row];
+    NSDictionary *data=status.data;
+    
+    cell.textLabel.text=data[@"text"];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    AVStatus *status=[self.statuses objectAtIndex:indexPath.row];
+    NSDictionary *data=status.data;
+    NSString *content= data[@"content"];
+    
+    NSArray *cpt=[content componentsSeparatedByString:@"://"];
+    
+    NSString *scheme=cpt[0];
+    
+    if ([scheme hasPrefix:@"post"]) {
+        VZPost *post=[VZPost objectWithoutDataWithObjectId:cpt[1]];
+        [post fetchIfNeededInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+            
+        }];
+    }else if([scheme hasPrefix:@"http"]){
+        VZWebViewC *webc=[[VZWebViewC alloc] init];
+        
+        [webc loadURL:content];
+        
+        [self.navigationController pushViewController:webc animated:YES];
+    }
 }
 
 /*
