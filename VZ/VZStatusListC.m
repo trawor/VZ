@@ -100,7 +100,7 @@
 
 -(void)loadNew{
     __weak typeof(self) ws=self;
-    [AVStatus getInboxStatuses:^(NSArray *objects, NSError *error) {
+    [AVStatus getStatusesWithType:kAVStatusTypeTimeline skip:0 limit:100 andCallback:^(NSArray *objects, NSError *error) {
         ws.statuses=objects;
         [ws.tableView reloadData];
         [ws hideRefreshView];
