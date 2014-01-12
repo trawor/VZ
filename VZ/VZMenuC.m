@@ -124,7 +124,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
             case 2:
             {
                 UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"NearC"];
-                [nav setViewControllers:@[vc] animated:NO];
+                [nav setViewControllers:@[vc] animated:YES];
             }
               
             case 3:
