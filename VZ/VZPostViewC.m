@@ -102,6 +102,9 @@
     
 }
 
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    [self.inputView resignFirstResponder];
+}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     float y=scrollView.contentOffset.y;
     
