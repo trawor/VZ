@@ -66,7 +66,7 @@
         
         self.theme=[[NSUserDefaults standardUserDefaults] integerForKey:@"Theme"];
         
-        AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"vz.avosapps.com"]];
+        AVHTTPClient *client=[[AVHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"http://vz.avosapps.com"]];
         self.client=client;
     }
     return self;
@@ -97,6 +97,7 @@
                     [currentInstallation setObject:user forKey:@"user"];
                     [currentInstallation saveInBackground];
                 }
+                
                 
                 callback(user,error);
             }];
@@ -236,8 +237,7 @@
 }
 
 -(NSString*)wbid{
-    NSString *uid=nil;
-    [self validateValue:&uid forKeyPath:@"authData.weibo.uid" error:nil];
+    NSString *uid=self[@"authData"][@"weibo"][@"uid"];
     
     return uid;
 }
