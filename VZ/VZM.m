@@ -55,7 +55,19 @@
     }
     return _vzm_;
 }
-
++(NSString*)storeIdOfURL:(NSString *)url{
+    if ([url rangeOfString:@"itunes.apple.com"].length) {
+        NSRegularExpression *re=[NSRegularExpression regularExpressionWithPattern:@"id([0-9]{8,})" options:0 error:nil];
+        NSTextCheckingResult *result= [re firstMatchInString:url options:NSMatchingReportCompletion range:NSMakeRange(0, url.length)];
+        
+        if (result) {
+            NSString *storeId=[url substringWithRange:[result rangeAtIndex:1]];
+            return storeId;
+        }
+    }
+    
+    return nil;
+}
 
 - (id)init
 {
@@ -104,6 +116,8 @@
         }
         
     } toPlatform:AVOSCloudSNSSinaWeibo];
+    
+    [AVAnalytics event:@"用户登陆"];
 }
 
 -(void)logout{
@@ -125,6 +139,8 @@
         [currentInstallation removeObjectForKey:@"user"];
         [currentInstallation saveInBackground];
     }
+    
+    [AVAnalytics event:@"用户注销"];
 }
 
 -(void)getCommentWithWbid:(NSString*)wbid callback:(AVArrayResultBlock)callback{

@@ -59,6 +59,8 @@
 
     
     [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [AVAnalytics setCrashReportEnabled:YES];
+    
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     
@@ -77,7 +79,7 @@
     
     menu.openDrawerGestureModeMask=MMOpenDrawerGestureModeNone;
     menu.closeDrawerGestureModeMask=MMCloseDrawerGestureModeTapCenterView;
-    menu.shouldStretchDrawer=NO;
+    menu.shouldStretchDrawer=YES;
     menu.maximumLeftDrawerWidth=64;
     
     menu.maximumRightDrawerWidth=64;

@@ -43,15 +43,24 @@
 
 -(void)onSwipe:(UISwipeGestureRecognizer*)swipe{
     
-    //[self menu:Nil];return;
     
-//    if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
-//        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-//    }else {
-//        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
-//    }
+    if (swipe.direction==UISwipeGestureRecognizerDirectionRight) {
+        [self.mm_drawerController openDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    }else {
+        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+    }
     
    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"产品列表"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"产品列表"];
 }
 
 - (void)viewDidLoad
@@ -60,18 +69,18 @@
     
     self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
     
-//    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-//    
-//    swipe.direction=UISwipeGestureRecognizerDirectionRight;
-//    
-//    [self.view addGestureRecognizer:swipe];
-//    
-//    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
-//    
-//    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
-//    
-//    [self.view addGestureRecognizer:swipe];
-//    
+    UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    
+    swipe.direction=UISwipeGestureRecognizerDirectionRight;
+    
+    [self.view addGestureRecognizer:swipe];
+    
+    swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
+    
+    swipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    
+    [self.view addGestureRecognizer:swipe];
+//
 
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
@@ -192,6 +201,7 @@
             [alertView addButtonWithTitle:@"重试"
                                      type:SIAlertViewButtonTypeDefault
                                   handler:^(SIAlertView *alert) {
+                                      [ws showRefresh];
                                       [ws loadNew];
                                   }];
             
@@ -213,6 +223,7 @@
 }
 
 -(IBAction)loadMore:(id)sender{
+    [AVAnalytics event:@"产品列表-加载更多"];
     if (!self.lastid) {return;};
     
     AVQuery *q=[self getQuery];
@@ -326,7 +337,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"PostCell0";
-    VZPostCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    VZPostCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     cell.table=tableView;
     

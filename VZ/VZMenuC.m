@@ -13,6 +13,7 @@
 #import <UIViewController+MMDrawerController.h>
 #import <SIAlertView/SIAlertView.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
+#import "VZNearC.h"
 
 #import "VZStatusListC.h"
 
@@ -85,6 +86,21 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     
 }
 
+- (void)dealloc
+{
+    NSLog(@"menu release?");
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"左菜单"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"左菜单"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -123,8 +139,9 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
                 
             case 2:
             {
-                UIViewController *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"NearC"];
-                [nav setViewControllers:@[vc] animated:YES];
+                VZNearC *vc= [self.storyboard instantiateViewControllerWithIdentifier:@"NearC"];
+                [nav setViewControllers:@[vc] animated:NO];
+                break;
             }
               
             case 3:

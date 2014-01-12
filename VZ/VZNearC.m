@@ -14,13 +14,24 @@
 
 @interface VZNearC (){
     BOOL gotUserLocation;
+    BOOL loading;
 }
 
 @property (nonatomic,retain) VZProgressView *refreshView;
+@property (nonatomic,assign) CLLocationCoordinate2D lastCoor;
 @end
 
 @implementation VZNearC
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"地图页面"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"地图页面"];
+}
 
 - (void)viewDidLoad
 {
@@ -34,6 +45,10 @@
 }
 
 -(void)reloadPosts{
+    if (loading) {
+        return;
+    }
+    loading=YES;
     if (!self.refreshView.infinite) {
         self.refreshView.infinite=YES;
     }
@@ -45,7 +60,7 @@
     [q whereKeyExists:@"pics"];
     [q setLimit:60];
     
-    float kilo=region.span.latitudeDelta*111.0;
+    float kilo=region.span.latitudeDelta*111.0*0.5;
     
     [q whereKey:@"geo" nearGeoPoint:[AVGeoPoint geoPointWithLatitude:region.center.latitude longitude:region.center.longitude] withinKilometers:kilo];
     
@@ -71,6 +86,7 @@
         }
         ws.refreshView.infinite=NO;
         [ws.refreshView setProgress:1 animated:NO];
+        loading=NO;
     }];
 }
 
@@ -89,12 +105,12 @@
         
         annotationView.rightCalloutAccessoryView=[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         
-
+        annotationView.opaque = NO;
+        annotationView.animatesDrop = YES;
+        
     }
     
 
-    annotationView.opaque = NO;
-    annotationView.animatesDrop = YES;
     
     
     VZPost *post=(id)annotation;
@@ -131,9 +147,21 @@
 }
 
 -(void)onGetLocation:(CLLocationCoordinate2D)location exact:(BOOL)exact{
+    if (CLLocationCoordinate2DIsValid(self.lastCoor)) {
+        CLLocationDistance dis=ABS([[[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude]
+                                      distanceFromLocation:
+                                      [[CLLocation alloc] initWithLatitude:self.lastCoor.latitude longitude:self.lastCoor.longitude]
+                                      ]);
+        if (dis<5000) {
+            return;
+        }
+    }
+    
+    
+    self.lastCoor=location;
     gotUserLocation=YES;
     
-    float kilo=5;
+    float kilo=10;
     if (exact==NO) {
         kilo=50;
     }

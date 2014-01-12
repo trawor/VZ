@@ -37,6 +37,8 @@
         UIPinchGestureRecognizer *pg=[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(close)];
         [self addGestureRecognizer:pg];
         
+        self.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        
     }
     return self;
 }
@@ -142,9 +144,9 @@
                 [self scroll:0];
             self.frame=self.initFrame;
         }
-        
-    } completion:^(BOOL finished) {
         [self.delegate stacViewOpenChanged:self];
+    } completion:^(BOOL finished) {
+        
     }];
     
 }

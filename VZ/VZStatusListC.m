@@ -11,7 +11,7 @@
 #import "VZNavView.h"
 #import "VZWebViewC.h"
 #import <AVOSCloud/AVStatus.h>
-
+#import "VZPostViewC.h"
 @interface VZStatusListC (){
     BOOL dragStart;
     BOOL updateRefreshView;
@@ -26,23 +26,32 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        self.navigationItem.titleView=self.refreshView=[VZProgressView new];
     }
     return self;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"消息列表"];
+}
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"消息列表"];
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.tableView.backgroundColor=[UIColor clearColor];
     self.tableView.backgroundView=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];
     
-    self.navigationItem.titleView=self.refreshView=[VZProgressView new];
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    
+    
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
     [self.navigationItem.titleView addGestureRecognizer:tap];
     
-    [self showRefresh];
     [self loadNew];
     
     
@@ -109,7 +118,7 @@
         AVStatus *status=[[AVStatus alloc] init];
         [status setData:@{
                           @"text":@"hello link",
-                          @"content":@"http://baidu.com",
+                          @"content":@"http://weibo.com",
                           }];
         
         AVStatus *status3=[[AVStatus alloc] init];
@@ -121,14 +130,20 @@
         AVStatus *status2=[[AVStatus alloc] init];
         [status2 setData:@{
                           @"text":@"hello post",
-                          @"content":@"post://52342342343",
+                          @"content":@"post://52d202a3e4b04a44920e736a",
                           }];
         
         objects=@[status,status2,status3];
-        
         ws.statuses=objects;
-        [ws.tableView reloadData];
-        [ws hideRefreshView];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [ws.tableView reloadData];
+            [ws hideRefreshView];
+            
+        });
+        
+   
+        
     }];
 }
 
@@ -152,12 +167,25 @@
     
     if (cell==nil) {
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.backgroundColor=[UIColor colorWithWhite:1 alpha:0.3];
+        cell.contentView.backgroundColor=[UIColor clearColor];
+        cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        
+        cell.imageView.clipsToBounds=YES;
+        cell.imageView.layer.cornerRadius=20;
     }
     
     AVStatus *status=[self.statuses objectAtIndex:indexPath.row];
     NSDictionary *data=status.data;
     
     cell.textLabel.text=data[@"text"];
+    
+    id source=status.source;
+    if (source) {
+        
+    }else{
+        cell.imageView.image=[UIImage imageNamed:@"head"];
+    }
     
     return cell;
 }
@@ -172,17 +200,87 @@
     
     NSString *scheme=cpt[0];
     
+    self.refreshView.infinite=YES;
+    self.view.userInteractionEnabled=NO;
+    __weak typeof(self) ws=self;
+    
     if ([scheme hasPrefix:@"post"]) {
         VZPost *post=[VZPost objectWithoutDataWithObjectId:cpt[1]];
         [post fetchIfNeededInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+            ws.view.userInteractionEnabled=YES;
+            ws.refreshView.infinite=NO;
+            
+            if (object) {
+                VZPostViewC *vc=[[VZPostViewC alloc] init];
+                vc.post=(id)object;
+                [ws.navigationController pushViewController:vc animated:YES];
+            }else{
+                NSString *msg=@"无法获取内容";
+                if (error) {
+                    msg=[error localizedDescription];
+                }
+                SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"出错了" andMessage:msg];
+                
+                [alertView addButtonWithTitle:@"确定"
+                                         type:SIAlertViewButtonTypeCancel
+                                      handler:^(SIAlertView *alert) {
+                                      }];
+                
+                alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                
+                [alertView show];
+            }
+            
             
         }];
     }else if([scheme hasPrefix:@"http"]){
+        
+        NSString *storeId=[VZM storeIdOfURL:content];
+        if (storeId) {
+            
+            
+            SKStoreProductViewController *storeProductViewController = [[SKStoreProductViewController alloc] init];
+            // Configure View Controller
+            [storeProductViewController setDelegate:(id)self];
+            [storeProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier : storeId}
+             
+                                                  completionBlock:^(BOOL result, NSError *error) {
+                                                      if (error) {
+                                                          NSLog(@"Error %@ with User Info %@.", error, [error userInfo]);
+                                                          
+                                                          SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"出错了" andMessage:[error localizedDescription]];
+                                                          
+                                                          [alertView addButtonWithTitle:@"确定"
+                                                                                   type:SIAlertViewButtonTypeCancel
+                                                                                handler:^(SIAlertView *alert) {
+                                                                                    
+                                                                                }];
+                                                          
+                                                          alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+                                                          
+                                                          [alertView show];
+                                                          
+                                                      } else {
+                                                          // Present Store Product View Controller
+                                                          [self presentViewController:storeProductViewController animated:YES completion:nil];
+                                                      }
+                                                      ws.view.userInteractionEnabled=YES;
+                                                      ws.refreshView.infinite=NO;
+                                                  }];
+            
+            return;
+        }
+        
+        
         VZWebViewC *webc=[[VZWebViewC alloc] init];
         
         [webc loadURL:content];
         
         [self.navigationController pushViewController:webc animated:YES];
+        
+        self.view.userInteractionEnabled=YES;
+        self.refreshView.infinite=NO;
+
     }
 }
 
@@ -237,4 +335,8 @@
 
  */
 
+
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

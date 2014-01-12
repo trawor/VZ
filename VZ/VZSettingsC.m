@@ -14,7 +14,15 @@
 
 @implementation VZSettingsC
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"设置页面"];
+}
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"设置页面"];
+}
 
 - (void)viewDidLoad
 {

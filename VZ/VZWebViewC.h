@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <StoreKit/SKStoreProductViewController.h>
+
+#import <SIAlertView/SIAlertView.h>
 
 @interface VZWebViewC : UIViewController<UIWebViewDelegate>
 @property(nonatomic,strong) UIWebView *webView;

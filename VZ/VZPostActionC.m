@@ -14,7 +14,15 @@
 
 @implementation VZPostActionC
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"右菜单"];
+}
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"右菜单"];
+}
 
 - (void)viewDidLoad
 {

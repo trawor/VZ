@@ -8,9 +8,7 @@
 
 #import "VZWebViewC.h"
 #import "VZProgressView.h"
-#import <StoreKit/SKStoreProductViewController.h>
 
-#import <SIAlertView/SIAlertView.h>
 
 @interface VZWebViewC ()<SKStoreProductViewControllerDelegate>
 @property(nonatomic,strong) VZProgressView *refreshView;

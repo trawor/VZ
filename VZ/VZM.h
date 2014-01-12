@@ -40,6 +40,8 @@ typedef enum{
 
 +(VZM*)shared;
 
++(NSString*)storeIdOfURL:(NSString*)url;
+
 -(void)login:(AVUserResultBlock)callback;
 -(void)logout;
 

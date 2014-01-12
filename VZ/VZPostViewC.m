@@ -56,6 +56,8 @@
         [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
     }
     
+    NSString *msg=stacView.open?@"照片堆打开":@"照片堆关闭";
+    [AVAnalytics event:msg];
 }
 
 -(void)loadPics{
@@ -114,6 +116,17 @@
 -(void)onBack{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [AVAnalytics beginLogPageView:@"产品详情"];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [AVAnalytics endLogPageView:@"产品详情"];
+}
+
 
 - (void)viewDidLoad
 {
@@ -189,6 +202,8 @@
     __weak typeof(self) ws=self;
     [model commentToWbid:[self.post objectForKey:@"wbid"] toCommentId:nil withText:s callback:^(NSDictionary *ret, NSError *error) {
         if (error) {
+            [AVAnalytics event:@"评论失败"];
+            
             NSString *msg=nil;
             if(ret){
                 msg=ret[@"error"];
@@ -214,6 +229,7 @@
             
             [alertView show];
         }else{
+            [AVAnalytics event:@"评论成功"];
             ws.inputView.text=nil;
             [ws loadComments];
         }
@@ -335,8 +351,11 @@
     __weak typeof(self) ws=self;
     [model login:^(id object, NSError *error) {
         if (error) {
+            [AVAnalytics event:@"登陆失败" attributes:@{@"page":@"产品详情",@"reason":[error localizedDescription]}];
             NSLog(@"login error %@",[error description]);
         }else if(object){
+            [AVAnalytics event:@"登陆成功" attributes:@{@"page":@"产品详情"}];
+            
             [ws loadComments];
             
             UIBarButtonItem *btn2=[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Dots"] style:UIBarButtonItemStylePlain target:self action:@selector(menu:)];
@@ -413,7 +432,7 @@
     }
     
     
-    VZCommentCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    VZCommentCell *cell = (id)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (cell == nil) {
         cell = [[VZCommentCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
