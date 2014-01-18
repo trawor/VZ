@@ -139,7 +139,7 @@
     self.userAvatar.layer.borderColor=[UIColor whiteColor].CGColor;
  
     self.photo.backgroundColor=[UIColor clearColor];
-    //self.photo.layer.cornerRadius=10;
+    self.userAvatar.layer.cornerRadius=20;
 }
 
 -(void)prepareForReuse{

@@ -21,8 +21,11 @@
 }
 
 -(void)awakeFromNib{
+    self.avatarView.layer.borderWidth =1;
+    self.avatarView.layer.borderColor=[UIColor whiteColor].CGColor;
     self.avatarView.layer.cornerRadius=20;
     self.avatarView.clipsToBounds=YES;
+    
     self.textLb.textColor=[VZTheme textColor];
 }
 

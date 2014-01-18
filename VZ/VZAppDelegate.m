@@ -27,6 +27,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [[UINavigationBar appearance] setBackgroundImage:[[UIImage imageNamed:@"navBg"] stretchableImageWithLeftCapWidth:25 topCapHeight:1] forBarMetrics:UIBarMetricsDefault];
     
@@ -38,16 +39,23 @@
                                                            UITextAttributeTextColor:[UIColor whiteColor]
                                                            } forState:UIControlStateNormal];
     [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearance] setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
    
-    [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"arrow"]];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"arrow"]];
-    
-    [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -64) forBarMetrics:UIBarMetricsDefault];
+    if (is7orLater()) {
+        [[UINavigationBar appearance] setBackIndicatorImage:[UIImage imageNamed:@"arrow"]];
+        [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"arrow"]];
+        
+        [UIBarButtonItem.appearance setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -64) forBarMetrics:UIBarMetricsDefault];
+        
+        self.window.tintColor = [UIColor whiteColor];
+        
+    }else{
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[[UIImage imageNamed:@"arrow"] stretchableImageWithLeftCapWidth:16 topCapHeight:0] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    }
     
     
     model;
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.tintColor = [UIColor whiteColor];
+    
     self.window.backgroundColor=[UIColor blackColor];
     
     UIImageView *bg=[[UIImageView alloc] initWithImage:[VZTheme bgImage]];

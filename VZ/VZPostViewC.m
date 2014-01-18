@@ -43,6 +43,9 @@
     
 }
 
+-(void)onKeyboardChange:(NSNotification*)noti{
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+}
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];

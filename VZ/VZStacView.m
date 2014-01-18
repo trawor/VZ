@@ -7,6 +7,7 @@
 //
 
 #import "VZStacView.h"
+#import "VZM.h"
 
 #define WHRate 0.6
 #define TRIGGER_DLT 0.4
@@ -106,7 +107,7 @@
     
     [UIView animateWithDuration:0.25 animations:^{
         if (open) {
-            float h=44;
+            float h= is7orLater() ?44:5;
             
             for (UIImageView *imgv in self.subviews) {
                 CGSize size=imgv.image.size;

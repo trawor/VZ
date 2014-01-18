@@ -67,6 +67,12 @@
 {
     [super viewDidLoad];
     
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets=NO;
+    }
+
+    self.title=@" ";
+    
     self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
     
     UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
@@ -108,8 +114,9 @@
     [btmV addSubview:btn];
     self.tableView.tableFooterView=btmV;
     
-    [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
-    
+    if (is7orLater()) {
+        [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
+    }
     
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
     [self.navigationItem.titleView addGestureRecognizer:tap];
@@ -176,9 +183,9 @@
 -(AVQuery*)getQuery{
     
     AVQuery *q=[VZPost query];
-    q.cachePolicy=kPFCachePolicyCacheElseNetwork;
+    q.cachePolicy=kAVCachePolicyNetworkElseCache;
     [q orderByDescending:ORDER_BY];
-    [q setMaxCacheAge:60*10];
+    [q setMaxCacheAge:60*60];
     [q setLimit:QUERY_LIMIT];
     [q whereKeyExists:@"pics"];
     [q whereKey:@"type" equalTo:@(0)];
@@ -274,7 +281,11 @@
 -(void)hideRefreshView{
 
     [UIView animateWithDuration:0.2 animations:^{
-        [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
+        if (is7orLater()) {
+            [self.tableView setContentInset:UIEdgeInsetsMake([VZNavView height], 0, 0, 0)];
+        }else{
+            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        }
     } completion:^(BOOL finished) {
         self.refreshView.infinite=NO;
         self.refreshView.progress=1;

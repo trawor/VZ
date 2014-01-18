@@ -136,8 +136,14 @@
             url=[url stringByReplacingOccurrencesOfString:@"/50/" withString:@"/180/"];
         }
         
-        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+        float h=32;
+        
+        UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, h, h)];
         [imageView setImageWithURL:[NSURL URLWithString:url] placeholderImage:[UIImage imageNamed:@"head"]];
+        
+        imageView.clipsToBounds=YES;
+        imageView.layer.cornerRadius=h*0.5;
+        
         annotationView.leftCalloutAccessoryView = imageView;
     }else{
         return nil;

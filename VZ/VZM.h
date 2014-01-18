@@ -16,6 +16,8 @@
 
 #import <AVOSCloud/AVHTTPClient.h>
 
+BOOL is7orLater();
+
 typedef enum{
     VZThemeTypeModern =0,
     VZThemeTypeLight

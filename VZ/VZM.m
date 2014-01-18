@@ -10,6 +10,16 @@
 #import <AVOSCloudSNS/AVUser+SNS.h>
 #import <AVOSCloud/AVJSONRequestOperation.h>
 
+BOOL is7orLater(){
+    static int sysVersion=0;
+    if (sysVersion==0) {
+        sysVersion=[[[[UIDevice currentDevice] systemVersion] substringToIndex:1] integerValue];
+    }
+    
+    
+    return sysVersion>=7;
+};
+
 @implementation VZTheme
 +(void)changeTheme:(VZThemeType)theme{
     model.theme=theme;
