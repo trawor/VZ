@@ -173,8 +173,7 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    //[AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
-    [AVPush handlePush:userInfo];
+    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
@@ -193,7 +192,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    application.applicationIconBadgeNumber=0;
 }
 
 @end
