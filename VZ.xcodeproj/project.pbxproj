@@ -147,6 +147,7 @@
 		1FFC7EEB188BF7B200C16B97 /* Icon-120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120@2x.png"; sourceTree = "<group>"; };
 		1FFC7EED188BF7DD00C16B97 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1FFC7EEE188BF7DD00C16B97 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1FFC7EF1188BFEC900C16B97 /* VZ.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = VZ.entitlements; sourceTree = "<group>"; };
 		372E87D092FE4BD8BCAD6AB6 /* libPods-VZ.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZ.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZ.xcconfig"; path = "Pods/Pods-VZ.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +201,7 @@
 		1F7721F61812D3680080308A /* VZ */ = {
 			isa = PBXGroup;
 			children = (
+				1FFC7EF1188BFEC900C16B97 /* VZ.entitlements */,
 				1F7DFD931821F2F700323B65 /* V */,
 				1FAACB301813E56F00BA19DC /* M */,
 				1F7722211812D7BF0080308A /* C */,
@@ -346,6 +348,9 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.Keychain = {
+								enabled = 0;
 							};
 						};
 					};
@@ -587,6 +592,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -595,7 +601,7 @@
 				INFOPLIST_FILE = "VZ/VZ-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "39BACF4F-15FE-4870-AFA4-326464A0FEFF";
+				PROVISIONING_PROFILE = "F1870399-11F9-47B0-9E74-2774C1389AE3";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
