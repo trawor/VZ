@@ -72,7 +72,7 @@
                                                               [alertView addButtonWithTitle:@"确定"
                                                                                        type:SIAlertViewButtonTypeCancel
                                                                                     handler:^(SIAlertView *alert) {
-                                                                                        
+                                                                                        [ws dismissViewControllerAnimated:YES completion:nil];
                                                                                     }];
                                                               
                                                               alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
@@ -81,7 +81,7 @@
                                                               
                                                           } else {
                                                               // Present Store Product View Controller             
-                                                              [self presentViewController:storeProductViewController animated:YES completion:nil];        
+                                                              [ws presentViewController:storeProductViewController animated:YES completion:nil];
                                                           }
                                                           
                                                           ws.refreshView.infinite=NO;

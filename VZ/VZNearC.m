@@ -70,6 +70,8 @@
         if (error) {
             
         }else{
+            
+            NSMutableArray *arr=[NSMutableArray array];
             if (objects.count) {
                 for (VZPost *post in objects) {
                     NSUInteger index = [self.mapView.annotations indexOfObjectPassingTest:^BOOL(id<MKAnnotation> otherAnnotation, NSUInteger idx, BOOL *stop) {
@@ -77,12 +79,16 @@
                     }];
                     if (index == NSNotFound)
                     {
-                        [ws.mapView addAnnotation:post];
+                        [arr addObject:post];
                     }
-                    
                 }
+                
+                
             }
-           
+            if (arr.count>0) {
+                [ws.mapView addAnnotations:arr];
+            }
+            
         }
         ws.refreshView.infinite=NO;
         [ws.refreshView setProgress:1 animated:NO];

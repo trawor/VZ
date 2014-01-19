@@ -21,7 +21,6 @@
 		1F7721FB1812D3680080308A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F7721F91812D3680080308A /* InfoPlist.strings */; };
 		1F7721FD1812D3680080308A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7721FC1812D3680080308A /* main.m */; };
 		1F7722011812D3680080308A /* VZAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722001812D3680080308A /* VZAppDelegate.m */; };
-		1F7722031812D3680080308A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F7722021812D3680080308A /* Images.xcassets */; };
 		1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F77221F1812D6FC0080308A /* iPhone.storyboard */; };
 		1F7722241812D7EA0080308A /* VZPostListC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7722231812D7EA0080308A /* VZPostListC.m */; };
 		1F772227181383350080308A /* VZMenuC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F772226181383350080308A /* VZMenuC.m */; };
@@ -60,6 +59,11 @@
 		1FDF3B21185445450069834B /* VZPostActionC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDF3B20185445450069834B /* VZPostActionC.m */; };
 		1FE18C55183C983E009E7938 /* VZStacView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE18C54183C983E009E7938 /* VZStacView.m */; };
 		1FF2A341183B0D3500731771 /* VZSettingsC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2A340183B0D3500731771 /* VZSettingsC.m */; };
+		1FFC7EE8188BF79400C16B97 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFC7EE7188BF79400C16B97 /* Icon.png */; };
+		1FFC7EEA188BF79A00C16B97 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFC7EE9188BF79A00C16B97 /* Icon@2x.png */; };
+		1FFC7EEC188BF7B200C16B97 /* Icon-120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFC7EEB188BF7B200C16B97 /* Icon-120@2x.png */; };
+		1FFC7EEF188BF7DD00C16B97 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFC7EED188BF7DD00C16B97 /* Default-568h@2x.png */; };
+		1FFC7EF0188BF7DD00C16B97 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FFC7EEE188BF7DD00C16B97 /* Default@2x.png */; };
 		7649AA8F37424D3A8F85BE0C /* libPods-VZ.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 372E87D092FE4BD8BCAD6AB6 /* libPods-VZ.a */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +91,6 @@
 		1F7721FE1812D3680080308A /* VZ-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VZ-Prefix.pch"; sourceTree = "<group>"; };
 		1F7721FF1812D3680080308A /* VZAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZAppDelegate.h; sourceTree = "<group>"; };
 		1F7722001812D3680080308A /* VZAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VZAppDelegate.m; sourceTree = "<group>"; };
-		1F7722021812D3680080308A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1F77221F1812D6FC0080308A /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
 		1F7722221812D7EA0080308A /* VZPostListC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZPostListC.h; sourceTree = "<group>"; };
 		1F7722231812D7EA0080308A /* VZPostListC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZPostListC.m; sourceTree = "<group>"; };
@@ -139,6 +142,11 @@
 		1FE18C54183C983E009E7938 /* VZStacView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZStacView.m; sourceTree = "<group>"; };
 		1FF2A33F183B0D3500731771 /* VZSettingsC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZSettingsC.h; sourceTree = "<group>"; };
 		1FF2A340183B0D3500731771 /* VZSettingsC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZSettingsC.m; sourceTree = "<group>"; };
+		1FFC7EE7188BF79400C16B97 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		1FFC7EE9188BF79A00C16B97 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		1FFC7EEB188BF7B200C16B97 /* Icon-120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-120@2x.png"; sourceTree = "<group>"; };
+		1FFC7EED188BF7DD00C16B97 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1FFC7EEE188BF7DD00C16B97 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		372E87D092FE4BD8BCAD6AB6 /* libPods-VZ.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZ.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZ.xcconfig"; path = "Pods/Pods-VZ.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +213,11 @@
 		1F7721F71812D3680080308A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1FFC7EED188BF7DD00C16B97 /* Default-568h@2x.png */,
+				1FFC7EEE188BF7DD00C16B97 /* Default@2x.png */,
+				1FFC7EE7188BF79400C16B97 /* Icon.png */,
+				1FFC7EE9188BF79A00C16B97 /* Icon@2x.png */,
+				1FFC7EEB188BF7B200C16B97 /* Icon-120@2x.png */,
 				1FDA86821879342800DB536D /* home@2x.png */,
 				1FDA86831879342800DB536D /* home.png */,
 				1FDA8678187926CA00DB536D /* spam.png */,
@@ -222,7 +235,6 @@
 				1F0F989018385C2E000CE764 /* navBg@2x.png */,
 				1F94FF5B183786BA001114B4 /* close@2x.png */,
 				1F94FF59183781D5001114B4 /* arrow@2x.png */,
-				1F7722021812D3680080308A /* Images.xcassets */,
 				1FAACB2E1813E27B00BA19DC /* Dots@2x.png */,
 				1FDD752F181CE30000F490A3 /* geo@2x.png */,
 				1FDD752B181CCC0700F490A3 /* bg@2x.png */,
@@ -368,12 +380,14 @@
 				1FDF3B1E185444380069834B /* deal.png in Resources */,
 				1FDA867A187926CA00DB536D /* spam.png in Resources */,
 				1FAACB2F1813E27B00BA19DC /* Dots@2x.png in Resources */,
+				1FFC7EEA188BF79A00C16B97 /* Icon@2x.png in Resources */,
 				1FDA86841879342800DB536D /* home@2x.png in Resources */,
 				1FAACB2B1813E19700BA19DC /* all@2x.png in Resources */,
 				1FDA867B187926CA00DB536D /* spam@2x.png in Resources */,
 				1F7721FB1812D3680080308A /* InfoPlist.strings in Resources */,
 				1FAACB271813E13F00BA19DC /* settings@2x.png in Resources */,
 				1FDD752C181CCC0700F490A3 /* bg@2x.png in Resources */,
+				1FFC7EE8188BF79400C16B97 /* Icon.png in Resources */,
 				1FAACB261813E13F00BA19DC /* near@2x.png in Resources */,
 				1FDF3B161854434D0069834B /* map@2x.png in Resources */,
 				1F0F989118385C2E000CE764 /* navBg@2x.png in Resources */,
@@ -381,16 +395,18 @@
 				1F7722201812D6FC0080308A /* iPhone.storyboard in Resources */,
 				1FAACB2D1813E1EA00BA19DC /* req@2x.png in Resources */,
 				1F0F98981838987C000CE764 /* chatBg2@2x.png in Resources */,
+				1FFC7EEC188BF7B200C16B97 /* Icon-120@2x.png in Resources */,
 				1FDF3B1A185443D50069834B /* fav.png in Resources */,
+				1FFC7EEF188BF7DD00C16B97 /* Default-568h@2x.png in Resources */,
 				1FDF3B1D185444380069834B /* deal@2x.png in Resources */,
 				1FAACB231813DB5700BA19DC /* head@2x.png in Resources */,
+				1FFC7EF0188BF7DD00C16B97 /* Default@2x.png in Resources */,
 				1F94FF5A183781D5001114B4 /* arrow@2x.png in Resources */,
 				1FDD752E181CCD6F00F490A3 /* bg2@2x.png in Resources */,
 				1FDD7530181CE30000F490A3 /* geo@2x.png in Resources */,
 				1FDF3B151854434D0069834B /* map.png in Resources */,
 				1FDA86851879342800DB536D /* home.png in Resources */,
 				1FDF3B12185441CC0069834B /* trash.png in Resources */,
-				1F7722031812D3680080308A /* Images.xcassets in Resources */,
 				1FDF3B19185443D50069834B /* fav@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -549,8 +565,6 @@
 			baseConfigurationReference = 8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
@@ -572,8 +586,6 @@
 			baseConfigurationReference = 8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
