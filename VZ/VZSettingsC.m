@@ -113,6 +113,13 @@
             
         case 2:
         {
+            
+            NSString *url = [NSString stringWithFormat:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@",@"768074220"];
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            
+            return;
+            
             __weak typeof(self) ws=self;
             
             SKStoreProductViewController *storeProductViewController = [[SKStoreProductViewController alloc] init];
