@@ -13,12 +13,15 @@
 #import <UIViewController+MMDrawerController.h>
 #import <MMDrawerController.h>
 #import "VZNavView.h"
+#import "VZSearchBar.h"
+
+
 #import <AVOSCloud/AVGlobal.h>
 
 #define  QUERY_LIMIT 30
 #define  ORDER_BY @"createdAt"
 
-@interface VZPostListC (){
+@interface VZPostListC ()<UITextFieldDelegate>{
     BOOL updateRefreshView;
     BOOL dragStart;
     
@@ -31,10 +34,19 @@
 
 @property (nonatomic,retain) VZProgressView *refreshView;
 
+@property (nonatomic,strong) NSString *keyword;
+
+
 @end
 
 @implementation VZPostListC
 
+-(void)setKeyword:(NSString *)keyword{
+    _keyword=keyword;
+    self.lastid=self.newid=nil;
+    
+    self.posts=[NSMutableArray array];
+}
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;
@@ -72,7 +84,6 @@
     }
 
     self.title=@" ";
-    
     self.newid=[[NSUserDefaults standardUserDefaults] objectForKey:@"CacheCourse"];
     
     UISwipeGestureRecognizer *swipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipe:)];
@@ -121,11 +132,55 @@
     UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTitleTap:)];
     [self.navigationItem.titleView addGestureRecognizer:tap];
     
+    [self resetSearchBtn];
+    
+    
     [self showRefresh];
     [self loadNew];
     
 }
 
+-(void)resetSearchBtn{
+    UIButton *searchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    searchBtn.frame=CGRectMake(0, 0, 44, 44);
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(onSearchBtn:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:searchBtn];
+    
+}
+-(void)onSearchBtn:(UIButton*)btn{
+    VZSearchBar *tf=[[VZSearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
+    tf.delegate=self;
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:tf];
+    
+    [tf becomeFirstResponder];
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    
+    NSString *s=textField.text;
+    
+    if ([s isEqualToString:self.keyword]) {
+        return NO;
+    }
+    
+    if (s.length==0) {
+        [self resetSearchBtn];
+    }else{
+        [(VZSearchBar*)textField tiny];
+        self.keyword=s;
+        [self loadNew];
+    }
+    
+    return NO;
+}
+
+-(void)onSearchBarClose:(VZSearchBar*)sb{
+    self.keyword=nil;
+    [self loadNew];
+    [self resetSearchBtn];
+}
 
 -(void)onTitleTap:(UITapGestureRecognizer*)tap{
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 10, 1) animated:YES];
@@ -154,7 +209,7 @@
         objects=[newObjs sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:ORDER_BY ascending:NO]]];
         
         
-        int offset=0;
+        long offset=0;
         if (isMore) {
             offset=self.posts.count;
         }else{
@@ -189,6 +244,11 @@
     [q setLimit:QUERY_LIMIT];
     [q whereKeyExists:@"pics"];
     [q whereKey:@"type" equalTo:@(0)];
+    
+    if (self.keyword) {
+        [q whereKey:@"text" containsString:self.keyword];
+    }
+    
     return q;
 }
 

@@ -59,6 +59,10 @@ BOOL is7orLater(){
 
 @implementation VZM
 +(VZM*)shared{
+#ifdef DEBUG
+    setenv("LOG_CURL", "1", 0);
+#endif
+    
     static VZM *_vzm_=Nil;
     if (_vzm_==Nil) {
         _vzm_=[VZM new];

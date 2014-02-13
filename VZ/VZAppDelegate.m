@@ -65,8 +65,7 @@
     [AVOSCloud setApplicationId:@"1tglhmgzoq6apby1rmhx3fc5kg2ie0bums7085d3cqhpunlo"
                       clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
 
-    
-    [AVAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    [AVOSCloud setLastModifyEnabled:YES];
     [AVAnalytics setCrashReportEnabled:YES];
     
     
@@ -143,14 +142,15 @@
 //        
 //    }];
 //    
- 
+
+    /* 关闭推送
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
 #endif
-    
+    */
     return YES;
 }
 
