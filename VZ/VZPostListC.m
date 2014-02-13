@@ -46,6 +46,9 @@
     self.lastid=self.newid=nil;
     
     self.posts=[NSMutableArray array];
+    [self.tableView reloadData];
+    
+    self.moreBtn.hidden=YES;
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -135,7 +138,6 @@
     [self resetSearchBtn];
     
     
-    [self showRefresh];
     [self loadNew];
     
 }
@@ -149,7 +151,7 @@
     
 }
 -(void)onSearchBtn:(UIButton*)btn{
-    VZSearchBar *tf=[[VZSearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 24)];
+    VZSearchBar *tf=[[VZSearchBar alloc] initWithFrame:CGRectMake(0, 0, 100, 28)];
     tf.delegate=self;
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:tf];
     
@@ -253,6 +255,8 @@
 }
 
 -(void)loadNew{
+    [self showRefresh];
+    
     AVQuery *q=[self getQuery];
     if (self.newid) {
         [q whereKey:ORDER_BY greaterThan:self.newid];
