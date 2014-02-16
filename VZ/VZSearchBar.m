@@ -12,6 +12,7 @@
 
 @interface VZSearchBar ()
 @property(nonatomic,assign)CGRect origFram;
+@property(nonatomic,assign)BOOL addAnimated;
 @end
 
 @implementation VZSearchBar
@@ -22,11 +23,12 @@
     if (self) {
         self.origFram=frame;
         self.frame=CGRectMake(frame.origin.x, frame.origin.y, frame.size.height, frame.size.height);
-        self.layer.borderWidth=1;
-        self.layer.borderColor=[UIColor colorWithWhite:1 alpha:0.7].CGColor;
-        self.layer.cornerRadius=frame.size.height*0.5;
+//        self.layer.borderWidth=1;
+//        self.layer.borderColor=[UIColor colorWithWhite:1 alpha:0.7].CGColor;
+        self.layer.cornerRadius=frame.size.height/2;
         
-        self.backgroundColor=[UIColor clearColor];
+        self.backgroundColor=[UIColor colorWithWhite:0.7 alpha:0.6];
+        //self.backgroundColor=[UIColor clearColor];
         self.textColor=[UIColor colorWithWhite:1 alpha:0.7];
         self.font=[UIFont systemFontOfSize:14];
         
@@ -48,7 +50,7 @@
     [self addSubview:cls];
     
     self.frame=f;
-    self.backgroundColor=[UIColor colorWithWhite:1 alpha:0.3];
+    self.backgroundColor=[UIColor colorWithWhite:0.7 alpha:0.6];
     self.layer.borderWidth=0;
     //self.textColor=[UIColor colorWithRed:0 green:0 blue:0.7 alpha:1];
     
@@ -61,7 +63,8 @@
 }
 
 -(void)willMoveToSuperview:(UIView *)newSuperview{
-    if (newSuperview) {
+    if (newSuperview && self.addAnimated==NO) {
+        self.addAnimated=YES;
         [UIView animateWithDuration:0.15 animations:^{
             self.frame=self.origFram;
         }];

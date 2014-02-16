@@ -16,7 +16,6 @@
 #import "VZNavView.h"
 
 
-
 @interface VZAppDelegate()
 {
     
@@ -94,63 +93,15 @@
     self.window.rootViewController=menu;
     menu.view.backgroundColor=[UIColor clearColor];
     [self.window makeKeyAndVisible];
-    
-//    [menu setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-//        
-//        switch (drawerSide) {
-//            case MMDrawerSideLeft:
-//                [[VZNavView shared].arrowBtn setTransform:CGAffineTransformMakeRotation(-M_PI /2*percentVisible)];
-//                break;
-//            
-//                
-//            case MMDrawerSideRight:
-//                if (percentVisible==1.0) {
-//                    [[VZNavView shared] showClose:YES];
-//                }else if (percentVisible==0.0) {
-//                    [[VZNavView shared] showClose:NO];
-//                    //drawerController.rightDrawerViewController=nil;
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//        
-////        if (percentVisible==1.0) {
-////            switch (drawerSide) {
-////                case MMDrawerSideRight:
-////                    [[VZNavView shared] showClose:YES];
-////                    break;
-////                
-////                case MMDrawerSideLeft:
-////                    [[VZNavView shared] arrowDown];
-////                    break;
-////                default:
-////                    break;
-////            }
-////        }else if (percentVisible==0.0) {
-////            switch (drawerSide) {
-////                case MMDrawerSideRight:
-////                    [[VZNavView shared] showClose:NO];
-////                    break;
-////                case MMDrawerSideLeft:
-////                    [[VZNavView shared] arrowLeft];
-////                    break;
-////                default:
-////                    break;
-////            }
-////        }
-//        
-//    }];
-//    
 
-    /* 关闭推送
+
 #if !TARGET_IPHONE_SIMULATOR
     [application registerForRemoteNotificationTypes:
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
 #endif
-    */
+
     return YES;
 }
 
@@ -173,7 +124,7 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:userInfo];
+    [AVAnalytics trackAppOpenedWithRemoteNotificationPayload:nil];
 }
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{

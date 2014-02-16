@@ -146,8 +146,10 @@
     UIButton *searchBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     searchBtn.frame=CGRectMake(0, 0, 44, 44);
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 20, 0, 0)];
     [searchBtn addTarget:self action:@selector(onSearchBtn:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:searchBtn];
+
     
 }
 -(void)onSearchBtn:(UIButton*)btn{

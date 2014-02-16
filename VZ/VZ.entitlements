@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>get-task-allow</key>
-	<string>$(TASK_ALLOW)</string>
+	<false/>
 	<key>aps-environment</key>
 	<string>$(APS_ENV)</string>
 </dict>

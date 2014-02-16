@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class VZSearchBar;
+@protocol VZSearchBar <NSObject,UITextFieldDelegate>
+
+-(void)onSearchBarClose:(VZSearchBar*)searchBar;
+
+@end
+
 @interface VZSearchBar : UITextField
 -(void)tiny;
 @end
