@@ -592,7 +592,7 @@
 			baseConfigurationReference = 8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */;
 			buildSettings = {
 				APS_ENV = development;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = VZ/VZ.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -616,7 +616,7 @@
 			baseConfigurationReference = 8B4AF051FD3B4904A6F9F111 /* Pods-VZ.xcconfig */;
 			buildSettings = {
 				APS_ENV = production;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = VZ/VZ.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
