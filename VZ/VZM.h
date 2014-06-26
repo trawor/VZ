@@ -64,7 +64,7 @@ typedef enum{
 
 
 /**
- *  查找来着微博的好友
+ *  查找来自微博的好友
  *
  *  @param callback 回调返回好友ID数字
  */
