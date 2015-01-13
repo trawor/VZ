@@ -15,6 +15,8 @@
 #import "VZNavView.h"
 #import "VZSearchBar.h"
 
+#import <SDWebImage/UIImageView+WebCache.h>
+
 
 #import <AVOSCloud/AVGlobal.h>
 
