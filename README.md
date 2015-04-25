@@ -2,8 +2,7 @@
 
 微转是一个基于微博的数码设备平台, 客户端和后台全部基于AVOSCloud服务实现
 
-![vz2](https://cloud.githubusercontent.com/assets/5022872/7332252/1a0dbc0e-eb69-11e4-996b-0a8f0968578e.gif)
-
+![vz4](https://cloud.githubusercontent.com/assets/5022872/7332291/dda0b15c-eb6a-11e4-901a-b1e899382511.gif)
 
 后台源码地址: [https://github.com/avoscloud/VZ_Server](https://github.com/avoscloud/VZ_Server)
 
