@@ -99,6 +99,7 @@ BOOL is7orLater(){
 }
 -(void)login:(AVUserResultBlock)callback{
     [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"2858658895" andAppSecret:@"9d97c1cce2893cbdcdc970f05bc55fe4" andRedirectURI:@"http://vz.avosapps.com/oauth?type=weibo"];
+    //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"507847323" andAppSecret:@"e5504788d22dac7db56100d3fd6becf0" andRedirectURI:@"http://vz.avosapps.com/oauth?type=weibo"];
     //[AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"31024382" andAppSecret:@"25c3e6b5763653d1e5b280884b45c51f" andRedirectURI:@"http://"];
     
     [AVOSCloudSNS loginWithCallback:^(NSDictionary* object, NSError *error) {

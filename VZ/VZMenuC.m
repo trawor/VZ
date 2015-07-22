@@ -13,6 +13,7 @@
 #import <UIViewController+MMDrawerController.h>
 #import <SIAlertView/SIAlertView.h>
 #import <AVOSCloudSNS/AVUser+SNS.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import "VZNearC.h"
 
 #import "VZStatusListC.h"

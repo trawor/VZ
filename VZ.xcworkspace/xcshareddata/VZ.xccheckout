@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>449A3441-DCE2-4F6D-A578-5ED45E1CE56B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VZ</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4C46BAA9091622296DEC91B8E5EA5B4512A1C7C7</key>
+		<string>github.com:leancloud/VZ.git</string>
+		<key>8ACFE5037BBA7C3DB34C943CA65881B264CE6E1A</key>
+		<string>github.com:avoscloud/avoscloud-demo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VZ.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4C46BAA9091622296DEC91B8E5EA5B4512A1C7C7</key>
+		<string>..</string>
+		<key>8ACFE5037BBA7C3DB34C943CA65881B264CE6E1A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:leancloud/VZ.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4C46BAA9091622296DEC91B8E5EA5B4512A1C7C7</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8ACFE5037BBA7C3DB34C943CA65881B264CE6E1A</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4C46BAA9091622296DEC91B8E5EA5B4512A1C7C7</string>
+			<key>IDESourceControlWCCName</key>
+			<string>VZ</string>
+		</dict>
+	</array>
+</dict>
+</plist>

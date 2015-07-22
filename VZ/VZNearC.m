@@ -11,6 +11,7 @@
 #import <AVOSCloud/AVJSONRequestOperation.h>
 #import "VZProgressView.h"
 #import "VZPostViewC.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface VZNearC (){
     BOOL gotUserLocation;

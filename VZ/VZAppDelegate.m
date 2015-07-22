@@ -65,8 +65,6 @@
                       clientKey:@"4es7zmmqsx0xarkp7svkwady8eaipwdz83c2mccoi0z15358"];
 
     [AVOSCloud setLastModifyEnabled:YES];
-    [AVAnalytics setCrashReportEnabled:YES];
-    
     
     UIStoryboard *board=[UIStoryboard storyboardWithName:@"iPhone" bundle:Nil];
     

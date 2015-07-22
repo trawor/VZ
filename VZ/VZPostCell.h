@@ -12,8 +12,7 @@
 
 @interface UIImageView(Progress)
 
-- (void)setProgressImageWithURLRequest:(NSURLRequest *)urlRequest
-                      placeholderImage:(UIImage *)placeholderImage;
+-(void)setProgressImageWithUrl:(NSString*)url placeholderImage:(UIImage*)placeholderImage;
 
 @end
 
