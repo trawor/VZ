@@ -8,6 +8,7 @@
 
 #import "VZPostViewC.h"
 #import <AVOSCloud/AVImageRequestOperation.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 #import <UIViewController+MMDrawerController.h>
 
 #import "VZCommentCell.h"
